@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "298171725459",
+    "project_id": "balencegame",
+    "storage_bucket": "balencegame.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298171725459:android:d3f6d9cfa768a4f526bf66",
+        "android_client_info": {
+          "package_name": "com.example.banlancegameex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298171725459-vmh3nhv9584vs24577gcgdjtdih744he.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG8iTr3lxOkoaHZQ71-EjOAmzW1NPHsXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298171725459-vmh3nhv9584vs24577gcgdjtdih744he.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298171725459:android:4f038da293241a7326bf66",
+        "android_client_info": {
+          "package_name": "com.npnc.balancegame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298171725459-21jh2m30pl06e17i0llr8hubjiaq4hbk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.npnc.balancegame",
+            "certificate_hash": "5ec32b4f466e5188ad8848c198321273def221eb"
+          }
+        },
+        {
+          "client_id": "298171725459-vmh3nhv9584vs24577gcgdjtdih744he.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG8iTr3lxOkoaHZQ71-EjOAmzW1NPHsXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298171725459-vmh3nhv9584vs24577gcgdjtdih744he.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
