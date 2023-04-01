@@ -12,5 +12,6 @@ class MainActivity : AppCompatActivity() {
 
         val keyHash = Utility.getKeyHash(this)
         Log.d("Hash", keyHash)
+        Log.d("Hash", keyHash)
     }
 }
