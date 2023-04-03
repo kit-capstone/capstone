@@ -1,13 +1,19 @@
 package com.example.banlancegameex
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.banlancegameex.databinding.ActivityMainBinding
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.RuntimeExecutionException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
@@ -18,15 +24,24 @@ import com.kakao.sdk.user.UserApiClient
 
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        private const val TAG = "GoogleActivity"
+        private const val RC_SIGN_IN = 9001
+    }
+
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityMainBinding
-    var userstate = 0
+    private var userstate = 0
+
+    private lateinit var googleSignInClient : GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
+
 
         // 이후 계정 정보 삭제 시 이용 가능
 //        UserApiClient.instance.unlink { error ->
@@ -42,8 +57,101 @@ class MainActivity : AppCompatActivity() {
         binding.kakaoLoginButton.setOnClickListener {
             kakaoLogin()
         }
+
+        binding.googleLoginButton.setOnClickListener {
+            googleLogin()
+        }
+
+        binding.emailSigninButton.setOnClickListener {
+            emailSignin()
+        }
+
+        binding.emailLoginButton.setOnClickListener {
+            emailLogin()
+        }
+
+        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+    }
+    private fun emailSignin() {
+        val email = binding.textEmail.text.toString()
+        val password = binding.textPassword.text.toString()
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Toast.makeText(this,"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show()
+                    val user = auth.currentUser
+                    if(auth.currentUser!=null){
+                        Toast.makeText(this,"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show()
+                    }
+                }
+                else if(task.exception?.message.isNullOrEmpty()){
+                    Toast.makeText(this,"오류가 발생했습니다.",Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    emailLogin()
+                }
+            }
+    }
+    private fun emailLogin(){
+        val email = binding.textEmail.text.toString()
+        val password = binding.textPassword.text.toString()
+        auth.signInWithEmailAndPassword(email,password) // 로그인
+            .addOnCompleteListener {
+                    task->
+                if(task.isSuccessful){
+                    Toast.makeText(this,"이메일 로그인에 성공했습니다.",Toast.LENGTH_SHORT).show()
+                    var intent: Intent = Intent(this,TestActivity::class.java)
+                    startActivity(intent)
+                }
+                else{
+                    Toast.makeText(this,"아이디와 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+    private fun googleLogin() {
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                val account = task.getResult(ApiException::class.java)!!
+                Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
+                firebaseAuthWithGoogle(account.idToken!!)
+            } catch (e: ApiException) {
+                // Google Sign In failed, update UI appropriately
+                Log.w(TAG, "Google sign in failed", e)
+            }
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Toast.makeText(this, "구글 로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                    val user = auth.currentUser
+                    var intent = Intent(this, TestActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    Toast.makeText(this, "구글 로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
     private fun kakaoLogin() {
         // 카카오톡 어플이 있으면 카카오톡으로 로그인, 없으면 카카오 계정으로 로그인
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
@@ -117,7 +225,8 @@ class MainActivity : AppCompatActivity() {
         auth.signInWithCustomToken(customToken).addOnCompleteListener{ result ->
             if (result.isSuccessful){
                 // 인증 성공 후 로직 작성
-
+                var intent = Intent(this, TestActivity::class.java)
+                startActivity(intent)
                 // firebase auth에 해당 유저의 uid가 존재 시
                 if(userstate == 0){
                     Toast.makeText(this@MainActivity, "카카오톡 로그인에 성공하였습니다.", Toast.LENGTH_LONG).show()

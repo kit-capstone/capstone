@@ -15,6 +15,9 @@
         android:theme="@style/Theme.BanlanceGameEx"
         tools:targetApi="31">
         <activity
+            android:name=".TestActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -28,11 +31,13 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
-                <data android:host="oauth"
+                <data
+                    android:host="oauth"
                     android:scheme="kakao177df88419ea0808e71d06432ebfdda6" />
             </intent-filter>
         </activity>
