@@ -2,6 +2,7 @@ package com.example.banlancegameex
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.banlancegameex.databinding.ActivityMainBinding
@@ -19,6 +20,7 @@ import com.kakao.sdk.user.UserApiClient
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityMainBinding
+    var userstate = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +43,16 @@ class MainActivity : AppCompatActivity() {
                     }
                     loginWithKakaoAccount(this)
                 } else if(token != null) {
-                    getCustomToken(token.accessToken)
+                    if(auth.currentUser?.uid != null){
+                        userstate = 0
+                        getCustomToken(token.accessToken)
+                        Log.d("상태 확인", userstate.toString())
+                    }
+                    else{
+                        userstate = 1
+                        getCustomToken(token.accessToken)
+                        Log.d("상태 확인", userstate.toString())
+                    }
                 }
             }
         } else {
@@ -93,7 +104,12 @@ class MainActivity : AppCompatActivity() {
         auth.signInWithCustomToken(customToken).addOnCompleteListener{ result ->
             if (result.isSuccessful){
                 // 인증 성공 후 로직 작성
-                Toast.makeText(this@MainActivity, "카카오톡 로그인에 성공하였습니다.", Toast.LENGTH_LONG).show()
+                if(userstate == 0){
+                    Toast.makeText(this@MainActivity, "카카오톡 로그인에 성공하였습니다.", Toast.LENGTH_LONG).show()
+                }
+                else if(userstate == 1){
+                    Toast.makeText(this@MainActivity, "sns 회원가입을 진행합니다.", Toast.LENGTH_LONG).show()
+                }
             } else {
                 // 실패 후 로직 작성
                 Toast.makeText(this@MainActivity, "DB연동에 실패하였습니다.", Toast.LENGTH_LONG).show()
