@@ -28,6 +28,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
 
+        // 이후 계정 정보 삭제 시 이용 가능
+//        UserApiClient.instance.unlink { error ->
+//            if (error != null) {
+//                Toast.makeText(this@MainActivity, "연결끊기 실패 sdk에 토큰이 남아있습니다.", Toast.LENGTH_LONG).show()
+//            }
+//            else {
+//                Toast.makeText(this@MainActivity, "연결끊기 성공 토큰이 삭제되었습니다.", Toast.LENGTH_LONG).show()
+//            }
+//            auth.currentUser?.delete()
+//        }
+
         binding.kakaoLoginButton.setOnClickListener {
             kakaoLogin()
         }
@@ -43,11 +54,13 @@ class MainActivity : AppCompatActivity() {
                     }
                     loginWithKakaoAccount(this)
                 } else if(token != null) {
+                    // firebase auth에 해당 유저의 uid가 존재 시
                     if(auth.currentUser?.uid != null){
                         userstate = 0
                         getCustomToken(token.accessToken)
                         Log.d("상태 확인", userstate.toString())
                     }
+                    // firebase auth에 해당 유저의 uid가 없을 시
                     else{
                         userstate = 1
                         getCustomToken(token.accessToken)
@@ -104,9 +117,13 @@ class MainActivity : AppCompatActivity() {
         auth.signInWithCustomToken(customToken).addOnCompleteListener{ result ->
             if (result.isSuccessful){
                 // 인증 성공 후 로직 작성
+
+                // firebase auth에 해당 유저의 uid가 존재 시
                 if(userstate == 0){
                     Toast.makeText(this@MainActivity, "카카오톡 로그인에 성공하였습니다.", Toast.LENGTH_LONG).show()
                 }
+                // firebase auth에 해당 유저의 uid가 없을 시
+                // 이후 Toast 메세지가 아닌 회원가입 페이지로 이동하는 코드 작성 필요
                 else if(userstate == 1){
                     Toast.makeText(this@MainActivity, "sns 회원가입을 진행합니다.", Toast.LENGTH_LONG).show()
                 }
