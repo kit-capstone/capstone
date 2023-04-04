@@ -63,11 +63,27 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.emailSigninButton.setOnClickListener {
-            emailSignin()
+            val email = binding.textEmail.text.toString().trim()
+            val password = binding.textPassword.text.toString().trim()
+            if(email.isNullOrEmpty()||password.isNullOrEmpty())
+            {
+                Toast.makeText(this,"이메일과 비밀번호를 입력해주세요.",Toast.LENGTH_SHORT).show()
+            }
+            else {
+                emailSignin(email, password)
+            }
         }
 
         binding.emailLoginButton.setOnClickListener {
-            emailLogin()
+            val email = binding.textEmail.text.toString().trim()
+            val password = binding.textPassword.text.toString().trim()
+            if(email.isNullOrEmpty()||password.isNullOrEmpty())
+            {
+                Toast.makeText(this,"이메일과 비밀번호를 입력해주세요.",Toast.LENGTH_SHORT).show()
+            }
+            else {
+                emailLogin(email, password)
+            }
         }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -76,43 +92,42 @@ class MainActivity : AppCompatActivity() {
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
     }
-    private fun emailSignin() {
-        val email = binding.textEmail.text.toString()
-        val password = binding.textPassword.text.toString()
+    private fun emailSignin(email:String,password:String) {
+
         auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
+            .addOnCompleteListener(this){task->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Toast.makeText(this,"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show()
-                    val user = auth.currentUser
+                    //val user = auth.currentUser
                     if(auth.currentUser!=null){
                         Toast.makeText(this,"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show()
                     }
                 }
                 else if(task.exception?.message.isNullOrEmpty()){
-                    Toast.makeText(this,"오류가 발생했습니다.",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"이메일과 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show()
                 }
                 else{
-                    emailLogin()
+                    Toast.makeText(this,"이미 가입된 이메일이 존재합니다.",Toast.LENGTH_SHORT).show()
                 }
             }
+
     }
-    private fun emailLogin(){
-        val email = binding.textEmail.text.toString()
-        val password = binding.textPassword.text.toString()
-        auth.signInWithEmailAndPassword(email,password) // 로그인
-            .addOnCompleteListener {
-                    task->
-                if(task.isSuccessful){
-                    Toast.makeText(this,"이메일 로그인에 성공했습니다.",Toast.LENGTH_SHORT).show()
-                    val intent: Intent = Intent(this,TestActivity::class.java)
+    private fun emailLogin(email:String,password:String) {
+
+        auth.signInWithEmailAndPassword(email, password) // 로그인
+            .addOnCompleteListener{task->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "이메일 로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, TestActivity::class.java)
                     startActivity(intent)
-                }
-                else{
-                    Toast.makeText(this,"아이디와 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "이메일과 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
                 }
             }
+
     }
+
     private fun googleLogin() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
