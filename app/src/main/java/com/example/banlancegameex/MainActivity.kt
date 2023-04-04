@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.RuntimeExecutionException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
@@ -46,16 +47,22 @@ class MainActivity : AppCompatActivity() {
 
 
         // 이후 계정 정보 삭제 시 이용 가능
-        UserApiClient.instance.unlink { error ->
-            if (error != null) {
-                Log.w(ERROR_MSG, error)
-                Toast.makeText(this@MainActivity, "연결끊기 실패 sdk에 토큰이 남아있습니다.", Toast.LENGTH_LONG).show()
+        // auth.currentUser?.delete()
+        Log.d("테스트입", auth.currentUser?.uid?:"0")
+        val Userdata = Firebase.auth.currentUser?:"0"
+
+        if(Userdata == "0"){
+            UserApiClient.instance.unlink { error ->
+                if (error != null) {
+                    Log.w(ERROR_MSG, error)
+                    Toast.makeText(this@MainActivity, "연결끊기 실패 sdk에 토큰이 남아있습니다.", Toast.LENGTH_LONG).show()
+                }
+                else {
+                    Toast.makeText(this@MainActivity, "연결끊기 성공 토큰이 삭제되었습니다.", Toast.LENGTH_LONG).show()
+                }
             }
-            else {
-                Toast.makeText(this@MainActivity, "연결끊기 성공 토큰이 삭제되었습니다.", Toast.LENGTH_LONG).show()
-            }
-            auth.currentUser?.delete()
         }
+
 
         binding.kakaoLoginButton.setOnClickListener {
             kakaoLogin()
