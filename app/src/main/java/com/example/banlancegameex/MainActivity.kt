@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             emailLogin()
         }
 
-        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
                     task->
                 if(task.isSuccessful){
                     Toast.makeText(this,"이메일 로그인에 성공했습니다.",Toast.LENGTH_SHORT).show()
-                    var intent: Intent = Intent(this,TestActivity::class.java)
+                    val intent: Intent = Intent(this,TestActivity::class.java)
                     startActivity(intent)
                 }
                 else{
@@ -143,7 +143,7 @@ class MainActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Toast.makeText(this, "구글 로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                     val user = auth.currentUser
-                    var intent = Intent(this, TestActivity::class.java)
+                    val intent = Intent(this, TestActivity::class.java)
                     startActivity(intent)
                 } else {
                     // If sign in fails, display a message to the user.
@@ -224,12 +224,13 @@ class MainActivity : AppCompatActivity() {
     private fun firebaseAuthWithKakao(customToken: String){
         auth.signInWithCustomToken(customToken).addOnCompleteListener{ result ->
             if (result.isSuccessful){
+
                 // 인증 성공 후 로직 작성
-                var intent = Intent(this, TestActivity::class.java)
-                startActivity(intent)
                 // firebase auth에 해당 유저의 uid가 존재 시
                 if(userstate == 0){
                     Toast.makeText(this@MainActivity, "카카오톡 로그인에 성공하였습니다.", Toast.LENGTH_LONG).show()
+                    val intent = Intent(this, TestActivity::class.java)
+                    startActivity(intent)
                 }
                 // firebase auth에 해당 유저의 uid가 없을 시
                 // 이후 Toast 메세지가 아닌 회원가입 페이지로 이동하는 코드 작성 필요
