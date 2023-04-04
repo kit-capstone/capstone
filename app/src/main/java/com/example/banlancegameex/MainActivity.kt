@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
-
+        auth.currentUser?.delete()
 
         // 이후 계정 정보 삭제 시 이용 가능
         // auth.currentUser?.delete()
@@ -182,9 +182,9 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Toast.makeText(this, "구글 로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                    val user = auth.currentUser
-                    val intent = Intent(this, TestActivity::class.java)
-                    startActivity(intent)
+//                    val user = auth.currentUser
+//                    val intent = Intent(this, TestActivity::class.java)
+//                    startActivity(intent)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -269,8 +269,8 @@ class MainActivity : AppCompatActivity() {
                 // firebase auth에 해당 유저의 uid가 존재 시
                 if(userstate == 0){
                     Toast.makeText(this@MainActivity, "카카오톡 로그인에 성공하였습니다.", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this, TestActivity::class.java)
-                    startActivity(intent)
+//                    val intent = Intent(this, TestActivity::class.java)
+//                    startActivity(intent)
                 }
                 // firebase auth에 해당 유저의 uid가 없을 시
                 // 이후 Toast 메세지가 아닌 회원가입 페이지로 이동하는 코드 작성 필요
@@ -283,4 +283,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 }
