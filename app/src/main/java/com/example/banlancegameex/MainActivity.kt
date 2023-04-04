@@ -13,6 +13,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.RuntimeExecutionException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
@@ -21,6 +22,7 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
+import org.koin.android.ext.koin.ERROR_MSG
 
 
 class MainActivity : AppCompatActivity() {
@@ -44,15 +46,16 @@ class MainActivity : AppCompatActivity() {
 
 
         // 이후 계정 정보 삭제 시 이용 가능
-//        UserApiClient.instance.unlink { error ->
-//            if (error != null) {
-//                Toast.makeText(this@MainActivity, "연결끊기 실패 sdk에 토큰이 남아있습니다.", Toast.LENGTH_LONG).show()
-//            }
-//            else {
-//                Toast.makeText(this@MainActivity, "연결끊기 성공 토큰이 삭제되었습니다.", Toast.LENGTH_LONG).show()
-//            }
-//            auth.currentUser?.delete()
-//        }
+        UserApiClient.instance.unlink { error ->
+            if (error != null) {
+                Log.w(ERROR_MSG, error)
+                Toast.makeText(this@MainActivity, "연결끊기 실패 sdk에 토큰이 남아있습니다.", Toast.LENGTH_LONG).show()
+            }
+            else {
+                Toast.makeText(this@MainActivity, "연결끊기 성공 토큰이 삭제되었습니다.", Toast.LENGTH_LONG).show()
+            }
+            auth.currentUser?.delete()
+        }
 
         binding.kakaoLoginButton.setOnClickListener {
             kakaoLogin()
@@ -92,6 +95,21 @@ class MainActivity : AppCompatActivity() {
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
     }
+
+    override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser?.uid?:"0"
+        if(currentUser != "0") {
+            updateUI(currentUser)
+        }
+    }
+
+    private fun updateUI(user: String?) {
+        val intent = Intent(this,TestActivity::class.java)
+        startActivity(intent)
+
+    }
     private fun emailSignin(email:String,password:String) {
 
         auth.createUserWithEmailAndPassword(email, password)
@@ -99,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Toast.makeText(this,"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show()
-                    //val user = auth.currentUser
+
                     if(auth.currentUser!=null){
                         Toast.makeText(this,"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show()
                     }
