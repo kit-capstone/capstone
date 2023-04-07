@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.banlancegameex.R.*
 import com.example.banlancegameex.databinding.ActivityMainBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         auth.currentUser?.delete()
 
         // 이후 계정 정보 삭제 시 이용 가능
-        // auth.currentUser?.delete()
+        auth.currentUser?.delete()
         Log.d("테스트입", auth.currentUser?.uid?:"0")
         val Userdata = Firebase.auth.currentUser?:"0"
 
@@ -69,6 +70,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.googleLoginButton.setOnClickListener {
+            if(auth.currentUser?.uid != null){
+                userstate = 0
+            }
+            else if(auth.currentUser?.uid == null){
+                userstate = 1
+            }
             googleLogin()
         }
 
@@ -97,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken(getString(string.default_web_client_id))
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
@@ -124,10 +131,9 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Toast.makeText(this,"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show()
+                    userstate = 1
+                    emailLogin(email, password)
 
-                    if(auth.currentUser!=null){
-                        Toast.makeText(this,"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show()
-                    }
                 }
                 else if(task.exception?.message.isNullOrEmpty()){
                     Toast.makeText(this,"이메일과 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show()
@@ -143,9 +149,16 @@ class MainActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password) // 로그인
             .addOnCompleteListener{task->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "이메일 로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, TestActivity::class.java)
-                    startActivity(intent)
+                    if(userstate == 0){
+                        Toast.makeText(this, "이메일 로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, TestActivity::class.java)
+                        startActivity(intent)
+                    }
+                    else if(userstate == 1){
+                        Toast.makeText(this@MainActivity, "이메일 회원가입을 진행합니다.", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this, JoinActivity::class.java)
+                        startActivity(intent)
+                    }
                 } else {
                     Toast.makeText(this, "이메일과 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
                 }
@@ -182,9 +195,16 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Toast.makeText(this, "구글 로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
-//                    val user = auth.currentUser
-//                    val intent = Intent(this, TestActivity::class.java)
-//                    startActivity(intent)
+                    if(userstate == 0){
+                        Toast.makeText(this, "구글 로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, TestActivity::class.java)
+                        startActivity(intent)
+                    }
+                    else if(userstate == 1){
+                        Toast.makeText(this, "sns 회원가입을 진행합니다.", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, JoinActivity::class.java)
+                        startActivity(intent)
+                    }
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -269,13 +289,15 @@ class MainActivity : AppCompatActivity() {
                 // firebase auth에 해당 유저의 uid가 존재 시
                 if(userstate == 0){
                     Toast.makeText(this@MainActivity, "카카오톡 로그인에 성공하였습니다.", Toast.LENGTH_LONG).show()
-//                    val intent = Intent(this, TestActivity::class.java)
-//                    startActivity(intent)
+                    val intent = Intent(this, TestActivity::class.java)
+                    startActivity(intent)
                 }
                 // firebase auth에 해당 유저의 uid가 없을 시
                 // 이후 Toast 메세지가 아닌 회원가입 페이지로 이동하는 코드 작성 필요
                 else if(userstate == 1){
                     Toast.makeText(this@MainActivity, "sns 회원가입을 진행합니다.", Toast.LENGTH_LONG).show()
+                    val intent = Intent(this, JoinActivity::class.java)
+                    startActivity(intent)
                 }
             } else {
                 // 실패 후 로직 작성
