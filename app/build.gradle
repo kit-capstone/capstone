@@ -79,4 +79,8 @@ dependencies {
 
     //firebase realtime database를 사용하기 위한 위존성
     implementation 'com.google.firebase:firebase-database-ktx'
+
+    // firebase realtime database 옫기 처리를 위한 의존성
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4'
 }

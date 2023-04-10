@@ -3,6 +3,7 @@ package com.example.banlancegameex
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
@@ -24,7 +30,12 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
+import kotlinx.coroutines.CoroutineScope
 import org.koin.android.ext.koin.ERROR_MSG
+import java.util.concurrent.CountDownLatch
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +51,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var googleSignInClient : GoogleSignInClient
 
+    val database = Firebase.database.reference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -47,35 +60,12 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         auth.currentUser?.delete()
 
-        // 이후 계정 정보 삭제 시 이용 가능
-        auth.currentUser?.delete()
-        Log.d("테스트입", auth.currentUser?.uid?:"0")
-        val Userdata = Firebase.auth.currentUser?:"0"
-
-        if(Userdata == "0"){
-            UserApiClient.instance.unlink { error ->
-                if (error != null) {
-                    Log.w(ERROR_MSG, error)
-                    Toast.makeText(this, "연결끊기 실패 sdk에 토큰이 남아있습니다.", Toast.LENGTH_LONG).show()
-                }
-                else {
-                    Toast.makeText(this, "연결끊기 성공 토큰이 삭제되었습니다.", Toast.LENGTH_LONG).show()
-                }
-            }
-        }
-
 
         binding.kakaoLoginButton.setOnClickListener {
             kakaoLogin()
         }
 
         binding.googleLoginButton.setOnClickListener {
-            if(auth.currentUser?.uid != null){
-                userstate = 0
-            }
-            else if(auth.currentUser?.uid == null){
-                userstate = 1
-            }
             googleLogin()
         }
 
@@ -119,6 +109,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
     private fun updateUI(user: String?) {
         val intent = Intent(this,TestActivity::class.java)
         startActivity(intent)
@@ -130,7 +124,7 @@ class MainActivity : AppCompatActivity() {
             .addOnCompleteListener(this){task->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Toast.makeText(this,"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"회원가입 페이지로 이동합니다.",Toast.LENGTH_SHORT).show()
                     userstate = 1
                     emailLogin(email, password)
 
@@ -138,7 +132,10 @@ class MainActivity : AppCompatActivity() {
                 else if(task.exception?.message.isNullOrEmpty()){
                     Toast.makeText(this,"이메일과 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show()
                 }
-                else{
+                else if(password.length < 6){
+                    Toast.makeText(this,"비밀 번호를 최소 6자리 이상 입력해주세요.",Toast.LENGTH_SHORT).show()
+                }
+                else {
                     Toast.makeText(this,"이미 가입된 이메일이 존재합니다.",Toast.LENGTH_SHORT).show()
                 }
             }
@@ -156,7 +153,7 @@ class MainActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                     else if(userstate == 1){
-                        Toast.makeText(this, "이메일 회원가입을 진행합니다.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "회원가입 페이지로 이동합니다.", Toast.LENGTH_LONG).show()
                         val intent = Intent(this, JoinActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)
@@ -195,20 +192,27 @@ class MainActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    Log.d("사용자 정보 확인", auth.currentUser?.uid.toString())
                     // Sign in success, update UI with the signed-in user's information
-                    Toast.makeText(this, "구글 로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                    if(userstate == 0){
-                        Toast.makeText(this, "구글 로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, TestActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        startActivity(intent)
-                    }
-                    else if(userstate == 1){
-                        Toast.makeText(this, "sns 회원가입을 진행합니다.", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, JoinActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        startActivity(intent)
-                    }
+                    // Toast.makeText(this, "구글 로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                    database.child("userdata").orderByChild("email").equalTo(auth.currentUser?.email.toString())
+                        .addListenerForSingleValueEvent(object : ValueEventListener{
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if(snapshot.exists()) {
+                                    // 로그인한 유저의 uid가 db에 존재할 경우
+                                    userstate = 0
+                                }
+                                else {
+                                    // 로그인한 유저의 uid가 db에 없는 경우
+                                    userstate = 1
+                                }
+                                moveIntent()
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                // 오류 처리 수행
+                            }
+                        })
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -226,18 +230,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     loginWithKakaoAccount(this)
                 } else if(token != null) {
-                    // firebase auth에 해당 유저의 uid가 존재 시
-                    if(auth.currentUser?.uid != null){
-                        userstate = 0
-                        getCustomToken(token.accessToken)
-                        Log.d("상태 확인", userstate.toString())
-                    }
-                    // firebase auth에 해당 유저의 uid가 없을 시
-                    else{
-                        userstate = 1
-                        getCustomToken(token.accessToken)
-                        Log.d("상태 확인", userstate.toString())
-                    }
+                    getCustomToken(token.accessToken)
                 }
             }
         } else {
@@ -288,23 +281,28 @@ class MainActivity : AppCompatActivity() {
     private fun firebaseAuthWithKakao(customToken: String){
         auth.signInWithCustomToken(customToken).addOnCompleteListener{ result ->
             if (result.isSuccessful){
-
                 // 인증 성공 후 로직 작성
-                // firebase auth에 해당 유저의 uid가 존재 시
-                if(userstate == 0){
-                    Toast.makeText(this, "카카오톡 로그인에 성공하였습니다.", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this, TestActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    startActivity(intent)
-                }
-                // firebase auth에 해당 유저의 uid가 없을 시
-                // 이후 Toast 메세지가 아닌 회원가입 페이지로 이동하는 코드 작성 필요
-                else if(userstate == 1){
-                    Toast.makeText(this, "sns 회원가입을 진행합니다.", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this, JoinActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    startActivity(intent)
-                }
+                Log.d("사용자 정보 확인", auth.currentUser?.email.toString())
+                database.child("userdata").orderByChild("email").equalTo(auth.currentUser?.email.toString())
+                    .addListenerForSingleValueEvent(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if(snapshot.exists()){
+                                // firebase database에 해당 유저의 email이 존재 시
+                                userstate = 0
+                                Log.d("사용자 상태 확인", userstate.toString())
+                            }
+                            else {
+                                // firebase database에 해당 유저의 email이 없을 시
+                                userstate = 1
+                                Log.d("사용자 상태 확인", userstate.toString())
+                            }
+                            moveIntent()
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+
+                        }
+                    })
             } else {
                 // 실패 후 로직 작성
                 Toast.makeText(this, "DB연동에 실패하였습니다.", Toast.LENGTH_LONG).show()
@@ -312,4 +310,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun moveIntent(){
+        if(userstate == 0){
+            Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, TestActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
+        // firebase auth에 해당 유저의 uid가 없을 시
+        // 이후 Toast 메세지가 아닌 회원가입 페이지로 이동하는 코드 작성 필요
+        else if(userstate == 1){
+            Toast.makeText(this, "회원가입 페이지로 이동합니다.", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, JoinActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
+    }
 }
