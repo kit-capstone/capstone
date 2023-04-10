@@ -56,10 +56,10 @@ class MainActivity : AppCompatActivity() {
             UserApiClient.instance.unlink { error ->
                 if (error != null) {
                     Log.w(ERROR_MSG, error)
-                    Toast.makeText(this@MainActivity, "연결끊기 실패 sdk에 토큰이 남아있습니다.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "연결끊기 실패 sdk에 토큰이 남아있습니다.", Toast.LENGTH_LONG).show()
                 }
                 else {
-                    Toast.makeText(this@MainActivity, "연결끊기 성공 토큰이 삭제되었습니다.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "연결끊기 성공 토큰이 삭제되었습니다.", Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -152,11 +152,13 @@ class MainActivity : AppCompatActivity() {
                     if(userstate == 0){
                         Toast.makeText(this, "이메일 로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, TestActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)
                     }
                     else if(userstate == 1){
-                        Toast.makeText(this@MainActivity, "이메일 회원가입을 진행합니다.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "이메일 회원가입을 진행합니다.", Toast.LENGTH_LONG).show()
                         val intent = Intent(this, JoinActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)
                     }
                 } else {
@@ -198,11 +200,13 @@ class MainActivity : AppCompatActivity() {
                     if(userstate == 0){
                         Toast.makeText(this, "구글 로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, TestActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)
                     }
                     else if(userstate == 1){
                         Toast.makeText(this, "sns 회원가입을 진행합니다.", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, JoinActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)
                     }
                 } else {
@@ -276,7 +280,7 @@ class MainActivity : AppCompatActivity() {
                     firebaseAuthWithKakao(customToken)
                 } catch (e: RuntimeExecutionException){
                     // 토스트 메세지로 호출 실패 알리기
-                    Toast.makeText(this@MainActivity, "카카오톡 로그인에 실패하였습니다.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "카카오톡 로그인에 실패하였습니다.", Toast.LENGTH_LONG).show()
                 }
             }
     }
@@ -288,20 +292,22 @@ class MainActivity : AppCompatActivity() {
                 // 인증 성공 후 로직 작성
                 // firebase auth에 해당 유저의 uid가 존재 시
                 if(userstate == 0){
-                    Toast.makeText(this@MainActivity, "카카오톡 로그인에 성공하였습니다.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "카카오톡 로그인에 성공하였습니다.", Toast.LENGTH_LONG).show()
                     val intent = Intent(this, TestActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
                 }
                 // firebase auth에 해당 유저의 uid가 없을 시
                 // 이후 Toast 메세지가 아닌 회원가입 페이지로 이동하는 코드 작성 필요
                 else if(userstate == 1){
-                    Toast.makeText(this@MainActivity, "sns 회원가입을 진행합니다.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "sns 회원가입을 진행합니다.", Toast.LENGTH_LONG).show()
                     val intent = Intent(this, JoinActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
                 }
             } else {
                 // 실패 후 로직 작성
-                Toast.makeText(this@MainActivity, "DB연동에 실패하였습니다.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "DB연동에 실패하였습니다.", Toast.LENGTH_LONG).show()
             }
         }
     }

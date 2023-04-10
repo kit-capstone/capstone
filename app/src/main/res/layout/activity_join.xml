@@ -60,7 +60,8 @@
             android:id="@+id/radio_gender"
             android:layout_width="match_parent"
             android:layout_height="58dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:checkedButton="@id/radio_btn_man">
 
             <RadioButton
                 android:id="@+id/radio_btn_man"

@@ -76,4 +76,7 @@ dependencies {
 
     // firebase functions을 사용하기 위한 의존성
     implementation 'com.google.firebase:firebase-functions-ktx'
+
+    //firebase realtime database를 사용하기 위한 위존성
+    implementation 'com.google.firebase:firebase-database-ktx'
 }
