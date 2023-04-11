@@ -60,6 +60,12 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         auth.currentUser?.delete()
 
+        if(auth.currentUser?.email != null){
+            val intent = Intent(this, TestActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
+
 
         binding.kakaoLoginButton.setOnClickListener {
             kakaoLogin()
@@ -100,14 +106,14 @@ class MainActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
     }
 
-    override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser?.uid?:"0"
-        if(currentUser != "0") {
-            updateUI(currentUser)
-        }
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//        val currentUser = auth.currentUser?.uid?:"0"
+//        if(currentUser != "0") {
+//            updateUI(currentUser)
+//        }
+//    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -115,6 +121,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateUI(user: String?) {
         val intent = Intent(this,TestActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
 
     }

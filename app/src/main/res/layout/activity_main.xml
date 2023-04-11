@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <EditText
         android:id="@+id/text_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:ems="10"
         android:hint="email"
+        android:ems="10"
         android:inputType="textEmailAddress"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/text_password"
@@ -21,21 +20,23 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.969" />
+        app:layout_constraintVertical_bias="0.969"
+        android:background="@drawable/text"/>
 
     <EditText
         android:id="@+id/text_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="76dp"
-        android:ems="10"
         android:hint="password"
+        android:ems="10"
         android:inputType="textPassword"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/email_login_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/pwd"/>
 
     <Button
         android:id="@+id/email_login_button"
