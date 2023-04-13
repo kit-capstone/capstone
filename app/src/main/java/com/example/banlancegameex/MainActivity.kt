@@ -303,6 +303,7 @@ class MainActivity : AppCompatActivity() {
                                 userstate = 1
                                 Log.d("사용자 상태 확인", userstate.toString())
                             }
+                            Log.d("사용자 상태 확인", userstate.toString())
                             moveIntent()
                         }
 
