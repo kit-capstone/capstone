@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         auth.currentUser?.delete()
 
         if(auth.currentUser?.email != null){
-            val intent = Intent(this, TestActivity::class.java)
+            val intent = Intent(this, ContentsActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         }
@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateUI(user: String?) {
-        val intent = Intent(this,TestActivity::class.java)
+        val intent = Intent(this, ContentsActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
 
@@ -156,7 +156,7 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     if(userstate == 0){
                         Toast.makeText(this, "이메일 로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, TestActivity::class.java)
+                        val intent = Intent(this, ContentsActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)
                     }
@@ -322,7 +322,7 @@ class MainActivity : AppCompatActivity() {
     private fun moveIntent(){
         if(userstate == 0){
             Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_LONG).show()
-            val intent = Intent(this, TestActivity::class.java)
+            val intent = Intent(this, ContentsActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         }
