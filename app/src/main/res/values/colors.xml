@@ -10,4 +10,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="mainBackground">#F5F5F5</color>
     <color name="shadow">#8A000000</color>
+    <color name="tilte_blue">#547AFF</color>
+    <color name="icon_black">#767676</color>
 </resources>
