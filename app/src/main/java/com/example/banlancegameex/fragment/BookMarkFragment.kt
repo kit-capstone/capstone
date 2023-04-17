@@ -1,11 +1,13 @@
 package com.example.banlancegameex.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.banlancegameex.R
 import com.example.banlancegameex.databinding.FragmentBookMarkBinding
 
@@ -20,6 +22,13 @@ class BookMarkFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_bookMarkFragment_to_homeFragment)
+            }
+        })
+
         // Inflate the layout for this fragment
         binding = FragmentBookMarkBinding.inflate(layoutInflater)
 
