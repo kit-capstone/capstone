@@ -11,10 +11,12 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.banlancegameex.R
+import com.example.banlancegameex.contentsList.BookmarkModel
 import com.example.banlancegameex.contentsList.ContentModel
 import com.example.banlancegameex.contentsList.ContentRVAdapter
 import com.example.banlancegameex.databinding.FragmentHomeBinding
 import com.example.banlancegameex.utils.FBAuth
+import com.example.banlancegameex.utils.FBRef
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -33,6 +35,8 @@ class HomeFragment : Fragment() {
     lateinit var postRef : DatabaseReference
     // 사용자가 북마크한 게임의 key값을 저장할 list
     val bookmarkIdList = mutableListOf<String>()
+
+    var todayRecommended : String = ""
 
     // recycler view를 위한 adapter
     lateinit var rvAdapter : ContentRVAdapter
@@ -90,24 +94,44 @@ class HomeFragment : Fragment() {
                 items.reverse()
                 itemKeyList.reverse()
 
-                // 비동기 방식으로 받아온 정보를 recycler view에 반영하기 위한 코드
-                rvAdapter.notifyDataSetChanged()
-
                 // 오늘의 추천으로 출력할 게임을 선정하기 위한 코드
                 // 위에서 받아온 게임 정보 중 상위 3개 중 임의로 선정
                 val subList = items.subList(0, 3)
+                val subKeyList = itemKeyList.subList(0, 3)
                 val randomIndex = Random.nextInt(subList.size)
                 val recommedElement = subList[randomIndex]
 
                 binding.gameTitleTxt.text = recommedElement.title
                 binding.gameOption1Txt.text = recommedElement.option1
                 binding.gameOption2Txt.text = recommedElement.option2
+
+                // 비동기 방식으로 받아온 정보를 recycler view에 반영하기 위한 코드
+                rvAdapter.notifyDataSetChanged()
+
+                todayRecommended = subKeyList[randomIndex]
             }
 
             override fun onCancelled(error: DatabaseError) {
                 Log.w("ContentListActivity", "loadPost:onCancelled", error.toException())
             }
         })
+
+        binding.bookmarkArea.setOnClickListener {
+            if(bookmarkIdList.contains(todayRecommended)){
+                binding.bookmarkArea.setImageResource(R.drawable.bookmark_unselect)
+                bookmarkIdList.remove(todayRecommended)
+                FBRef.bookmarkRef
+                    .child(FBAuth.getuid())
+                    .child(todayRecommended)
+                    .removeValue()
+            } else {
+                FBRef.bookmarkRef
+                    .child(FBAuth.getuid())
+                    .child(todayRecommended)
+                    .setValue(BookmarkModel(true))
+                binding.bookmarkArea.setImageResource(R.drawable.bookmark_select)
+            }
+        }
 
         // recycler view 불러옴
         val rv : RecyclerView = binding.contentsRV
@@ -156,6 +180,12 @@ class HomeFragment : Fragment() {
                     bookmarkIdList.add(dataModel.key.toString())
                 }
                 rvAdapter.notifyDataSetChanged()
+
+                if(bookmarkIdList.contains(todayRecommended)){
+                    binding.bookmarkArea.setImageResource(R.drawable.bookmark_select)
+                } else {
+                    binding.bookmarkArea.setImageResource(R.drawable.bookmark_unselect)
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

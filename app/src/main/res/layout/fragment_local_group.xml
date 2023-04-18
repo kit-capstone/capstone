@@ -74,7 +74,7 @@
                 <ImageView
                     android:id="@+id/bookmark_tap"
                     android:layout_weight="1"
-                    android:src="@drawable/bookmark"
+                    android:src="@drawable/favorite_selelct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
