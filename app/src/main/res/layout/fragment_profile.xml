@@ -62,7 +62,7 @@
                 <LinearLayout
                     android:background="@drawable/backgraound_mypage_button"
                     android:layout_gravity="center"
-                    android:layout_marginTop="75dp"
+                    android:layout_marginTop="25dp"
                     android:layout_width="320dp"
                     android:layout_height="400dp"
                     android:orientation="vertical">
