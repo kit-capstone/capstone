@@ -38,7 +38,7 @@ class JoinActivity : AppCompatActivity() {
         gender = "남성"
 
         setSpinnerJob()
-        setupSpinnerAgeRange()
+    //    setupSpinnerAgeRange()
         setupSpinnerHandler()
 
         binding.radioGender.setOnCheckedChangeListener { group, checkedId ->
@@ -83,11 +83,11 @@ class JoinActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupSpinnerAgeRange(){
-        val age_range = resources.getStringArray(R.array.spinner_age_range)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, age_range)
-        binding.ageRangeSpin.adapter = adapter
-    }
+//    private fun setupSpinnerAgeRange(){
+//        val age_range = resources.getStringArray(R.array.spinner_age_range)
+//        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, age_range)
+//        binding.ageRangeSpin.adapter = adapter
+//    }
 
     private fun setSpinnerJob(){
         val job = resources.getStringArray(R.array.spinner_job)
@@ -96,19 +96,19 @@ class JoinActivity : AppCompatActivity() {
     }
 
     private fun setupSpinnerHandler() {
-        binding.ageRangeSpin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                // 드롭 다운 버튼 클릭 시 이벤트
-                _agerange = binding.ageRangeSpin.getItemAtPosition(position).toString()
-                gotomain = true
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                // 아무 것도 선택 하지 않았을 시 이벤트
-                gotomain = false
-                errormesage = "나이대를 입력해주세요."
-            }
-        }
+//        binding.ageRangeSpin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                // 드롭 다운 버튼 클릭 시 이벤트
+//                _agerange = binding.ageRangeSpin.getItemAtPosition(position).toString()
+//                gotomain = true
+//            }
+//
+//            override fun onNothingSelected(p0: AdapterView<*>?) {
+//                // 아무 것도 선택 하지 않았을 시 이벤트
+//                gotomain = false
+//                errormesage = "나이대를 입력해주세요."
+//            }
+//        }
 
         binding.jobSpin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

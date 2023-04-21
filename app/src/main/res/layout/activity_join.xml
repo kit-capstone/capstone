@@ -8,124 +8,138 @@
     tools:context=".JoinActivity"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/mainColor"
-        android:orientation="vertical">
-
         <TextView
-            android:text="회원가입"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"/>
-    </LinearLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_semibold"
+            android:textStyle="normal"
+            android:textSize="30sp"
+            android:textColor="#000000"
+            android:gravity="center_horizontal"
+            android:layout_marginStart="18dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="회원가입" />
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            style="@style/AuthGuideText"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="닉네임" />
-
-        <EditText
-            android:id="@+id/nickname"
-            android:layout_width="match_parent"
-            android:hint="@string/com_kakao_profile_nickname"
-            android:inputType="text"
-            android:layout_height="50dp"
-            style="@style/AuthEditText"/>
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:background="#999999"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_height="0.5dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            style="@style/AuthGuideText"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="성별" />
+            <EditText
+                android:id="@+id/nickname"
+                android:layout_width="match_parent"
+                android:hint="@string/com_kakao_profile_nickname"
+                android:inputType="text"
+                android:layout_margin="10dp"
+                android:background="@drawable/edit_text"
+                android:layout_height="50dp"
+                android:paddingLeft="10dp"
+                style="@style/AuthEditText"/>
 
-        <RadioGroup
-            android:id="@+id/radio_gender"
-            android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:orientation="horizontal"
-            android:checkedButton="@id/radio_btn_man">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="#999999"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="0.5dp"/>
 
-            <RadioButton
-                android:id="@+id/radio_btn_man"
-                android:layout_width="wrap_content"
+            <TextView
+                style="@style/AuthGuideText"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginEnd="7dp"
-                android:layout_weight="1"
-                android:text="남성" />
+                android:text="성별" />
 
-            <RadioButton
-                android:id="@+id/radio_btn_woman"
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:id="@+id/radio_gender"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:orientation="horizontal"
+                android:checkedButton="@id/radio_btn_man">
+
+                <RadioButton
+                    android:id="@+id/radio_btn_man"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_weight="1"
+                    android:text="남성" />
+
+                <RadioButton
+                    android:id="@+id/radio_btn_woman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_weight="1"
+                    android:text="여성" />
+            </RadioGroup>
+
+            <TextView
+                style="@style/AuthGuideText"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginEnd="7dp"
-                android:layout_weight="1"
-                android:text="여성" />
-        </RadioGroup>
+                android:text="나이" />
 
-        <TextView
-            style="@style/AuthGuideText"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="나이대" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
 
-        <Spinner
-            android:contentDescription="나이대 설정"
-            android:id="@+id/age_range_spin"
-            android:background="@drawable/background_age_range"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:paddingVertical="8dp"
-            android:paddingHorizontal="16dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:elevation="20dp"
-            android:gravity="center"/>
+                <DatePicker
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/dataPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:datePickerMode="spinner"
+                    android:layout_gravity="center_horizontal"
+                    android:calendarViewShown="false"/>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="30dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:text="설정 완료"
+                    android:background="@drawable/backgound_radius_yellow"/>
 
-        <TextView
-            style="@style/AuthGuideText"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="직업" />
+            </LinearLayout>
 
-        <Spinner
-            android:contentDescription="직업 설정"
-            android:id="@+id/job_spin"
-            android:background="@drawable/background_age_range"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:paddingVertical="8dp"
-            android:paddingHorizontal="16dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:elevation="20dp"
-            android:gravity="center"/>
+            <TextView
+                style="@style/AuthGuideText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="직업" />
 
-        <Button
-            android:id="@+id/join_btn"
-            android:text="회원가입하기"
-            android:layout_margin="20dp"
-            android:background="@drawable/backgound_radius_yellow"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            <Spinner
+                android:contentDescription="직업 설정"
+                android:id="@+id/job_spin"
+                android:background="@drawable/background_age_range"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:elevation="20dp"
+                android:gravity="center"/>
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/join_btn"
+                android:text="회원가입하기"
+                android:textStyle="bold"
+                android:layout_margin="20dp"
+                android:background="@drawable/backgound_radius_yellow"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
