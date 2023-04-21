@@ -3,6 +3,7 @@ package com.example.banlancegameex
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.LoginFilter.PasswordFilterGMail
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -94,6 +95,13 @@ class MainActivity : AppCompatActivity() {
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        binding.forgotPasswordTv.setOnClickListener {
+            val intent = Intent(this,ForgotPasswordActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+
+        }
     }
 
 //    override fun onStart() {

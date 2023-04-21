@@ -41,12 +41,25 @@
         android:layout_height="50dp"
         android:layout_marginStart="18dp"
         android:layout_marginEnd="18dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/edit_text"
         android:ems="10"
         android:hint="password"
         android:inputType="textPassword"
         android:padding="16dp" />
+
+    <TextView
+        android:id="@+id/forgot_password_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호를 잊어버리셨나요?"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/forgot_password"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="60dp"/>
+
 
     <Button
         android:id="@+id/email_login_button"
@@ -60,6 +73,42 @@
         android:layout_marginEnd="18dp"
         android:paddingStart="10dp"
         android:background="@drawable/email_login_btn"/>
+
+    <LinearLayout
+        android:weightSum="10"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:background="@color/icon_black"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <TextView
+            android:layout_weight="4"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="20dp"
+            android:textColor="@color/black"
+            android:text="또는"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:background="@color/icon_black"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/email_signin_button"
