@@ -1,15 +1,14 @@
 package com.example.banlancegameex
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.banlancegameex.databinding.ActivityForgotPasswordBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.kakao.usermgmt.StringSet.email
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
@@ -35,6 +34,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     }
+
+                    else if(it.exception?.message != null) {
+                        Toast.makeText(this, "등록되지 않은 이메일 입니다.", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
 
@@ -52,6 +55,15 @@ class ForgotPasswordActivity : AppCompatActivity() {
             Toast.makeText(this,"이메일 형식을 확인해주세요",Toast.LENGTH_SHORT).show()
             return false
         }
+
         return true
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this,MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+
     }
 }
