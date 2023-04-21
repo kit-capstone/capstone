@@ -55,7 +55,7 @@ class ProfileFragment : Fragment() {
             it.findNavController().navigate(R.id.action_profileFragment_to_tagFragment)
         }
 
-        binding.logoutBtn.setOnClickListener{
+        binding.logout.setOnClickListener{
             auth.signOut()
             val intent = Intent(requireContext(), MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP

@@ -13,27 +13,253 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/title_txt"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="다른 위젯이 들어올 자리"
-                android:textSize="30sp"
-                app:layout_constraintTop_toTopOf="@+id/Fragment5" />
+                android:layout_height="match_parent"
+                android:background="@drawable/background"
+                android:layout_marginBottom="65dp"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/logout_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="logout"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title_txt" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="55dp"
+                    android:layout_marginLeft="34dp"
+                    android:layout_marginRight="50dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/user_profile"/>
+
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/nickname_area"
+                            android:layout_width="match_parent"
+                            android:layout_height="27dp"
+                            android:layout_gravity="left"
+                            android:text="@string/com_kakao_profile_nickname"/>
+
+                        <TextView
+                            android:id="@+id/email_area"
+                            android:textSize="13sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="27dp"
+                            android:layout_gravity="left"
+                            android:text="email : "/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:background="@drawable/backgraound_mypage_button"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="75dp"
+                    android:layout_width="320dp"
+                    android:layout_height="400dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/user_data_update"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:src="@drawable/user_data_update"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_gravity="center|left"/>
+
+                        <TextView
+                            android:text="사용자 정보 변경"
+                            android:textColor="@color/black"
+                            android:gravity="center|left"
+                            android:layout_width="200dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center|left"/>
+
+                        <ImageView
+                            android:src="@drawable/next_arrow"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center|left"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/bar_black"/>
+
+                    <LinearLayout
+                        android:id="@+id/edit_post"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:src="@drawable/edit_post"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_gravity="center|left"/>
+
+                        <TextView
+                            android:text="게시물 만들기"
+                            android:textColor="@color/black"
+                            android:gravity="center|left"
+                            android:layout_width="200dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center|left"/>
+
+                        <ImageView
+                            android:src="@drawable/next_arrow"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center|left"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/bar_black"/>
+
+                    <LinearLayout
+                        android:id="@+id/my_post"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:src="@drawable/my_post"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_gravity="center|left"/>
+
+                        <TextView
+                            android:text="내가 만든 게시물"
+                            android:textColor="@color/black"
+                            android:gravity="center|left"
+                            android:layout_width="200dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center|left"/>
+
+                        <ImageView
+                            android:src="@drawable/next_arrow"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center|left"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/bar_black"/>
+
+                    <LinearLayout
+                        android:id="@+id/logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:src="@drawable/logout"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_gravity="center|left"/>
+
+                        <TextView
+                            android:text="로그 아웃"
+                            android:textColor="@color/black"
+                            android:gravity="center|left"
+                            android:layout_width="200dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center|left"/>
+
+                        <ImageView
+                            android:src="@drawable/next_arrow"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center|left"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/bar_black"/>
+
+                    <LinearLayout
+                        android:id="@+id/account_delete"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:src="@drawable/signout"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_gravity="center|left"/>
+
+                        <TextView
+                            android:text="계정 삭제"
+                            android:textColor="@color/black"
+                            android:gravity="center|left"
+                            android:layout_width="200dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center|left"/>
+
+                        <ImageView
+                            android:src="@drawable/next_arrow"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_gravity="center|left"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout5">
@@ -41,28 +267,32 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:background="@color/white"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/mainColor" />
+                    android:background="@color/white"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/mainColor"/>
 
             </LinearLayout>
 
@@ -70,48 +300,46 @@
                 android:id="@+id/linearLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:weightSum="5"
-                app:layout_constraintBottom_toBottomOf="parent">
+                android:background="@color/white">
 
                 <ImageView
                     android:id="@+id/bookmark_tap"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/favorite_selelct" />
+                    android:src="@drawable/favorite_selelct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
                 <ImageView
                     android:id="@+id/localgroup_tap"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/localgroup" />
+                    android:src="@drawable/localgroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
                 <ImageView
                     android:id="@+id/home_tap"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/home" />
+                    android:src="@drawable/home"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
                 <ImageView
                     android:id="@+id/search_tap"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/search" />
+                    android:src="@drawable/search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
                 <ImageView
                     android:id="@+id/profile_tap"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/profile" />
+                    android:src="@drawable/profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
