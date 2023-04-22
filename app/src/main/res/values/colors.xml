@@ -14,4 +14,5 @@
     <color name="tilte_blue">#547AFF</color>
     <color name="icon_black">#767676</color>
     <color name="basic_text_color">#70D7FF</color>
+    <color name="red">#ff0000</color>
 </resources>

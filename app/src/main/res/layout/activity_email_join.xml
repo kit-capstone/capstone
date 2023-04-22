@@ -5,21 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JoinActivity"
+    tools:context=".EmailJoinActivity"
     android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_semibold"
-            android:textStyle="normal"
-            android:textSize="30sp"
-            android:textColor="#000000"
-            android:gravity="center_horizontal"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:text="회원가입" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_semibold"
+        android:textStyle="normal"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:text="회원가입" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -30,6 +30,57 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/text_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_text"
+                android:ems="10"
+                android:hint="email"
+                android:inputType="textEmailAddress"
+                android:padding="16dp" />
+
+            <EditText
+                android:id="@+id/text_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_text"
+                android:ems="10"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:padding="16dp" />
+
+            <EditText
+                android:id="@+id/text_check_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edit_text"
+                android:ems="10"
+                android:hint="check password"
+                android:inputType="textPassword"
+                android:padding="16dp" />
+
+            <TextView
+                android:id="@+id/email_verify_btn"
+                style="@style/AuthGuideText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_horizontal"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="14dp"
+                android:textSize="16sp"
+                android:textColor="@color/basic_text_color"
+                android:text="이메일 인증 하기" />
 
             <TextView
                 style="@style/AuthGuideText"
@@ -133,6 +184,7 @@
                 android:paddingHorizontal="16dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
                 android:elevation="20dp"
                 android:gravity="center"/>
 
@@ -140,10 +192,19 @@
                 android:id="@+id/join_btn"
                 android:text="회원가입하기"
                 android:textStyle="bold"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/backgound_radius_yellow"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>
+
+            <TextView
+                style="@style/AuthGuideText"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:textSize="14sp"
+                android:layout_height="48dp"
+                android:textColor="@color/red"
+                android:text="이메일 인증을 완료한 후 로그인하세요." />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

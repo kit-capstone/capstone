@@ -7,6 +7,7 @@ import android.text.LoginFilter.PasswordFilterGMail
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat.startActivityForResult
 import com.example.banlancegameex.R.string.default_web_client_id
 import com.example.banlancegameex.databinding.ActivityMainBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -67,15 +68,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.emailSigninButton.setOnClickListener {
-            val email = binding.textEmail.text.toString().trim()
-            val password = binding.textPassword.text.toString().trim()
-            if(email.isNullOrEmpty()||password.isNullOrEmpty())
-            {
-                Toast.makeText(this,"이메일과 비밀번호를 입력해주세요.",Toast.LENGTH_SHORT).show()
-            }
-            else {
-                emailSignin(email, password)
-            }
+            val intent = Intent(this,EmailJoinActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         binding.emailLoginButton.setOnClickListener {
@@ -123,51 +118,24 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
 
     }
-    private fun emailSignin(email:String,password:String) {
 
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this){task->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Toast.makeText(this,"회원가입 페이지로 이동합니다.",Toast.LENGTH_SHORT).show()
-                    userstate = 1
-                    emailLogin(email, password)
-
-                }
-                else if(task.exception?.message.isNullOrEmpty()){
-                    Toast.makeText(this,"이메일과 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show()
-                }
-                else if(password.length < 6){
-                    Toast.makeText(this,"비밀 번호를 최소 6자리 이상 입력해주세요.",Toast.LENGTH_SHORT).show()
-                }
-                else {
-                    Toast.makeText(this,"이미 가입된 이메일이 존재합니다.",Toast.LENGTH_SHORT).show()
-                }
-            }
-
-    }
     private fun emailLogin(email:String,password:String) {
-
-        auth.signInWithEmailAndPassword(email, password) // 로그인
-            .addOnCompleteListener{task->
-                if (task.isSuccessful) {
-                    if(userstate == 0){
-                        Toast.makeText(this, "이메일 로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, ContentsActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
+            auth.signInWithEmailAndPassword(email, password) // 로그인
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        if (userstate == 0 && (auth.currentUser?.isEmailVerified == true)) {
+                            Toast.makeText(this, "이메일 로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, ContentsActivity::class.java)
+                            intent.flags =
+                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
+                        } else if(auth.currentUser?.isEmailVerified == false){
+                            Toast.makeText(this, "이메일 인증을 확인해 주세요.", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Toast.makeText(this, "이메일과 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
                     }
-                    else if(userstate == 1){
-                        Toast.makeText(this, "회원가입 페이지로 이동합니다.", Toast.LENGTH_LONG).show()
-                        val intent = Intent(this, JoinActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
-                    }
-                } else {
-                    Toast.makeText(this, "이메일과 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
-                }
             }
-
     }
 
     private fun googleLogin() {
