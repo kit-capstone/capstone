@@ -107,6 +107,8 @@ class HomeFragment : Fragment() {
                 binding.gameOption1Txt.text = recommedElement.option1
                 binding.gameOption2Txt.text = recommedElement.option2
 
+                Log.d("모델 확인용", items.toString())
+
                 // 비동기 방식으로 받아온 정보를 recycler view에 반영하기 위한 코드
                 rvAdapter.notifyDataSetChanged()
 

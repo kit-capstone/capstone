@@ -1,6 +1,6 @@
 package com.example.banlancegameex.contentsList
 
-data class ContentModel (
+data class SearchContentModel (
     var title : String = "",
     var option1 : String = "",
     var option1Sub : String ="",
@@ -10,5 +10,6 @@ data class ContentModel (
     var tag : String = "",
     var locate : String = "",
     var uid : String = "",
-    var time : String = ""
+    var time : String = "",
+    var key : String = ""
         )
