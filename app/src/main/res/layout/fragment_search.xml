@@ -147,13 +147,6 @@
                 
             </HorizontalScrollView>
 
-                <Button
-                    android:id="@+id/tag_checked_btn"
-                    android:background="@drawable/backgound_radius_yellow"
-                    android:text="태그 선택"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
