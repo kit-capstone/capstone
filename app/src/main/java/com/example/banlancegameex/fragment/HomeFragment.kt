@@ -1,5 +1,6 @@
 package com.example.banlancegameex.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.banlancegameex.Board.BoardWriteActivity
 import com.example.banlancegameex.R
 import com.example.banlancegameex.contentsList.BookmarkModel
 import com.example.banlancegameex.contentsList.ContentModel
@@ -144,6 +146,11 @@ class HomeFragment : Fragment() {
         // 북마크한 게임 정보를 불러오기 위한 함수
         getBookmarkData()
 
+
+        binding.writeBtn.setOnClickListener {
+            val intent = Intent(context, BoardWriteActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.bookmarkTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment_to_bookMarkFragment)
