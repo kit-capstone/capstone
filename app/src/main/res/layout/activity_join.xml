@@ -99,13 +99,15 @@
 
                 <DatePicker
                     android:layout_marginLeft="10dp"
-                    android:id="@+id/dataPicker"
+                    android:id="@+id/datePicker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:datePickerMode="spinner"
                     android:layout_gravity="center_horizontal"
                     android:calendarViewShown="false"/>
+
                 <Button
+                    android:id="@+id/birthday_input_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

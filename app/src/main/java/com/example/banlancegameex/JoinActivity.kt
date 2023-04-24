@@ -1,12 +1,17 @@
 package com.example.banlancegameex
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import com.example.banlancegameex.databinding.ActivityJoinBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -14,6 +19,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class JoinActivity : AppCompatActivity() {
     private lateinit var binding: ActivityJoinBinding
@@ -30,6 +37,7 @@ class JoinActivity : AppCompatActivity() {
     val _database = Firebase.database.reference
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityJoinBinding.inflate(layoutInflater)
@@ -38,7 +46,6 @@ class JoinActivity : AppCompatActivity() {
         gender = "남성"
 
         setSpinnerJob()
-    //    setupSpinnerAgeRange()
         setupSpinnerHandler()
 
         binding.radioGender.setOnCheckedChangeListener { group, checkedId ->
@@ -70,6 +77,14 @@ class JoinActivity : AppCompatActivity() {
                         }
                         else {
                             gotomain = true
+                            if(_nickname.isEmpty()){
+                                gotomain = false
+                                errormesage = "닉네임을 입력해주세요."
+                            }
+                            if(_agerange ==""){
+                                gotomain = false
+                                errormesage = "생년월일을 입력해주세요."
+                            }
                         }
                         pushToDatabase()
                     }
@@ -81,14 +96,47 @@ class JoinActivity : AppCompatActivity() {
                     }
                 })
         }
+        binding.birthdayInputBtn.setOnClickListener {
+            val iYear : Int = binding.datePicker.year
+            val iMonth : Int = binding.datePicker.month+1
+            val iDay : Int = binding.datePicker.dayOfMonth
+            val birthDate = (iYear * 10000 + iMonth * 100 + iDay).toString()
+
+            val builder = AlertDialog.Builder(this)
+                .setTitle("생년월일")
+                .setMessage("생일이 ${iYear}년 ${iMonth}월 ${iDay}일이 맞습니까?")
+                .setPositiveButton("네", DialogInterface.OnClickListener{ dialog, which ->
+                    Toast.makeText(this,"생년월일 입력 완료",Toast.LENGTH_SHORT).show()
+                    val _age = getAmericanAge(birthDate)
+                    when(_age/10) {
+                        0 -> _agerange = "10대 미만"
+                        1 -> _agerange = "10대"
+                        2 -> _agerange = "20대"
+                        3 -> _agerange = "30대"
+                        4 -> _agerange = "40대"
+                        5 -> _agerange = "50대"
+                        else -> _agerange = "60대 이상"
+                    }
+                })
+                .setNegativeButton("아니오", DialogInterface.OnClickListener { dialog, which ->
+                    Toast.makeText(this,"생년월일을 다시 설정해주세요",Toast.LENGTH_SHORT).show()
+                })
+            builder.show()
+        }
     }
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getAmericanAge(birthDate: String) : Int{
 
-//    private fun setupSpinnerAgeRange(){
-//        val age_range = resources.getStringArray(R.array.spinner_age_range)
-//        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, age_range)
-//        binding.ageRangeSpin.adapter = adapter
-//    }
+        val now = LocalDate.now();
+        val parsedBirthDate = LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("yyyyMMdd"));
 
+        var americanAge = now.minusYears(parsedBirthDate.getYear().toLong()).getYear(); // (1)
+
+        if (parsedBirthDate.plusYears(americanAge.toLong()).isAfter(now)) {
+            americanAge -= 1;
+        }
+        return americanAge;
+    }
     private fun setSpinnerJob(){
         val job = resources.getStringArray(R.array.spinner_job)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, job)
@@ -96,19 +144,6 @@ class JoinActivity : AppCompatActivity() {
     }
 
     private fun setupSpinnerHandler() {
-//        binding.ageRangeSpin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                // 드롭 다운 버튼 클릭 시 이벤트
-//                _agerange = binding.ageRangeSpin.getItemAtPosition(position).toString()
-//                gotomain = true
-//            }
-//
-//            override fun onNothingSelected(p0: AdapterView<*>?) {
-//                // 아무 것도 선택 하지 않았을 시 이벤트
-//                gotomain = false
-//                errormesage = "나이대를 입력해주세요."
-//            }
-//        }
 
         binding.jobSpin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
