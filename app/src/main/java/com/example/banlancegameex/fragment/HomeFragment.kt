@@ -16,6 +16,7 @@ import com.example.banlancegameex.R
 import com.example.banlancegameex.contentsList.BookmarkModel
 import com.example.banlancegameex.contentsList.ContentModel
 import com.example.banlancegameex.contentsList.ContentRVAdapter
+import com.example.banlancegameex.contentsList.GameMakeActivity
 import com.example.banlancegameex.databinding.FragmentHomeBinding
 import com.example.banlancegameex.utils.FBAuth
 import com.example.banlancegameex.utils.FBRef
@@ -146,9 +147,11 @@ class HomeFragment : Fragment() {
         // 북마크한 게임 정보를 불러오기 위한 함수
         getBookmarkData()
 
+        binding.writeBtn.bringToFront()
+
 
         binding.writeBtn.setOnClickListener {
-            val intent = Intent(context, BoardWriteActivity::class.java)
+            val intent = Intent(context, GameMakeActivity::class.java)
             startActivity(intent)
         }
 

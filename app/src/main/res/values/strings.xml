@@ -21,4 +21,9 @@
     <string name="google_login_text">구글로 시작하기</string>
     <string name="kakao_login_text">카카오톡으로 시작하기</string>
     <string name="bookmark">북마크</string>
+    <string name="game_title_hint">제목을 입력하세요</string>
+    <string name="game_option1_hint">첫번째 선택지를 작성해주세요</string>
+    <string name="game_optionSub_hint">선택지에 대한 제약조건 등을 입력해 주세요\n(생략가능)</string>
+    <string name="game_option2_hint">두번째 선택지를 작성해주세요</string>
+    <string name="choose_topic">주제</string>
 </resources>

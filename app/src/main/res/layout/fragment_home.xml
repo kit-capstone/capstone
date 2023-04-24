@@ -145,7 +145,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layout_constraintTop_toBottomOf="@+id/title_txt"
-                    android:nestedScrollingEnabled="false"/>
+                    android:nestedScrollingEnabled="false">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+
 
             </LinearLayout>
             </androidx.core.widget.NestedScrollView>

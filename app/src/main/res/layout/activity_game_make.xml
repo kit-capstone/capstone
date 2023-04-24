@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".contentsList.GameMakeActivity"
+        android:orientation="vertical"
+        android:background="@drawable/background">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+
+                <TextView
+                    style="@style/AuthGuideText"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="주제" />
+
+                <Spinner
+                    android:prompt="@string/choose_topic"
+                    android:contentDescription="주제 설정"
+                    android:id="@+id/job_spin"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:paddingVertical="8dp"
+                    android:paddingHorizontal="16dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+
+                    android:elevation="20dp"
+                    android:gravity="center"/>
+
+
+
+
+                <EditText
+                    android:id="@+id/nickname"
+                    android:layout_width="match_parent"
+                    android:hint="@string/game_title_hint"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/edit_text"
+                    android:layout_height="50dp"
+                    android:paddingLeft="10dp"
+                    style="@style/AuthEditText"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#000000"/>
+
+                <EditText
+                    android:id="@+id/option1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:hint="@string/game_option1_hint"
+                    android:background="@drawable/edit_text"
+                    android:layout_height="200dp"/>
+
+                <EditText
+                    android:id="@+id/option1Sub"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:hint="@string/game_optionSub_hint"
+                    android:background="@drawable/edit_text"
+                    android:layout_height="100dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                </LinearLayout>
+
+
+
+                <EditText
+                    android:id="@+id/option2"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:hint="@string/game_option1_hint"
+                    android:background="@drawable/edit_text"
+                    android:layout_height="200dp"/>
+
+
+                <EditText
+                    android:id="@+id/option2Sub"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:hint="@string/game_optionSub_hint"
+                    android:background="@drawable/edit_text"
+                    android:layout_height="100dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#000000"/>
+
+                <Button
+                    android:id="@+id/writeBtn"
+                    android:text="등록"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/background_radius_yellow"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</layout>
