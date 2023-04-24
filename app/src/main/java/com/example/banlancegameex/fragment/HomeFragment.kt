@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.banlancegameex.Board.BoardWriteActivity
 import com.example.banlancegameex.R
 import com.example.banlancegameex.contentsList.BookmarkModel
 import com.example.banlancegameex.contentsList.ContentModel
