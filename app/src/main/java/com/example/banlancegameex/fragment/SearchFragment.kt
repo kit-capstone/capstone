@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -178,17 +179,25 @@ class SearchFragment : Fragment() {
             rvAdapter.notifyDataSetChanged()
         }
 
+        binding.searchText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                binding.searchBtn.performClick()
+                true
+            } else {
+                false
+            }
+        }
+
         binding.searchBtn.setOnClickListener {
             search_title = binding.searchText.text.toString()
             if(search_title != ""){
-                search_filter = itemssearch.filter { it.title.contains(search_title) }
+                search_filter = itemssearch.filter { it.content.title.contains(search_title) }
                 items.clear()
                 itemKeyList.clear()
                 toggleInit()
 
                 for(item in search_filter) {
-                    items.add(ContentModel(item.title, item.option1, item.option1Sub, item.option2, item.option2Sub,
-                        item.inquiry, item.tag, item.locate, item.uid, item.time))
+                    items.add(item.content)
                     itemKeyList.add(item.key)
 
                 }
@@ -196,8 +205,7 @@ class SearchFragment : Fragment() {
                 items.clear()
                 itemKeyList.clear()
                 for(item in itemssearch){
-                    items.add(ContentModel(item.title, item.option1, item.option1Sub, item.option2, item.option2Sub,
-                        item.inquiry, item.tag, item.locate, item.uid, item.time))
+                    items.add(item.content)
                     itemKeyList.add(item.key)
                 }
             }
@@ -213,8 +221,7 @@ class SearchFragment : Fragment() {
                     val item = datasnapshot.getValue(ContentModel::class.java)
 
                     items.add(item!!)
-                    itemssearch.add(SearchContentModel(item.title, item.option1, item.option1Sub, item.option2, item.option2Sub, item.inquiry, item.tag,
-                    item.locate, item.uid, item.time, datasnapshot.key.toString()))
+                    itemssearch.add(SearchContentModel(item!!, datasnapshot.key.toString()))
 
                     // push한 게임의 key 값을 itemKeyList에 저장
                     // 사용자가 북마크한 게임을 식별하기 위한 변수
@@ -301,16 +308,14 @@ class SearchFragment : Fragment() {
     private fun setTagPost(postList : List<SearchContentModel>) {
         if(tagList.isEmpty()) {
             for(item in postList){
-                items.add(ContentModel(item.title, item.option1, item.option1Sub, item.option2, item.option2Sub,
-                    item.inquiry, item.tag, item.locate, item.uid, item.time))
+                items.add(item.content)
                 itemKeyList.add(item.key)
             }
         } else {
             for(tag in tagList) {
                 for(item in postList){
-                    if(item.tag.contains(tag)){
-                        items.add(ContentModel(item.title, item.option1, item.option1Sub, item.option2, item.option2Sub,
-                            item.inquiry, item.tag, item.locate, item.uid, item.time))
+                    if(item.content.tag.contains(tag)){
+                        items.add(item.content)
                         itemKeyList.add(item.key)
                     }
                 }

@@ -35,6 +35,8 @@
 
                     <EditText
                         android:hint="검색할 게시물의 제목을 입력해주세요"
+                        android:inputType="text|textVisiblePassword"
+                        android:imeOptions="actionSearch"
                         tools:ignore="SpeakableTextPresentCheck"
                         android:id="@+id/search_text"
                         android:background="@color/transparent"
