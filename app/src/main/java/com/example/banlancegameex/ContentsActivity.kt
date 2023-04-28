@@ -15,11 +15,11 @@ class ContentsActivity : AppCompatActivity() {
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
-        val locationWorkRequest = PeriodicWorkRequestBuilder<LocationReceiver>(10, TimeUnit.MINUTES)
+        val locationWorkRequest = PeriodicWorkRequestBuilder<LocationReceiver>(2, TimeUnit.HOURS)
             .setConstraints(constraints)
             .build()
 
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork("locationWork",
+        WorkManager.getInstance().enqueueUniquePeriodicWork("locationWork",
             ExistingPeriodicWorkPolicy.KEEP, locationWorkRequest)
 
         val task = WorkManager.getInstance(this).getWorkInfosForUniqueWork("locationWork").get()

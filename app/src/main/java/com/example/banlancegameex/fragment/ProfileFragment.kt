@@ -11,6 +11,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.work.WorkManager
 import com.example.banlancegameex.MainActivity
 import com.example.banlancegameex.R
 import com.example.banlancegameex.UserDataModel
@@ -74,6 +75,9 @@ class ProfileFragment : Fragment() {
         }
 
 
+        binding.userDataUpdate.setOnClickListener {
+            WorkManager.getInstance(requireContext()).cancelAllWork()
+        }
 
         database.child("userdata").orderByChild("email").equalTo(auth.currentUser?.email.toString())
             .addListenerForSingleValueEvent(object : ValueEventListener{

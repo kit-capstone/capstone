@@ -55,6 +55,7 @@ class LocationReceiver(context: Context, workerParameters: WorkerParameters) : W
             }
         })
         if(locationList.size >= 20) {
+            Log.d("리시버 확인용", "백그라운드 작업이 완료되었습니다.")
             return Result.success()
         }
         val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(applicationContext)
