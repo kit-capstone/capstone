@@ -2,12 +2,14 @@ package com.example.banlancegameex
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.text.LoginFilter.PasswordFilterGMail
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.core.content.ContextCompat
 import com.example.banlancegameex.R.string.default_web_client_id
 import com.example.banlancegameex.databinding.ActivityMainBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -35,7 +37,16 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "GoogleActivity"
         private const val RC_SIGN_IN = 9001
+        const val REQUEST_CODE_PERMISSIONS = 1001
     }
+
+    private val permissions = arrayOf(
+        android.Manifest.permission.ACCESS_FINE_LOCATION,
+        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+        android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
+    )
+
+    private lateinit var activityResultLauncher: ActivityResultLauncher<Array<String>>
 
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityMainBinding
@@ -50,7 +61,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
-        auth.currentUser?.delete()
+        // auth.currentUser?.delete()
+
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            if (it.all { permission -> permission.value == true }) {
+
+            } else {
+                Toast.makeText(this, "권한 거부", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        if (!checkPermission(permissions)) {
+            requestPermissions(permissions, MainActivity.REQUEST_CODE_PERMISSIONS)
+        }
 
         if(auth.currentUser?.email != null){
             val intent = Intent(this, ContentsActivity::class.java)
@@ -298,6 +321,12 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, JoinActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
+        }
+    }
+
+    private fun checkPermission(permissions: Array<String>): Boolean {
+        return permissions.all {
+            ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
         }
     }
 }

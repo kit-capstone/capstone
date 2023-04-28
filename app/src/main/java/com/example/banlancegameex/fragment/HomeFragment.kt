@@ -43,6 +43,17 @@ class HomeFragment : Fragment() {
     // recycler view를 위한 adapter
     lateinit var rvAdapter : ContentRVAdapter
 
+//    companion object {
+//        const val REQUEST_CODE_PERMISSIONS = 1001
+//    }
+//
+//    private val permissions = arrayOf(
+//        android.Manifest.permission.ACCESS_FINE_LOCATION,
+//        android.Manifest.permission.ACCESS_COARSE_LOCATION
+//    )
+//
+//    private lateinit var activityResultLauncher: ActivityResultLauncher<Array<String>>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -61,6 +72,18 @@ class HomeFragment : Fragment() {
 
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(layoutInflater)
+
+//        activityResultLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+//            if (it.all { permission -> permission.value == true }) {
+//
+//            } else {
+//                Toast.makeText(requireContext(), "권한 거부", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//
+//        if (!checkPermission(permissions)) {
+//            requestPermissions(permissions, REQUEST_CODE_PERMISSIONS)
+//        }
 
         // FirebaseAuth 초기화
         auth = FirebaseAuth.getInstance()
@@ -107,7 +130,7 @@ class HomeFragment : Fragment() {
                 binding.gameOption1Txt.text = recommedElement.option1
                 binding.gameOption2Txt.text = recommedElement.option2
 
-                Log.d("모델 확인용", items.toString())
+                // Log.d("모델 확인용", items.toString())
 
                 // 비동기 방식으로 받아온 정보를 recycler view에 반영하기 위한 코드
                 rvAdapter.notifyDataSetChanged()
@@ -206,6 +229,11 @@ class HomeFragment : Fragment() {
         bookmarkRef.child(FBAuth.getuid()).addValueEventListener(postListener)
     }
 
+//    private fun checkPermission(permissions: Array<String>): Boolean {
+//        return permissions.all {
+//            ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
+//        }
+//    }
 }
 
 //FBRef.postRef.push().setValue(
