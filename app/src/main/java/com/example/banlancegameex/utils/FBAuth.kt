@@ -18,7 +18,7 @@ class FBAuth {
             return auth.currentUser?.uid.toString()
         }
 
-        @RequiresApi(Build.VERSION_CODES.O)
+        //@RequiresApi(Build.VERSION_CODES.O)
         fun getTime() : String {
 
 //            var now = LocalDate.now()

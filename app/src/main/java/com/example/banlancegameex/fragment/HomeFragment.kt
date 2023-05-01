@@ -104,6 +104,9 @@ class HomeFragment : Fragment() {
         postRef.orderByChild("inquiry").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
 
+                items.clear()
+
+
                 for(dataModel in snapshot.children){
                     // 게임 하나의 정보를 items에 push
                     val item = dataModel.getValue(ContentModel::class.java)

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
     <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".contentsList.GameMakeActivity"
@@ -30,9 +30,9 @@
                     android:text="주제" />
 
                 <Spinner
+                    android:id="@+id/tagSpin"
                     android:prompt="@string/choose_topic"
                     android:contentDescription="주제 설정"
-                    android:id="@+id/job_spin"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:paddingVertical="8dp"
@@ -47,7 +47,7 @@
 
 
                 <EditText
-                    android:id="@+id/nickname"
+                    android:id="@+id/gameTitleArea"
                     android:layout_width="match_parent"
                     android:hint="@string/game_title_hint"
                     android:gravity="center"
@@ -68,7 +68,7 @@
                     android:background="#d0d0d0"/>
 
                 <EditText
-                    android:id="@+id/option1"
+                    android:id="@+id/option1Area"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="10dp"
@@ -79,7 +79,7 @@
                     android:layout_height="200dp"/>
 
                 <EditText
-                    android:id="@+id/option1Sub"
+                    android:id="@+id/option1SubArea"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:gravity="center"
@@ -96,7 +96,7 @@
 
 
                 <EditText
-                    android:id="@+id/option2"
+                    android:id="@+id/option2Area"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginLeft="20dp"
@@ -107,7 +107,7 @@
                     android:hint="@string/game_option1_hint" />
 
                 <EditText
-                    android:id="@+id/option2Sub"
+                    android:id="@+id/option2SubArea"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:gravity="center"
