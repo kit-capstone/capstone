@@ -182,6 +182,14 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
+//        binding.contentsRV.setOnItemClickListener { parent, view, position, id ->
+//
+//            val intent = Intent(context, BoardInsideActivity::class.java)
+//            intent.putExtra("key", boardKeyList[position])
+//            startActivity(intent)
+//
+//        }
+
         binding.bookmarkTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment_to_bookMarkFragment)
         }
