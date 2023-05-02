@@ -8,7 +8,6 @@ data class ContentModel (
     var option2Sub : String ="",
     var inquiry : Int = 0,
     var tag : String = "",
-    var locate : String = "",
     var uid : String = "",
     var time : String = ""
         )

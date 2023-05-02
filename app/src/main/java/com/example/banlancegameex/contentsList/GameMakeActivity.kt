@@ -62,13 +62,12 @@ class GameMakeActivity : AppCompatActivity() {
 
             val uid = FBAuth.getuid()
             val time = FBAuth.getTime()
-            val locate = "Test"
 
 
 
             FBRef.postRef
                 .push()
-                .setValue(ContentModel(title, option1, option1Sub, option2, option2Sub, 0, _gameTag, locate, uid, time))
+                .setValue(ContentModel(title, option1, option1Sub, option2, option2Sub, 0, _gameTag, uid, time))
 
             Toast.makeText(this,"게시글 입력 완료", Toast.LENGTH_SHORT).show()
 

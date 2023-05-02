@@ -104,7 +104,7 @@
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/edit_text"
                     android:gravity="center"
-                    android:hint="@string/game_option1_hint" />
+                    android:hint="@string/game_option2_hint" />
 
                 <EditText
                     android:id="@+id/option2SubArea"

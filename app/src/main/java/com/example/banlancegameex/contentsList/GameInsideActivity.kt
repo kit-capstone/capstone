@@ -21,6 +21,7 @@ class GameInsideActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_game_inside)
 
+        //데이터베이스에서 받아온 게시물의 키값으로 post(game)접근
         val key = intent.getStringExtra("key")
         getBoardData(key.toString())
     }
