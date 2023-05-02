@@ -1,11 +1,13 @@
 package com.example.banlancegameex.contentsList
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.banlancegameex.R
 import com.example.banlancegameex.utils.FBAuth
@@ -36,6 +38,9 @@ class ContentRVAdapter (val context : Context,
 
             itemView.setOnClickListener {
                 // 게임 페이지로 이동 코드 구현 필요
+                val intent = Intent(context, GameInsideActivity::class.java)
+                intent.putExtra("key", key)
+                itemView.context.startActivity(intent)
             }
 
             val gameTitle = itemView.findViewById<TextView>(R.id.game_title_txt)

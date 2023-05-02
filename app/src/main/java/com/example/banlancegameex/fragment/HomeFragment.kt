@@ -12,10 +12,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.banlancegameex.R
-import com.example.banlancegameex.contentsList.BookmarkModel
-import com.example.banlancegameex.contentsList.ContentModel
-import com.example.banlancegameex.contentsList.ContentRVAdapter
-import com.example.banlancegameex.contentsList.GameMakeActivity
+import com.example.banlancegameex.contentsList.*
 import com.example.banlancegameex.databinding.FragmentHomeBinding
 import com.example.banlancegameex.utils.FBAuth
 import com.example.banlancegameex.utils.FBRef
@@ -182,13 +179,7 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-//        binding.contentsRV.setOnItemClickListener { parent, view, position, id ->
-//
-//            val intent = Intent(context, BoardInsideActivity::class.java)
-//            intent.putExtra("key", boardKeyList[position])
-//            startActivity(intent)
-//
-//        }
+
 
         binding.bookmarkTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment_to_bookMarkFragment)
