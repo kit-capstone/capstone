@@ -43,6 +43,8 @@ class BookmarkRVAdapter (val context : Context,
             itemView.setOnClickListener {
                 Toast.makeText(context, item.title, Toast.LENGTH_LONG).show()
                 val intent = Intent(context, GameInsideActivity::class.java)
+                intent.putExtra("key", key)
+                itemView.context.startActivity(intent)
 
             }
 

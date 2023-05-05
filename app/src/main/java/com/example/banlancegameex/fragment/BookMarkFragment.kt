@@ -58,7 +58,7 @@ class BookMarkFragment : Fragment() {
         val rv : RecyclerView = binding.bookmarkRV
         rv.adapter = rvAdapter
 
-        rv.layoutManager = GridLayoutManager(requireContext(), 2)
+        rv.layoutManager = GridLayoutManager(requireContext(), 1)
 
 
         binding.homeTap.setOnClickListener {
