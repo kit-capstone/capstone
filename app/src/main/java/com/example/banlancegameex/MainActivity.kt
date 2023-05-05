@@ -311,7 +311,7 @@ class MainActivity : AppCompatActivity() {
         if(userstate == 0){
             Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_LONG).show()
             val intent = Intent(this, ContentsActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
         // firebase auth에 해당 유저의 uid가 없을 시
@@ -319,7 +319,7 @@ class MainActivity : AppCompatActivity() {
         else if(userstate == 1){
             Toast.makeText(this, "회원가입 페이지로 이동합니다.", Toast.LENGTH_LONG).show()
             val intent = Intent(this, JoinActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
     }

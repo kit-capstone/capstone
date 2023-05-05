@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
+        android:background="@drawable/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -47,23 +48,147 @@
                 android:text="time" />
 
             <LinearLayout
+                android:background="@drawable/background_radius"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-            <TextView
-                android:id="@+id/textArea"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_margin="20dp"
-                android:background="@drawable/background_radius"
-                android:padding="10dp"
-                android:text="여기는 내용 영역"
-                android:textColor="@color/black" />
+                android:paddingTop="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <LinearLayout
+                        android:background="@drawable/background_option1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/textArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:text="여기는 내용 영역"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textAlignment="center"
+                        android:textSize="25sp"/>
+
+                        <LinearLayout
+                            android:background="@drawable/background_suboption1"
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp">
+
+                            <TextView
+                                android:id="@+id/opt1_sub_text"
+                                android:text="여기는 내용 설명 영역"
+                                android:textAlignment="center"
+                                android:gravity="center"
+                                android:textSize="16sp"
+                                android:textColor="@color/black"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/opt1_mask"
+                        android:layout_width="match_parent"
+                        android:layout_height="230dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="vertical"
+                        android:visibility="invisible"
+                        android:background="@drawable/background_game_mask">
+
+                        <TextView
+                            android:id="@+id/opt1_mask_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="이건 선택 비율"
+                            android:textSize="55sp"
+                            android:textColor="@color/white"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:background="@drawable/background_option2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/opt2_textArea"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:text="여기는 내용 영역"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textAlignment="center"
+                            android:textSize="25sp"/>
+
+                        <LinearLayout
+                            android:background="@drawable/background_suboption2"
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp">
+
+                            <TextView
+                                android:id="@+id/opt2_sub_text"
+                                android:text="여기는 내용 설명 영역"
+                                android:textAlignment="center"
+                                android:gravity="center"
+                                android:textSize="16sp"
+                                android:textColor="@color/black"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/opt2_mask"
+                        android:layout_width="match_parent"
+                        android:layout_height="230dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="vertical"
+                        android:visibility="invisible"
+                        android:background="@drawable/background_game_mask">
+
+                        <TextView
+                            android:id="@+id/opt2_mask_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="이건 선택 비율"
+                            android:textSize="50sp"
+                            android:textColor="@color/white"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+                </FrameLayout>
             </LinearLayout>
-
-
         </LinearLayout>
     </ScrollView>
 

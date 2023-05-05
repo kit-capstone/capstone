@@ -15,7 +15,7 @@ class ContentsActivity : AppCompatActivity() {
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
-        val locationWorkRequest = PeriodicWorkRequestBuilder<LocationReceiver>(2, TimeUnit.HOURS)
+        val locationWorkRequest = PeriodicWorkRequestBuilder<LocationReceiver>(3, TimeUnit.HOURS)
             .setConstraints(constraints)
             .build()
 
