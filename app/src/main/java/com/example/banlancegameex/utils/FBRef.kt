@@ -11,5 +11,6 @@ class FBRef {
         val postRef = database.getReference("post")
         val userdataRef = database.getReference("userdata")
         val userlocateRef = database.getReference("user_locate")
+        val countRef = database.getReference("count")
     }
 }

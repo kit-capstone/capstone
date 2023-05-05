@@ -1,12 +1,11 @@
 package com.example.banlancegameex.contentsList
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.banlancegameex.R
 import com.example.banlancegameex.databinding.ActivityGameMakeBinding
@@ -68,6 +67,11 @@ class GameMakeActivity : AppCompatActivity() {
             FBRef.postRef
                 .push()
                 .setValue(ContentModel(title, option1, option1Sub, option2, option2Sub, 0, _gameTag, uid, time))
+
+            FBRef.countRef
+                .child(title)
+                .push()
+                .setValue(CountModel())
 
             Toast.makeText(this,"게시글 입력 완료", Toast.LENGTH_SHORT).show()
 
