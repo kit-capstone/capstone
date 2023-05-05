@@ -75,7 +75,7 @@
                         android:layout_height="100dp"
                         android:text="여기는 내용 영역"
                         android:gravity="center"
-                        android:textColor="@color/white"
+                        android:textColor="@color/solid_black1"
                         android:textAlignment="center"
                         android:textSize="25sp"/>
 
@@ -90,7 +90,7 @@
                                 android:textAlignment="center"
                                 android:gravity="center"
                                 android:textSize="16sp"
-                                android:textColor="@color/black"
+                                android:textColor="@color/solid_black2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"/>
                         </LinearLayout>
@@ -145,7 +145,7 @@
                             android:layout_height="100dp"
                             android:text="여기는 내용 영역"
                             android:gravity="center"
-                            android:textColor="@color/white"
+                            android:textColor="@color/solid_black1"
                             android:textAlignment="center"
                             android:textSize="25sp"/>
 
@@ -160,7 +160,7 @@
                                 android:textAlignment="center"
                                 android:gravity="center"
                                 android:textSize="16sp"
-                                android:textColor="@color/black"
+                                android:textColor="@color/solid_black2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"/>
                         </LinearLayout>
