@@ -60,6 +60,7 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:id="@+id/option1"
                         android:background="@drawable/background_option1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -69,7 +70,7 @@
                         android:layout_marginBottom="10dp"
                         android:orientation="vertical">
                     <TextView
-                        android:id="@+id/textArea"
+                        android:id="@+id/opt1_text"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:text="여기는 내용 영역"
@@ -129,6 +130,7 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:id="@+id/option2"
                         android:background="@drawable/background_option2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -138,7 +140,7 @@
                         android:layout_marginBottom="10dp"
                         android:orientation="vertical">
                         <TextView
-                            android:id="@+id/opt2_textArea"
+                            android:id="@+id/opt2_text"
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
                             android:text="여기는 내용 영역"
