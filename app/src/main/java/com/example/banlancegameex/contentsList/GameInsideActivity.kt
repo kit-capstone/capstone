@@ -18,7 +18,7 @@ class GameInsideActivity : AppCompatActivity() {
 
     private val TAG = GameInsideActivity::class.java.simpleName
     var game_name = ""
-    var game_count : CountModel = CountModel()
+    lateinit var game_count : CountModel
     var opt1_count = 0.0
     var opt2_count = 0.0
 
@@ -33,6 +33,7 @@ class GameInsideActivity : AppCompatActivity() {
         getBoardData(key.toString())
 
         binding.option1.setOnClickListener {
+            Log.d("테스트용", game_count.toString())
             game_count.total_opt1 ++
             var total = game_count.total_opt1 + game_count.total_opt2
             gameplayResult(total)
@@ -74,15 +75,18 @@ class GameInsideActivity : AppCompatActivity() {
 
         val countListener = object : ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val dataModel = dataSnapshot.getValue(CountModel::class.java)
-                game_count = dataSnapshot.getValue(CountModel::class.java)!!
+                for (data in dataSnapshot.children) {
+                    if(data.key.toString() == game_name){
+                        game_count = data.getValue(CountModel::class.java)!!
+                    }
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
         }
-        FBRef.countRef.child(game_name).addValueEventListener(countListener)
+        FBRef.countRef.addValueEventListener(countListener)
     }
 
     fun gameplayResult(total : Int) {
@@ -111,7 +115,7 @@ class GameInsideActivity : AppCompatActivity() {
                         for (data in snapshot.children) {
                             CountResult.userdata = data.getValue(UserDataModel::class.java)!!
                         }
-                        game_count = CountResult.delaycount(choose, game_count)
+                        CountResult.delaycount(choose, game_count)
                         FBRef.countRef
                             .addListenerForSingleValueEvent(object : ValueEventListener {
                                 override fun onDataChange(snapshot: DataSnapshot) {
