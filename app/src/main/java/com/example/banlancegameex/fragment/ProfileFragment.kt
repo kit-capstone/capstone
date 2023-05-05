@@ -15,6 +15,7 @@ import androidx.work.WorkManager
 import com.example.banlancegameex.MainActivity
 import com.example.banlancegameex.R
 import com.example.banlancegameex.UserDataModel
+import com.example.banlancegameex.contentsList.GameMakeActivity
 import com.example.banlancegameex.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -49,6 +50,12 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(layoutInflater)
         auth = Firebase.auth
+
+        binding.editPost.setOnClickListener{
+            val intent = Intent(context, GameMakeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
 
         binding.bookmarkTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_profileFragment_to_bookMarkFragment)

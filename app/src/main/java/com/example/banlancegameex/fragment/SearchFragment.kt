@@ -124,9 +124,9 @@ class SearchFragment : Fragment() {
 
         binding.favoriteBtn.setOnClickListener{
             if(binding.favoriteBtn.isChecked){
-                tagList.add("취미")
+                tagList.add("취향")
             } else {
-                tagList.remove("취미")
+                tagList.remove("취향")
             }
             items.clear()
             itemKeyList.clear()
@@ -145,7 +145,7 @@ class SearchFragment : Fragment() {
             if(binding.aniBtn.isChecked){
                 tagList.add("만화")
             } else {
-                tagList.remove("운동")
+                tagList.remove("만화")
             }
             items.clear()
             itemKeyList.clear()

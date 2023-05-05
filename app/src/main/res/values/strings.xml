@@ -16,8 +16,12 @@
     </string-array>
 
     <string-array name="spinner_gameTag">
+        <item>취향</item>
         <item>연애</item>
+        <item>게임</item>
         <item>음식</item>
+        <item>만화</item>
+        <item>운동</item>
         <item>기타</item>
     </string-array>
     <string name="title_activity_maps">MapsActivity</string>
