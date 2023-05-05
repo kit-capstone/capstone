@@ -6,7 +6,9 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.banlancegameex.R
+import com.example.banlancegameex.UserDataModel
 import com.example.banlancegameex.databinding.ActivityGameInsideBinding
+import com.example.banlancegameex.utils.CountResult
 import com.example.banlancegameex.utils.FBRef
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -34,12 +36,14 @@ class GameInsideActivity : AppCompatActivity() {
             game_count.total_opt1 ++
             var total = game_count.total_opt1 + game_count.total_opt2
             gameplayResult(total)
+            updateCountData("A")
         }
 
         binding.option2.setOnClickListener {
             game_count.total_opt2 ++
             var total = game_count.total_opt1 + game_count.total_opt2
             gameplayResult(total)
+            updateCountData("B")
         }
     }
 
@@ -96,5 +100,42 @@ class GameInsideActivity : AppCompatActivity() {
             isClickable = false
             isEnabled = false
         }
+    }
+
+    fun updateCountData(choose : String) {
+        FBRef.userdataRef.orderByChild("email").equalTo(CountResult.currentUser)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        // firebase database에 해당 유저의 email이 존재 시
+                        for (data in snapshot.children) {
+                            CountResult.userdata = data.getValue(UserDataModel::class.java)!!
+                        }
+                        game_count = CountResult.delaycount(choose, game_count)
+                        FBRef.countRef
+                            .addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    for(childSnapshot in snapshot.children){
+                                        if(childSnapshot.key.toString() == game_name){
+                                            FBRef.countRef.child(game_name).setValue(game_count)
+                                        }
+                                    }
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+
+                                }
+                            })
+                        Log.d("관리용", game_count.toString())
+                    } else {
+                        // firebase database에 해당 유저의 email이 없을 시
+                        Log.w("통계 데이터 관리 에러", "DB에 정상적으로 사용자 정보가 존재하지 않습니다.")
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.w("통계 데이터 관리 에러", "DB에서 정상적으로 사용자 정보를 가져오지 못했습니다.")
+                }
+            })
     }
 }

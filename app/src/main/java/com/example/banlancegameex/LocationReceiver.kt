@@ -72,7 +72,7 @@ class LocationReceiver(context: Context, workerParameters: WorkerParameters) : W
                 // 사용자 위치정보 변경 코드 필요
                 // 구현 완료. 이후 사용자 회원가입, 사용자 정보 수정 페이지 수정 완료 후 주석 처리 해제 필요
 //                FBRef.userdataRef.orderByChild("email").equalTo(FBAuth.getEmail())
-//                    .addListenerForSingleValueEvent(object : ValueEventListener{
+//                    .addListenerForSingleValueEvent(object : ValueEventListener {
 //                        override fun onDataChange(snapshot: DataSnapshot) {
 //                            for(childSnapshot in snapshot.children){
 //                                val user = childSnapshot.getValue(UserDataModel::class.java)

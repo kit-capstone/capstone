@@ -1,11 +1,7 @@
 package com.example.banlancegameex.utils
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class FBAuth {
@@ -19,6 +15,12 @@ class FBAuth {
         }
 
         //@RequiresApi(Build.VERSION_CODES.O)
+
+        fun getemail() : String {
+            auth = FirebaseAuth.getInstance()
+
+            return auth.currentUser?.email.toString()
+        }
         fun getTime() : String {
 
 //            var now = LocalDate.now()
