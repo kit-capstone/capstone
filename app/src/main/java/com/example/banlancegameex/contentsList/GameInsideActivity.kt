@@ -2,7 +2,11 @@ package com.example.banlancegameex.contentsList
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.banlancegameex.R
@@ -21,15 +25,18 @@ class GameInsideActivity : AppCompatActivity() {
     lateinit var game_count : CountModel
     var opt1_count = 0.0
     var opt2_count = 0.0
+    private lateinit var key: String
 
     private lateinit var binding : ActivityGameInsideBinding
+
+    private var alertDialog: AlertDialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_game_inside)
 
         //데이터베이스에서 받아온 게시물의 키값으로 post(game)접근
-        val key = intent.getStringExtra("key")
+        key = intent.getStringExtra("key").toString()
         getBoardData(key.toString())
 
         binding.option1.setOnClickListener {
@@ -46,6 +53,17 @@ class GameInsideActivity : AppCompatActivity() {
             gameplayResult(total)
             updateCountData("B")
         }
+
+        //메뉴
+        binding.gameSettingIcon.setOnClickListener{
+            showDialog()
+        }
+    }
+
+    override fun onPause() {
+        // 액티비티가 일시정지될 때 다이얼로그를 닫음
+        super.onPause()
+        alertDialog?.dismiss()
     }
 
     private fun getBoardData(key : String){
@@ -53,16 +71,20 @@ class GameInsideActivity : AppCompatActivity() {
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                val dataModel = dataSnapshot.getValue(ContentModel::class.java)
-                Log.d(TAG, dataModel!!.title)
+                try{
+                    val dataModel = dataSnapshot.getValue(ContentModel::class.java)
+                    binding.titleArea.text = dataModel!!.title
+                    game_name = dataModel!!.title
+                    binding.timeArea.text = dataModel!!.time
+                    binding.opt1Text.text = dataModel!!.option1
+                    binding.opt1SubText.text = dataModel!!.option1Sub
+                    binding.opt2Text.text = dataModel!!.option2
+                    binding.opt2SubText.text = dataModel!!.option2Sub
 
-                binding.titleArea.text = dataModel!!.title
-                game_name = dataModel!!.title
-                binding.timeArea.text = dataModel!!.time
-                binding.opt1Text.text = dataModel!!.option1
-                binding.opt1SubText.text = dataModel!!.option1Sub
-                binding.opt2Text.text = dataModel!!.option2
-                binding.opt2SubText.text = dataModel!!.option2Sub
+                } catch (e : Exception){
+                    Log.d(TAG, "삭제완료")
+
+               }
 
             }
 
@@ -87,6 +109,29 @@ class GameInsideActivity : AppCompatActivity() {
             }
         }
         FBRef.countRef.addValueEventListener(countListener)
+    }
+
+    private fun showDialog(){
+
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.game_setting_dialog, null)
+        val mBuilder = AlertDialog.Builder(this)
+            .setView(mDialogView)
+            .setTitle("게시글 수정/삭제")
+
+        alertDialog = mBuilder.show()
+
+        //다이얼로그의 백그라운드를 둥글게 깎기 위해선 이 코드가 필요
+        alertDialog?.window?.setBackgroundDrawableResource(R.drawable.background_radius)
+
+        alertDialog?.findViewById<Button>(R.id.editBtn)?.setOnClickListener{
+            Toast.makeText(this,"aa", Toast.LENGTH_SHORT).show()
+        }
+        alertDialog?.findViewById<Button>(R.id.removeBtn)?.setOnClickListener{
+            FBRef.postRef.child(key).removeValue()
+            Toast.makeText(this,"삭제완료", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+
     }
 
     fun gameplayResult(total : Int) {
