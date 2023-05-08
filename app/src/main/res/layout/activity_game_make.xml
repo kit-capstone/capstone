@@ -32,6 +32,7 @@
                 <Spinner
                     android:id="@+id/tagSpin"
                     android:prompt="@string/choose_topic"
+                    android:background="@drawable/background_age_range"
                     android:contentDescription="주제 설정"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -40,7 +41,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
 
-                    android:elevation="20dp"
+                    android:elevation="10dp"
                     android:gravity="center"/>
 
 

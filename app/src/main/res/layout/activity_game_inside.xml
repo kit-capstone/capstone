@@ -19,6 +19,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:background="@color/mainColor"
                 android:layout_height="60dp">
 
                 <TextView
@@ -30,7 +31,7 @@
                     android:layout_marginRight="40dp"
                     android:text="title"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
                     android:textStyle="bold" />
 
                 <ImageView
