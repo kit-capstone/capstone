@@ -8,11 +8,13 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.example.banlancegameex.R
 import com.example.banlancegameex.UserDataModel
 import com.example.banlancegameex.databinding.ActivityGameInsideBinding
 import com.example.banlancegameex.utils.CountResult
+import com.example.banlancegameex.utils.FBAuth
 import com.example.banlancegameex.utils.FBRef
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -81,10 +83,22 @@ class GameInsideActivity : AppCompatActivity() {
                     binding.opt2Text.text = dataModel!!.option2
                     binding.opt2SubText.text = dataModel!!.option2Sub
 
+                    val myUid = FBAuth.getuid()
+                    val writerUid = dataModel.uid
+
+                    if(myUid.equals(writerUid)){
+                        Log.d(TAG, "내가 쓴 글")
+                        binding.gameSettingIcon.isVisible = true
+                    } else {
+                        Log.d(TAG, "내가 쓴 글 아님")
+                    }
+
                 } catch (e : Exception){
                     Log.d(TAG, "삭제완료")
 
                }
+
+
 
             }
 
