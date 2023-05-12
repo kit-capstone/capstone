@@ -5,12 +5,7 @@
     <item android:id="@android:id/background">
         <shape
             android:shape="rectangle" android:padding = "10dp">
-            <solid android:color="#ffd400"></solid>
-            <corners
-                android:bottomLeftRadius="20dp"
-                android:bottomRightRadius="20dp"
-                android:topLeftRadius="20dp"
-                android:topRightRadius="20dp"></corners>
+            <solid android:color="@color/transparent"/>
         </shape>
     </item>
 </ripple>

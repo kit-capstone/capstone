@@ -69,6 +69,7 @@
 
                     <LinearLayout
                         android:id="@+id/user_data_update"
+                        android:background="@drawable/background_pofile_button"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -108,6 +109,7 @@
 
                     <LinearLayout
                         android:id="@+id/edit_post"
+                        android:background="@drawable/background_pofile_button"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -147,6 +149,7 @@
 
                     <LinearLayout
                         android:id="@+id/my_post"
+                        android:background="@drawable/background_pofile_button"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -186,6 +189,7 @@
 
                     <LinearLayout
                         android:id="@+id/logout"
+                        android:background="@drawable/background_pofile_button"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -225,6 +229,7 @@
 
                     <LinearLayout
                         android:id="@+id/account_delete"
+                        android:background="@drawable/background_pofile_button"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
