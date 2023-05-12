@@ -69,7 +69,7 @@
 
                     <LinearLayout
                         android:id="@+id/user_data_update"
-                        android:background="@drawable/background_pofile_button"
+                        android:background="@drawable/background_profile_top"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -229,7 +229,7 @@
 
                     <LinearLayout
                         android:id="@+id/account_delete"
-                        android:background="@drawable/background_pofile_button"
+                        android:background="@drawable/background_profile_bottom"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

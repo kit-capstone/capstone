@@ -11,7 +11,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.work.WorkManager
 import com.example.banlancegameex.MainActivity
 import com.example.banlancegameex.R
 import com.example.banlancegameex.UserDataModel
@@ -77,13 +76,20 @@ class ProfileFragment : Fragment() {
         binding.logout.setOnClickListener{
             auth.signOut()
             val intent = Intent(requireContext(), MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
 
 
         binding.userDataUpdate.setOnClickListener {
-            WorkManager.getInstance(requireContext()).cancelAllWork()
+        }
+
+        binding.myPost.setOnClickListener {
+
+        }
+
+        binding.accountDelete.setOnClickListener {
+
         }
 
         database.child("userdata").orderByChild("email").equalTo(auth.currentUser?.email.toString())
