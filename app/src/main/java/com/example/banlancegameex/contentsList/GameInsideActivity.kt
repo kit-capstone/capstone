@@ -12,6 +12,8 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.example.banlancegameex.R
 import com.example.banlancegameex.UserDataModel
+import com.example.banlancegameex.comment.CommentLVAdapter
+import com.example.banlancegameex.comment.CommentModel
 import com.example.banlancegameex.databinding.ActivityGameInsideBinding
 import com.example.banlancegameex.utils.CountResult
 import com.example.banlancegameex.utils.FBAuth
@@ -32,6 +34,11 @@ class GameInsideActivity : AppCompatActivity() {
     private lateinit var binding : ActivityGameInsideBinding
 
     private var alertDialog: AlertDialog? = null
+
+    private val commentDataList = mutableListOf<CommentModel>()
+
+    private lateinit var commentAdapter : CommentLVAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -60,6 +67,68 @@ class GameInsideActivity : AppCompatActivity() {
         binding.gameSettingIcon.setOnClickListener{
             showDialog()
         }
+
+        //댓글
+        binding.commentBtn.setOnClickListener {
+            insertComment(key)
+        }
+
+        getCommentData(key)
+
+        commentAdapter = CommentLVAdapter(commentDataList)
+        binding.commentLV.adapter = commentAdapter
+
+
+    }
+
+    fun getCommentData(key : String){
+
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                commentDataList.clear()
+
+                for (dataModel in dataSnapshot.children) {
+
+                    val item = dataModel.getValue(CommentModel::class.java)
+                    commentDataList.add(item!!)
+                }
+
+                commentAdapter.notifyDataSetChanged()
+
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        FBRef.commentRef.child(key).addValueEventListener(postListener)
+
+
+    }
+
+    fun insertComment(key : String){
+        // comment
+        //   - BoardKey
+        //        - CommentKey
+        //            - CommentData
+        //            - CommentData
+        //            - CommentData
+        FBRef.commentRef
+            .child(key)
+            .push()
+            .setValue(
+                CommentModel(
+                    binding.commentArea.text.toString(),
+                    FBAuth.getTime()
+                )
+            )
+
+        Toast.makeText(this, "댓글 입력 완료", Toast.LENGTH_SHORT).show()
+        binding.commentArea.setText("")
+
     }
 
     override fun onPause() {

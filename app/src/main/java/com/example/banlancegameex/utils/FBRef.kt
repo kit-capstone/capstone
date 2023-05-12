@@ -12,5 +12,7 @@ class FBRef {
         val userdataRef = database.getReference("userdata")
         val userlocateRef = database.getReference("user_locate")
         val countRef = database.getReference("count")
+        val commentRef = database.getReference("comment")
+
     }
 }
