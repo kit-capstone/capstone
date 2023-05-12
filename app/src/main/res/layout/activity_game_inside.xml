@@ -241,7 +241,7 @@
                 android:id="@+id/comment_frame"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:orientation="vertical"
                 >
                 <LinearLayout
@@ -266,10 +266,12 @@
 
                 </LinearLayout>
 
-                <ListView
-                    android:id="@+id/commentLV"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/commentRV"
                     android:layout_width="match_parent"
-                    android:layout_height="600dp" />
+                    android:layout_height="match_parent"
+                    >
+                </androidx.recyclerview.widget.RecyclerView>
 
             </LinearLayout>
         </LinearLayout>

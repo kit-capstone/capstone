@@ -11,10 +11,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.banlancegameex.R
 import com.example.banlancegameex.UserDataModel
-import com.example.banlancegameex.comment.CommentLVAdapter
 import com.example.banlancegameex.comment.CommentModel
+import com.example.banlancegameex.comment.CommentRVAdapter
 import com.example.banlancegameex.databinding.ActivityGameInsideBinding
 import com.example.banlancegameex.utils.CountResult
 import com.example.banlancegameex.utils.FBAuth
@@ -38,7 +40,9 @@ class GameInsideActivity : AppCompatActivity() {
 
     private val commentDataList = mutableListOf<CommentModel>()
 
-    private lateinit var commentAdapter : CommentLVAdapter
+    // recycler view를 위한 adapter
+    private lateinit var commentAdapter : CommentRVAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +81,7 @@ class GameInsideActivity : AppCompatActivity() {
         binding.commentVisibleControll.setOnClickListener {
             if(binding.commentFrame.visibility == View.GONE){
                 binding.commentFrame.visibility = View.VISIBLE
-                binding.commentFrame.layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
+                binding.commentFrame.layoutParams.height = 1000
             }
             else if(binding.commentFrame.visibility == View.VISIBLE){
                 binding.commentFrame.visibility = View.GONE
@@ -87,13 +91,17 @@ class GameInsideActivity : AppCompatActivity() {
 
         getCommentData(key)
 
-        commentAdapter = CommentLVAdapter(commentDataList)
-        binding.commentLV.adapter = commentAdapter
+        commentAdapter = CommentRVAdapter(commentDataList)
+        val rv : RecyclerView = binding.commentRV
+        rv.adapter = commentAdapter
+        rv.layoutManager = LinearLayoutManager(this)
+
+        //binding.commentRV.adapter = commentAdapter
 
 
     }
 
-    fun getCommentData(key : String){
+    private fun getCommentData(key : String){
 
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -109,6 +117,8 @@ class GameInsideActivity : AppCompatActivity() {
                 commentAdapter.notifyDataSetChanged()
 
 
+
+
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -119,9 +129,11 @@ class GameInsideActivity : AppCompatActivity() {
         FBRef.commentRef.child(key).addValueEventListener(postListener)
 
 
+
+
     }
 
-    fun insertComment(key : String){
+    private fun insertComment(key : String){
         // comment
         //   - BoardKey
         //        - CommentKey
