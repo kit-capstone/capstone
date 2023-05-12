@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -71,6 +72,17 @@ class GameInsideActivity : AppCompatActivity() {
         //댓글
         binding.commentBtn.setOnClickListener {
             insertComment(key)
+        }
+
+        binding.commentVisibleControll.setOnClickListener {
+            if(binding.commentFrame.visibility == View.GONE){
+                binding.commentFrame.visibility = View.VISIBLE
+                binding.commentFrame.layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
+            }
+            else if(binding.commentFrame.visibility == View.VISIBLE){
+                binding.commentFrame.visibility = View.GONE
+                binding.commentFrame.layoutParams.height = 0
+            }
         }
 
         getCommentData(key)

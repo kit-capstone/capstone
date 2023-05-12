@@ -214,41 +214,64 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="2">
+                <Button
+                    android:id="@+id/comment_visible_controll"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/background_radius_yellow"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:text="댓글 보기"
+                    android:textSize="23sp"/>
 
                 <Button
+                    android:id="@+id/count_visible_controll"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/background_radius_yellow"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
                     android:layout_weight="1"
-                    />
+                    android:text="통계 보기"
+                    android:textSize="23sp"/>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/white">
+                android:id="@+id/comment_frame"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                android:orientation="vertical"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/white">
 
-                <EditText
-                    android:id="@+id/commentArea"
-                    android:layout_width="320dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:background="@android:color/transparent"
-                    android:hint="댓글을 입력해주세요" />
+                    <EditText
+                        android:id="@+id/commentArea"
+                        android:layout_width="320dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@android:color/transparent"
+                        android:hint="댓글을 입력해주세요" />
 
-                <ImageView
-                    android:id="@+id/commentBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/btnwrite" />
+                    <ImageView
+                        android:id="@+id/commentBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/btnwrite" />
+
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/commentLV"
+                    android:layout_width="match_parent"
+                    android:layout_height="600dp" />
 
             </LinearLayout>
-
-            <ListView
-                android:id="@+id/commentLV"
-                android:layout_width="match_parent"
-                android:layout_height="600dp" />
-
         </LinearLayout>
     </ScrollView>
 </layout>
