@@ -115,7 +115,10 @@ class GameInsideActivity : AppCompatActivity() {
                 }
 
                 commentAdapter.notifyDataSetChanged()
-
+                Log.d("테스트용", "commentDataList size: ${commentDataList.size}")
+                for (commentData in commentDataList) {
+                    Log.d("테스트용", "comment: ${commentData.commentTitle}")
+                }
 
 
 
