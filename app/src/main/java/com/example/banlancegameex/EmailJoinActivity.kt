@@ -3,7 +3,6 @@ package com.example.banlancegameex
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,9 +11,10 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.banlancegameex.databinding.ActivityEmailJoinBinding
+import com.example.banlancegameex.utils.FBAuth
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -222,13 +222,13 @@ class EmailJoinActivity : AppCompatActivity() {
         }
         else {
             // database에 userdata 입력
-            myRef.push().setValue(
+            myRef.child(FBAuth.getuid()).setValue(
                 UserDataModel(auth.currentUser?.email.toString(), _nickname, gender, _agerange, _job)
             )
             Toast.makeText(this,"회원가입을 완료했습니다.",Toast.LENGTH_SHORT).show()
             auth.signOut()
             val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
     }

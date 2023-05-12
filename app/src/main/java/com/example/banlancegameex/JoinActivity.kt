@@ -3,16 +3,16 @@ package com.example.banlancegameex
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.banlancegameex.databinding.ActivityJoinBinding
+import com.example.banlancegameex.utils.FBAuth
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -170,7 +170,7 @@ class JoinActivity : AppCompatActivity() {
         }
         else {
             // database에 userdata 입력
-            myRef.push().setValue(
+            myRef.child(FBAuth.getuid()).setValue(
                 UserDataModel(auth.currentUser?.email.toString(), _nickname, gender, _agerange, _job)
             )
             Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()

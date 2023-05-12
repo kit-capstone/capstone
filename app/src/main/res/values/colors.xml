@@ -19,4 +19,6 @@
     <color name="icon_black">#767676</color>
     <color name="basic_text_color">#70D7FF</color>
     <color name="red">#ff0000</color>
+    <color name="pastel_orange">#F4A11D</color>
+    <color name="pastel_green">#98FF91</color>
 </resources>
