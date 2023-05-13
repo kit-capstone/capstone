@@ -18,6 +18,9 @@ import com.example.banlancegameex.UserDataModel
 import com.example.banlancegameex.comment.CommentModel
 import com.example.banlancegameex.comment.CommentRVAdapter
 import com.example.banlancegameex.databinding.ActivityGameInsideBinding
+import com.example.banlancegameex.fragment.AgeRangeFragment
+import com.example.banlancegameex.fragment.GenderFragment
+import com.example.banlancegameex.fragment.LocateFragment
 import com.example.banlancegameex.utils.CountResult
 import com.example.banlancegameex.utils.FBAuth
 import com.example.banlancegameex.utils.FBRef
@@ -43,6 +46,8 @@ class GameInsideActivity : AppCompatActivity() {
     // recycler view를 위한 adapter
     private lateinit var commentAdapter : CommentRVAdapter
 
+    var bundle = Bundle()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +57,7 @@ class GameInsideActivity : AppCompatActivity() {
         //데이터베이스에서 받아온 게시물의 키값으로 post(game)접근
         key = intent.getStringExtra("key").toString()
         getBoardData(key.toString())
+
 
         binding.option1.setOnClickListener {
             Log.d("테스트용", game_count.toString())
@@ -80,12 +86,33 @@ class GameInsideActivity : AppCompatActivity() {
 
         binding.commentVisibleControll.setOnClickListener {
             if(binding.commentFrame.visibility == View.GONE){
+
+                if(binding.countFrame.visibility == View.VISIBLE){
+                    binding.countFrame.visibility = View.GONE
+                    binding.countFrame.layoutParams.height = 0
+                }
+
                 binding.commentFrame.visibility = View.VISIBLE
                 binding.commentFrame.layoutParams.height = 1000
             }
             else if(binding.commentFrame.visibility == View.VISIBLE){
                 binding.commentFrame.visibility = View.GONE
                 binding.commentFrame.layoutParams.height = 0
+            }
+        }
+
+        binding.countVisibleControll.setOnClickListener {
+            if(binding.countFrame.visibility == View.GONE) {
+                if(binding.commentFrame.visibility == View.VISIBLE) {
+                    binding.commentFrame.visibility = View.GONE
+                    binding.commentFrame.layoutParams.height = 0
+                }
+                binding.countFrame.visibility = View.VISIBLE
+                binding.countFrame.layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
+            }
+            else if(binding.countFrame.visibility == View.VISIBLE){
+                binding.countFrame.visibility = View.GONE
+                binding.countFrame.layoutParams.height = 0
             }
         }
 
@@ -179,6 +206,17 @@ class GameInsideActivity : AppCompatActivity() {
                     binding.opt2Text.text = dataModel!!.option2
                     binding.opt2SubText.text = dataModel!!.option2Sub
 
+                    bundle.putString("title", dataModel!!.title)
+                    bundle.putString("opt1", dataModel!!.option1)
+                    bundle.putString("opt2", dataModel!!.option2)
+
+                    val fragment = AgeRangeFragment()
+                    fragment.arguments = bundle
+
+                    val transaction = supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fragmentContainerView2, fragment)
+                    transaction.commit()
+
                     val myUid = FBAuth.getuid()
                     val writerUid = dataModel.uid
 
@@ -210,6 +248,16 @@ class GameInsideActivity : AppCompatActivity() {
                 for (data in dataSnapshot.children) {
                     if(data.key.toString() == game_name){
                         game_count = data.getValue(CountModel::class.java)!!
+
+                        bundle.putSerializable("count", game_count)
+
+                        val fragment = AgeRangeFragment()
+                        fragment.arguments = bundle
+
+                        val transaction = supportFragmentManager.beginTransaction()
+                        transaction.replace(R.id.fragmentContainerView2, fragment)
+                        transaction.commit()
+
                     }
                 }
             }
@@ -296,5 +344,23 @@ class GameInsideActivity : AppCompatActivity() {
                     Log.w("통계 데이터 관리 에러", "DB에서 정상적으로 사용자 정보를 가져오지 못했습니다.")
                 }
             })
+    }
+
+    fun openFragment(dir : Int, bundle: Bundle) {
+        val transaction = supportFragmentManager.beginTransaction()
+        val ageFragment = AgeRangeFragment()
+        val genderFragment = GenderFragment()
+        val locateFragment = LocateFragment()
+
+        ageFragment.arguments = bundle
+        genderFragment.arguments = bundle
+        locateFragment.arguments = bundle
+
+        when(dir) {
+            1 -> transaction.replace(R.id.fragmentContainerView2, ageFragment)
+            2 -> transaction.replace(R.id.fragmentContainerView2, genderFragment)
+            3 -> transaction.replace(R.id.fragmentContainerView2, locateFragment)
+        }
+        transaction.commit()
     }
 }

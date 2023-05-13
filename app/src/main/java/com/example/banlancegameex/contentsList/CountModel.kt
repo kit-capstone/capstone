@@ -1,5 +1,7 @@
 package com.example.banlancegameex.contentsList
 
+import java.io.Serializable
+
 data class CountModel (
     var total_opt1 : Int = 0,
     var total_opt2 : Int = 0,
@@ -29,4 +31,4 @@ data class CountModel (
     var gyeongsang_opt2 : Int = 0,
     var jeolla_opt2 : Int = 0,
     var jeju_opt2 : Int = 0,
-        )
+        ): Serializable

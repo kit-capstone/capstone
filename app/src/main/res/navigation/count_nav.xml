@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/count_nav"
+    app:startDestination="@id/ageRangeFragment">
+    <fragment
+        android:id="@+id/ageRangeFragment"
+        android:name="com.example.banlancegameex.fragment.AgeRangeFragment"
+        android:label="AgeRangeFragment" >
+        <action
+            android:id="@+id/action_ageRangeFragment_to_locateFragment"
+            app:destination="@id/locateFragment" />
+        <action
+            android:id="@+id/action_ageRangeFragment_to_genderFragment"
+            app:destination="@id/genderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/genderFragment"
+        android:name="com.example.banlancegameex.fragment.GenderFragment"
+        android:label="GenderFragment" >
+        <action
+            android:id="@+id/action_genderFragment_to_locateFragment"
+            app:destination="@id/locateFragment" />
+        <action
+            android:id="@+id/action_genderFragment_to_ageRangeFragment"
+            app:destination="@id/ageRangeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locateFragment"
+        android:name="com.example.banlancegameex.fragment.LocateFragment"
+        android:label="LocateFragment" >
+        <action
+            android:id="@+id/action_locateFragment_to_ageRangeFragment"
+            app:destination="@id/ageRangeFragment" />
+        <action
+            android:id="@+id/action_locateFragment_to_genderFragment"
+            app:destination="@id/genderFragment" />
+    </fragment>
+</navigation>
