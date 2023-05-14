@@ -1,5 +1,6 @@
 package com.example.banlancegameex
 
+import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
@@ -33,12 +34,11 @@ class EmailJoinActivity : AppCompatActivity() {
     // 사용자의 uid를 가져오기 위한 firebase인증 인스턴스
     private lateinit var auth: FirebaseAuth
     // 회원가입이 정상적으로 완료 시 true, 아니면 false
-    var gotomain = true
-
     val _database = Firebase.database.reference
     private var userstate = 0
 
     @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("SetTextl18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEmailJoinBinding.inflate(layoutInflater)
@@ -47,7 +47,6 @@ class EmailJoinActivity : AppCompatActivity() {
         gender = "남성"
 
         setSpinnerJob()
-        //    setupSpinnerAgeRange()
         setupSpinnerHandler()
 
 
@@ -61,7 +60,7 @@ class EmailJoinActivity : AppCompatActivity() {
 
         binding.joinBtn.setOnClickListener {
             // Toast.makeText(this, "아직 테스트 중입니다.", Toast.LENGTH_SHORT).show()
-
+            var gotomain = true
             // firebase realtime database 연결
             val database = Firebase.database
             val myRef = database.getReference("userdata")
@@ -77,30 +76,37 @@ class EmailJoinActivity : AppCompatActivity() {
                         if(snapshot.exists()){
                             gotomain = false
                             errormesage = "중복된 닉네임입니다."
+                            SendErrorMessage(errormesage)
                         }
-                        else {
-                            gotomain = true
-                            if(_nickname.isEmpty()){
-                                gotomain = false
-                                errormesage = "닉네임을 입력해주세요."
-                            }
-                            if(_agerange ==""){
-                                gotomain = false
-                                errormesage = "생년월일을 입력해주세요."
-                            }
-                            if(email.isEmpty()||password.isEmpty()||check_password.isEmpty())
-                            {
-                                gotomain = false
-                                errormesage = "이메일과 비밀번호를 입력해주세요."
-                            }
-                        }
-                        pushToDatabase()
+
+                        if(_nickname.isEmpty()){
+                           gotomain = false
+                           errormesage = "닉네임을 입력해주세요."
+                           SendErrorMessage(errormesage)
+                       }
+
+                        if(_agerange ==""){
+                           gotomain = false
+                           errormesage = "생년월일을 입력해주세요."
+                           SendErrorMessage(errormesage)
+                       }
+
+                        if(email.isEmpty()||password.isEmpty()||check_password.isEmpty())
+                       {
+                           gotomain = false
+                           errormesage = "이메일과 비밀번호를 입력해주세요."
+                           SendErrorMessage(errormesage)
+                       }
+
+                        if(gotomain) {
+                            pushToDatabase()
+                       }
                     }
 
                     override fun onCancelled(error: DatabaseError) {
                         gotomain = false
                         errormesage = "데이터베이스 연동 중 문제가 발생하였습니다."
-                        pushToDatabase()
+                        SendErrorMessage(errormesage)
                     }
                 })
         }
@@ -167,7 +173,6 @@ class EmailJoinActivity : AppCompatActivity() {
                     auth.currentUser?.sendEmailVerification()
                         ?.addOnCompleteListener { sendTask ->
                             if (sendTask.isSuccessful) {
-                                Log.d("TAG", "Email sent.")
                                 Toast.makeText(this, "${email}로 인증 메일 전송.", Toast.LENGTH_SHORT).show()
                             } else {
                                 Toast.makeText(this, "메일 발송 실패", Toast.LENGTH_SHORT).show()
@@ -201,13 +206,11 @@ class EmailJoinActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 // 드롭 다운 버튼 클릭 시 이벤트
                 _job = binding.jobSpin.getItemAtPosition(position).toString()
-                gotomain = true
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 // 아무 것도 선택 하지 않았을 시 이벤트
-                gotomain = false
-                errormesage = "직업을 입력해주세요."
+                _job = "학생"
             }
         }
     }
@@ -217,19 +220,18 @@ class EmailJoinActivity : AppCompatActivity() {
         val myRef = database.getReference("userdata")
         val _nickname = binding.nickname.text.toString().trim()
 
-        if(!gotomain){
-            Toast.makeText(this, errormesage, Toast.LENGTH_SHORT).show()
-        }
-        else {
-            // database에 userdata 입력
-            myRef.child(FBAuth.getuid()).setValue(
-                UserDataModel(auth.currentUser?.email.toString(), _nickname, gender, _agerange, _job)
-            )
-            Toast.makeText(this,"회원가입을 완료했습니다.",Toast.LENGTH_SHORT).show()
-            auth.signOut()
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-        }
+        // database에 userdata 입력
+        myRef.child(FBAuth.getuid()).setValue(
+            UserDataModel(auth.currentUser?.email.toString(), _nickname, gender, _agerange, _job)
+        )
+        Toast.makeText(this,"회원가입을 완료했습니다.",Toast.LENGTH_SHORT).show()
+        auth.signOut()
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
+    private fun SendErrorMessage(errormessage: String) {
+        Toast.makeText(this, errormesage, Toast.LENGTH_SHORT).show()
     }
 }

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <uses-permission-sdk-23 android:name="android.permission.UPDATE_DEVICE_STATS" />
@@ -22,12 +22,20 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".AccountDeleteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DataPickerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserDataUpdateActivity"
+            android:exported="false" />
+        <activity
             android:name=".contentsList.GameInsideActivity"
             android:exported="false" />
         <activity
             android:name=".contentsList.GameMakeActivity"
             android:exported="false" />
-
         <activity
             android:name=".EmailJoinActivity"
             android:exported="false" />

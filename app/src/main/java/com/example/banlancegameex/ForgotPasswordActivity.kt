@@ -29,7 +29,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
             if(CheckEmail()){
                 auth.sendPasswordResetEmail(email).addOnCompleteListener {
                     if(it.isSuccessful){
-                        Toast.makeText(this,"이메일 전송",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,"비밀번호 변경 메시지 전송",Toast.LENGTH_SHORT).show()
                         val intent = Intent(this,MainActivity::class.java)
                         startActivity(intent)
                         finish()
@@ -53,6 +53,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             Toast.makeText(this,"이메일 형식을 확인해주세요",Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if(auth.currentUser?.isEmailVerified != true) {
+            Toast.makeText(this,"이메일 인증되지 않은 아이디입니다.",Toast.LENGTH_SHORT).show()
             return false
         }
 

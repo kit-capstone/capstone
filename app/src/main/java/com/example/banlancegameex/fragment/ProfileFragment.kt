@@ -1,5 +1,6 @@
 package com.example.banlancegameex.fragment
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,14 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.banlancegameex.MainActivity
 import com.example.banlancegameex.R
 import com.example.banlancegameex.UserDataModel
+import com.example.banlancegameex.UserDataUpdateActivity
 import com.example.banlancegameex.contentsList.GameMakeActivity
 import com.example.banlancegameex.databinding.FragmentProfileBinding
+import com.example.banlancegameex.utils.FBAuth
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -23,6 +28,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.kakao.usermgmt.StringSet.email
 
 class ProfileFragment : Fragment() {
     private lateinit var binding : FragmentProfileBinding
@@ -82,6 +88,8 @@ class ProfileFragment : Fragment() {
 
 
         binding.userDataUpdate.setOnClickListener {
+            val intent = Intent(requireContext(), UserDataUpdateActivity::class.java)
+            startActivity(intent)
         }
 
         binding.myPost.setOnClickListener {
@@ -89,7 +97,43 @@ class ProfileFragment : Fragment() {
         }
 
         binding.accountDelete.setOnClickListener {
+            val user = Firebase.auth.currentUser!!
 
+            val builder = AlertDialog.Builder(requireContext())
+                .setTitle("계정 삭제")
+                .setMessage("정말 계정을 삭제하시겠습니까?")
+                .setPositiveButton("네",DialogInterface.OnClickListener{dialog, which ->
+                    database.child("userdata").orderByChild("email").equalTo(auth.currentUser?.email.toString())
+                        .addListenerForSingleValueEvent(object : ValueEventListener{
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                for(child in snapshot.children){
+                                    child.ref.removeValue()
+                                    Log.d("계정 삭제 테스트", auth.currentUser?.email.toString())
+                                }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                Toast.makeText(requireContext(), "DB연동에 실패하였습니다.", Toast.LENGTH_LONG).show()
+                            }
+                        })
+
+
+                    user.delete().addOnCompleteListener { task->
+                        if (task.isSuccessful) {
+                            val intent = Intent(requireContext(), MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
+                            Toast.makeText(requireContext(),"계정 삭제 완료",Toast.LENGTH_SHORT).show()
+                        }
+                        else {
+                            Toast.makeText(requireContext(),"계정 삭제 실패",Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
+                .setNegativeButton("아니오",DialogInterface.OnClickListener { dialog, which ->
+                    Toast.makeText(requireContext(),"삭제 취소",Toast.LENGTH_SHORT).show()
+                })
+            builder.show()
         }
 
         database.child("userdata").orderByChild("email").equalTo(auth.currentUser?.email.toString())

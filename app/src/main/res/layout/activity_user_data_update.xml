@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".UserDataUpdateActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/inter_semibold"
+        android:gravity="center_horizontal"
+        android:text="사용자 정보 변경"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="normal" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/AuthGuideText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="이메일" />
+
+            <TextView
+                android:id="@+id/text_email"
+                android:hint="email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edit_text"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:padding="16dp" />
+
+            <TextView
+                style="@style/AuthGuideText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="별명" />
+
+            <TextView
+                android:id="@+id/text_nickname"
+                android:hint="nickname"
+                android:ems="10"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:inputType="text"
+                android:background="@drawable/edit_text"
+                android:layout_height="50dp"
+                android:padding="16dp" />
+
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:textSize="14sp"
+                android:layout_height="48dp"
+                android:textColor="@color/red"
+                android:text="이메일 주소와 별명은 로그인, 비밀번호 찾기, 신고 기능에 사용되므로 변경이 불가능합니다." />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="#999999"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="0.5dp"/>
+
+            <TextView
+                style="@style/AuthGuideText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="성별" />
+
+            <RadioGroup
+                android:id="@+id/radio_gender"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:orientation="horizontal"
+                android:checkedButton="@id/radio_btn_man">
+
+                <RadioButton
+                    android:id="@+id/radio_btn_man"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_weight="1"
+                    android:text="남성" />
+
+                <RadioButton
+                    android:id="@+id/radio_btn_woman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_weight="1"
+                    android:text="여성" />
+            </RadioGroup>
+
+            <TextView
+                style="@style/AuthGuideText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="생년월일" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="4"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_birthday"
+                    android:hint="birthday"
+                    android:ems="10"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="14dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/edit_text"
+                    android:layout_height="50dp"
+                    android:layout_weight="3"
+                    android:padding="16dp" />
+
+                    <ImageButton
+                        android:id="@+id/birthday_input_btn"
+                        android:layout_width="75dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="10dp"
+                        android:contentDescription="생일입력버튼"
+                        android:background="@drawable/icon_calender"
+                        android:padding="20dp"
+                        android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/AuthGuideText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="직업" />
+
+            <Spinner
+                android:contentDescription="직업 설정"
+                android:id="@+id/job_spin"
+                android:background="@drawable/background_age_range"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:elevation="20dp"
+                android:gravity="center"/>
+
+            <Button
+                android:id="@+id/update_btn"
+                android:text="수정하기"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/backgound_radius_yellow"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+            <TextView
+                android:id="@+id/password_resent_btn"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:text="비밀번호 재설정하기"
+                android:ems="10"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginBottom="40dp"
+                android:layout_width="match_parent"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/logout_btn"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:text="로그아웃"
+                android:ems="10"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginBottom="40dp"
+                android:layout_width="match_parent"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
