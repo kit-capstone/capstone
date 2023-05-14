@@ -117,7 +117,6 @@ class ProfileFragment : Fragment() {
                             }
                         })
 
-
                     user.delete().addOnCompleteListener { task->
                         if (task.isSuccessful) {
                             val intent = Intent(requireContext(), MainActivity::class.java)
