@@ -36,6 +36,13 @@ class FBAuth {
             return dateFormat
 
         }
+
+        fun getProfile() : String {
+            auth = FirebaseAuth.getInstance()
+
+            var currentUser = (auth.currentUser?.photoUrl).toString()
+            return currentUser
+        }
     }
 
 
