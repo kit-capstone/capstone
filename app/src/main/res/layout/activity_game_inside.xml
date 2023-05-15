@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ScrollView
+        android:id="@+id/game_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background">
@@ -256,7 +257,8 @@
                 android:id="@+id/comment_frame"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:visibility="visible"
+                android:visibility="gone"
+                android:animateLayoutChanges="true"
                 android:orientation="vertical"
                 >
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -299,6 +301,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
+                android:animateLayoutChanges="true"
                 android:orientation="vertical">
 
                 <androidx.fragment.app.FragmentContainerView

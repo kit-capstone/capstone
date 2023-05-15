@@ -17,8 +17,10 @@ class CountResult {
                     count.twenties_opt1++
                 }else if(userdata.agerange == "30대"){
                     count.thirties_opt1++
-                }else if(userdata.agerange == "40대 이상") {
+                }else if(userdata.agerange == "40대") {
                     count.fourties_opt1++
+                }else if(userdata.agerange == "50대 이상"){
+                    count.fifties_opt1++
                 }
 
                 if(userdata.gender == "남성"){
@@ -47,8 +49,10 @@ class CountResult {
                     count.twenties_opt2++
                 }else if(userdata.agerange == "30대"){
                     count.thirties_opt2++
-                }else if(userdata.agerange == "40대 이상") {
+                }else if(userdata.agerange == "40대") {
                     count.fourties_opt2++
+                }else if(userdata.agerange == "50대 이상"){
+                    count.fifties_opt2++
                 }
 
                 if(userdata.gender == "남성"){

@@ -1,5 +1,6 @@
 package com.example.banlancegameex.contentsList
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -100,10 +101,21 @@ class GameInsideActivity : AppCompatActivity() {
 
                 binding.commentFrame.visibility = View.VISIBLE
                 binding.commentFrame.layoutParams.height = 1000
+
+                binding.commentFrame.post {
+                    val animator = ObjectAnimator.ofInt(binding.gameScroll, "scrollY", binding.commentFrame.top)
+                    animator.duration = 800
+                    animator.start()
+                }
             }
             else if(binding.commentFrame.visibility == View.VISIBLE){
-                binding.commentFrame.visibility = View.GONE
-                binding.commentFrame.layoutParams.height = 0
+                binding.commentFrame.post {
+                    val animator = ObjectAnimator.ofInt(binding.gameScroll, "scrollY", binding.commentFrame.top)
+                    animator.duration = 800
+                    animator.start()
+                    binding.commentFrame.visibility = View.GONE
+                    binding.commentFrame.layoutParams.height = 0
+                }
             }
         }
 
@@ -115,10 +127,21 @@ class GameInsideActivity : AppCompatActivity() {
                 }
                 binding.countFrame.visibility = View.VISIBLE
                 binding.countFrame.layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
+
+                binding.countFrame.post {
+                    val animator = ObjectAnimator.ofInt(binding.gameScroll, "scrollY", binding.countFrame.top)
+                    animator.duration = 800
+                    animator.start()
+                }
             }
             else if(binding.countFrame.visibility == View.VISIBLE){
-                binding.countFrame.visibility = View.GONE
-                binding.countFrame.layoutParams.height = 0
+                binding.countFrame.post {
+                    val animator = ObjectAnimator.ofInt(binding.gameScroll, "scrollY", binding.countFrame.top)
+                    animator.duration = 800
+                    animator.start()
+                    binding.countFrame.visibility = View.GONE
+                    binding.countFrame.layoutParams.height = 0
+                }
             }
         }
 
