@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -20,7 +19,6 @@ import com.example.banlancegameex.UserDataModel
 import com.example.banlancegameex.UserDataUpdateActivity
 import com.example.banlancegameex.contentsList.GameMakeActivity
 import com.example.banlancegameex.databinding.FragmentProfileBinding
-import com.example.banlancegameex.utils.FBAuth
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -28,7 +26,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.kakao.usermgmt.StringSet.email
 
 class ProfileFragment : Fragment() {
     private lateinit var binding : FragmentProfileBinding
@@ -66,8 +63,8 @@ class ProfileFragment : Fragment() {
             it.findNavController().navigate(R.id.action_profileFragment_to_bookMarkFragment)
         }
 
-        binding.localgroupTap.setOnClickListener {
-            it.findNavController().navigate(R.id.action_profileFragment_to_localGroupFragment)
+        binding.profileTap.setOnClickListener {
+
         }
 
         binding.homeTap.setOnClickListener {

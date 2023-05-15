@@ -29,103 +29,104 @@
                 android:layout_height="match_parent"
                 android:fillViewport="true">
             
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginBottom="65dp">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:textSize="23sp"
-                            android:gravity="top|left"
-                            android:text="오늘의 추천 토론"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="85dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="150dp"
-                            android:background="@drawable/background_radius_game"
-                            android:elevation="16dp"
-                            android:layout_margin="10dp"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <LinearLayout
+                            <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="30dp"
-                                android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/game_title_txt"
-                                android:text="게임 제목"
-                                android:textColor="@color/black"
-                                android:textSize="16sp"
-                                android:gravity="bottom"
-                                android:layout_marginLeft="20dp"
-                                android:fontFamily="@font/inter_semibold"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"/>
-
-                                <ImageView
-                                    android:id="@+id/bookmark_area"
-                                    android:src="@drawable/bookmark_unselect"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginRight="9dp"
-                                    android:layout_marginTop="3dp"
-                                    android:layout_marginBottom="2dp"
-                                    android:layout_gravity="center"
-                                    android:layout_weight="7"/>
-
-                            </LinearLayout>
+                                android:textSize="23sp"
+                                android:gravity="top|left"
+                                android:text="오늘의 추천 토론"/>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal">
+                                android:layout_height="150dp"
+                                android:background="@drawable/background_radius_game"
+                                android:elevation="16dp"
+                                android:layout_margin="10dp"
+                                android:orientation="vertical">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/game_title_txt"
+                                    android:text="게임 제목"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:gravity="bottom"
+                                    android:layout_marginLeft="20dp"
+                                    android:fontFamily="@font/inter_semibold"
+                                    android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:orientation="vertical"
-                                    android:background="@drawable/background_radius_opt1"
-                                    android:gravity="center"
-                                    android:layout_margin="20dp"
-                                    android:layout_weight="1">
-                                    
-                                    <TextView
-                                        android:id="@+id/game_option1_txt"
-                                        android:text="옵션1"
-                                        android:textColor="@color/black"
-                                        android:fontFamily="@font/inter_regular"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"/>
+                                    android:layout_weight="1"/>
+
+                                    <ImageView
+                                        android:id="@+id/bookmark_area"
+                                        android:src="@drawable/bookmark_unselect"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginRight="9dp"
+                                        android:layout_marginTop="3dp"
+                                        android:layout_marginBottom="2dp"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="7"/>
 
                                 </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:orientation="vertical"
-                                    android:background="@drawable/background_radius_opt2"
-                                    android:gravity="center"
-                                    android:layout_margin="20dp"
-                                    android:layout_weight="1">
+                                    android:orientation="horizontal">
 
-                                    <TextView
-                                        android:id="@+id/game_option2_txt"
-                                        android:text="옵션2"
-                                        android:textColor="@color/black"
-                                        android:fontFamily="@font/inter_regular"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"/>
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="vertical"
+                                        android:background="@drawable/background_radius_opt1"
+                                        android:gravity="center"
+                                        android:layout_margin="20dp"
+                                        android:layout_weight="1">
+
+                                        <TextView
+                                            android:id="@+id/game_option1_txt"
+                                            android:text="옵션1"
+                                            android:textColor="@color/black"
+                                            android:fontFamily="@font/inter_regular"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"/>
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="vertical"
+                                        android:background="@drawable/background_radius_opt2"
+                                        android:gravity="center"
+                                        android:layout_margin="20dp"
+                                        android:layout_weight="1">
+
+                                        <TextView
+                                            android:id="@+id/game_option2_txt"
+                                            android:text="옵션2"
+                                            android:textColor="@color/black"
+                                            android:fontFamily="@font/inter_regular"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"/>
+
+                                    </LinearLayout>
 
                                 </LinearLayout>
 
@@ -133,37 +134,26 @@
 
                         </LinearLayout>
 
-                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/icon_black"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/icon_black"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/contentsRV"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title_txt"
+                        android:nestedScrollingEnabled="false">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/contentsRV"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_constraintTop_toBottomOf="@+id/title_txt"
-                    android:nestedScrollingEnabled="false">
-
-                </androidx.recyclerview.widget.RecyclerView>
-
-
-
-            </LinearLayout>
+                    </androidx.recyclerview.widget.RecyclerView>
+                </LinearLayout>
             </androidx.core.widget.NestedScrollView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout3">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/white"/>
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout1">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -192,26 +182,26 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout3"
+                android:id="@+id/linearLayout1"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="80dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:weightSum="5"
+                android:weightSum="4"
                 android:background="@color/white">
 
                 <ImageView
                     android:id="@+id/bookmark_tap"
                     android:layout_weight="1"
-                    android:src="@drawable/favorite_selelct"
+                    android:src="@drawable/favorite_selelct_"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-                <ImageView
-                    android:id="@+id/localgroup_tap"
-                    android:layout_weight="1"
-                    android:src="@drawable/localgroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/icon_black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
 
                 <ImageView
                     android:id="@+id/home_tap"
@@ -220,12 +210,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/icon_black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
+
                 <ImageView
                     android:id="@+id/search_tap"
                     android:layout_weight="1"
                     android:src="@drawable/search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/icon_black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
 
                 <ImageView
                     android:id="@+id/profile_tap"

@@ -256,8 +256,8 @@ class SearchFragment : Fragment() {
             it.findNavController().navigate(R.id.action_tagFragment_to_bookMarkFragment)
         }
 
-        binding.localgroupTap.setOnClickListener {
-            it.findNavController().navigate(R.id.action_tagFragment_to_localGroupFragment)
+        binding.searchTap.setOnClickListener {
+
         }
 
         binding.homeTap.setOnClickListener {

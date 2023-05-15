@@ -12,7 +12,10 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.banlancegameex.R
-import com.example.banlancegameex.contentsList.*
+import com.example.banlancegameex.contentsList.BookmarkModel
+import com.example.banlancegameex.contentsList.ContentModel
+import com.example.banlancegameex.contentsList.ContentRVAdapter
+import com.example.banlancegameex.contentsList.GameMakeActivity
 import com.example.banlancegameex.databinding.FragmentHomeBinding
 import com.example.banlancegameex.utils.FBAuth
 import com.example.banlancegameex.utils.FBRef
@@ -185,8 +188,8 @@ class HomeFragment : Fragment() {
             it.findNavController().navigate(R.id.action_homeFragment_to_bookMarkFragment)
         }
 
-        binding.localgroupTap.setOnClickListener {
-            it.findNavController().navigate(R.id.action_homeFragment_to_localGroupFragment)
+        binding.homeTap.setOnClickListener {
+
         }
 
         binding.searchTap.setOnClickListener {

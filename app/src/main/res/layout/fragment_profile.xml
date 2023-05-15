@@ -17,7 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/background"
-                android:layout_marginBottom="65dp"
+                android:layout_marginBottom="85dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -291,12 +291,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/white"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:background="@color/mainColor"/>
 
             </LinearLayout>
@@ -304,24 +298,24 @@
             <LinearLayout
                 android:id="@+id/linearLayout5"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="80dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:weightSum="5"
+                android:weightSum="4"
                 android:background="@color/white">
 
                 <ImageView
                     android:id="@+id/bookmark_tap"
                     android:layout_weight="1"
-                    android:src="@drawable/favorite_selelct"
+                    android:src="@drawable/favorite_selelct_"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-                <ImageView
-                    android:id="@+id/localgroup_tap"
-                    android:layout_weight="1"
-                    android:src="@drawable/localgroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/icon_black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
 
                 <ImageView
                     android:id="@+id/home_tap"
@@ -330,12 +324,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/icon_black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
+
                 <ImageView
                     android:id="@+id/search_tap"
                     android:layout_weight="1"
                     android:src="@drawable/search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/icon_black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
 
                 <ImageView
                     android:id="@+id/profile_tap"

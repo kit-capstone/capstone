@@ -61,12 +61,12 @@ class BookMarkFragment : Fragment() {
         rv.layoutManager = GridLayoutManager(requireContext(), 1)
 
 
-        binding.homeTap.setOnClickListener {
-            it.findNavController().navigate(R.id.action_bookMarkFragment_to_homeFragment)
+        binding.bookmarkTap.setOnClickListener {
+
         }
 
-        binding.localgroupTap.setOnClickListener {
-            it.findNavController().navigate(R.id.action_bookMarkFragment_to_localGroupFragment)
+        binding.homeTap.setOnClickListener {
+            it.findNavController().navigate(R.id.action_bookMarkFragment_to_homeFragment)
         }
 
         binding.profileTap.setOnClickListener {
