@@ -123,8 +123,7 @@ class UserDataRegisterActivity : AppCompatActivity() {
                         2 -> "20대"
                         3 -> "30대"
                         4 -> "40대"
-                        5 -> "50대"
-                        else -> "60대 이상"
+                        else -> "50대 이상"
                     }
                 },
                 year,

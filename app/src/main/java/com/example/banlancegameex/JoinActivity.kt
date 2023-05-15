@@ -118,8 +118,7 @@ class JoinActivity : AppCompatActivity() {
                         2 -> _agerange = "20대"
                         3 -> _agerange = "30대"
                         4 -> _agerange = "40대"
-                        5 -> _agerange = "50대"
-                        else -> _agerange = "60대 이상"
+                        else -> _agerange = "50대 이상"
                     }
                 })
                 .setNegativeButton("아니오", DialogInterface.OnClickListener { dialog, which ->

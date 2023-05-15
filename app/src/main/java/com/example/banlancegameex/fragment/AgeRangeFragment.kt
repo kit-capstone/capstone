@@ -60,6 +60,7 @@ class AgeRangeFragment : Fragment() {
         ages2.add("40대")
         ages2.add("50대 이상")
 
+
         val values = ArrayList<BarEntry>()
         values.add(BarEntry(0f, count.teenager_op1.toFloat()))
         values.add(BarEntry(1f, count.twenties_opt1.toFloat()))

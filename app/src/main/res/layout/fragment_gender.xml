@@ -38,7 +38,7 @@
                         android:gravity="center"
                         android:text="@string/age_range"
                         android:fontFamily="@font/maplestory_bold"
-                        android:textSize="20dp"
+                        android:textSize="20sp"
                         android:textColor="@color/black"/>
                 </LinearLayout>
 
@@ -61,7 +61,7 @@
                         android:gravity="center"
                         android:text="@string/gender"
                         android:fontFamily="@font/maplestory_bold"
-                        android:textSize="20dp"
+                        android:textSize="20sp"
                         android:textColor="@color/black"/>
                 </LinearLayout>
 
@@ -84,7 +84,7 @@
                         android:gravity="center"
                         android:text="@string/locate"
                         android:fontFamily="@font/maplestory_bold"
-                        android:textSize="20dp"
+                        android:textSize="20sp"
                         android:textColor="@color/black"/>
                 </LinearLayout>
             </LinearLayout>
