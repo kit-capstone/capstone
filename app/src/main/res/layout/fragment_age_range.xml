@@ -36,6 +36,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="@string/age_range"
+                        android:fontFamily="@font/maplestory_bold"
                         android:textSize="20dp"
                         android:textColor="@color/black"/>
                 </LinearLayout>
@@ -58,6 +59,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="@string/gender"
+                        android:fontFamily="@font/maplestory_bold"
                         android:textSize="20dp"
                         android:textColor="@color/black"/>
                 </LinearLayout>
@@ -80,6 +82,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="@string/locate"
+                        android:fontFamily="@font/maplestory_bold"
                         android:textSize="20dp"
                         android:textColor="@color/black"/>
                 </LinearLayout>
@@ -97,6 +100,7 @@
                     android:id="@+id/option1"
                     android:gravity="left|center"
                     android:text="옵션1 제목"
+                    android:fontFamily="@font/maplestory_light"
                     android:textSize="20sp"
                     android:textColor="@color/black"
                     android:layout_marginLeft="10dp"
@@ -114,6 +118,7 @@
                     android:id="@+id/option2"
                     android:gravity="left|center"
                     android:text="옵션2 제목"
+                    android:fontFamily="@font/maplestory_light"
                     android:textSize="20sp"
                     android:textColor="@color/black"
                     android:layout_marginTop="20dp"

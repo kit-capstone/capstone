@@ -28,6 +28,7 @@
                     android:layout_marginRight="40dp"
                     android:gravity="center"
                     android:text="title"
+                    android:fontFamily="@font/maplestory_bold"
                     android:textColor="@color/black"
                     android:textSize="25sp"
                     android:textStyle="bold" />
@@ -60,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:gravity="right"
+                android:fontFamily="@font/maplestory_light"
                 android:text="time" />
 
             <LinearLayout
@@ -91,6 +93,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
                             android:gravity="center"
+                            android:fontFamily="@font/maplestory_bold"
                             android:text="여기는 내용 영역"
                             android:textAlignment="center"
                             android:textColor="@color/solid_black1"
@@ -107,6 +110,7 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center"
                                 android:text="여기는 내용 설명 영역"
+                                android:fontFamily="@font/maplestory_light"
                                 android:textAlignment="center"
                                 android:textColor="@color/solid_black2"
                                 android:textSize="16sp" />
@@ -131,6 +135,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="이건 선택 비율"
+                            android:fontFamily="@font/maplestory_bold"
                             android:textAlignment="center"
                             android:textColor="@color/white"
                             android:textSize="55sp" />
@@ -163,6 +168,7 @@
                             android:layout_height="100dp"
                             android:gravity="center"
                             android:text="여기는 내용 영역"
+                            android:fontFamily="@font/maplestory_bold"
                             android:textAlignment="center"
                             android:textColor="@color/solid_black1"
                             android:textSize="25sp" />
@@ -178,6 +184,7 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center"
                                 android:text="여기는 내용 설명 영역"
+                                android:fontFamily="@font/maplestory_light"
                                 android:textAlignment="center"
                                 android:textColor="@color/solid_black2"
                                 android:textSize="16sp" />
@@ -202,6 +209,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="이건 선택 비율"
+                            android:fontFamily="@font/maplestory_bold"
                             android:textAlignment="center"
                             android:textColor="@color/white"
                             android:textSize="50sp" />
@@ -227,6 +235,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/maplestory_light"
                     android:text="통계 보기"
                     android:textSize="23sp"/>
 
@@ -238,6 +247,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/maplestory_light"
                     android:text="댓글 보기"
                     android:textSize="23sp"/>
             </LinearLayout>

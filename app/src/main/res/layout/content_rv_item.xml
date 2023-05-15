@@ -17,10 +17,10 @@
             android:id="@+id/game_title_txt"
             android:text="게임 제목"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:gravity="left|center"
             android:layout_marginLeft="20dp"
-            android:fontFamily="@font/inter_semibold"
+            android:fontFamily="@font/maplestory_bold"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
@@ -28,13 +28,12 @@
         <ImageView
             android:id="@+id/bookmark_area"
             android:src="@drawable/bookmark_unselect"
-            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
             android:layout_marginRight="9dp"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="2dp"
+            android:layout_gravity="center"
             android:layout_weight="7"/>
 
     </LinearLayout>
@@ -57,7 +56,7 @@
                 android:id="@+id/game_option1_txt"
                 android:text="옵션1"
                 android:textColor="@color/black"
-                android:fontFamily="@font/inter_regular"
+                android:fontFamily="@font/maplestory_light"
                 android:layout_margin="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -78,7 +77,7 @@
                 android:text="옵션2"
                 android:textColor="@color/black"
                 android:layout_margin="10dp"
-                android:fontFamily="@font/inter_regular"
+                android:fontFamily="@font/maplestory_light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

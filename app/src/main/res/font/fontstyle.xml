@@ -9,4 +9,15 @@
         android:fontStyle="normal"
         android:fontWeight="400"
         android:font="@font/inter_regular"/>
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/maplestory_bold"/>
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/maplestory_light"/>
+
 </font-family>

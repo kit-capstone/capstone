@@ -40,7 +40,6 @@
                     android:paddingHorizontal="16dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-
                     android:elevation="10dp"
                     android:gravity="center"/>
 

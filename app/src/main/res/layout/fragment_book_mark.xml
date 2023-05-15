@@ -15,9 +15,12 @@
 
             <TextView
                 android:id="@+id/title_txt"
-                android:text="@string/bookmark"
+                android:text="북마크한 게시물"
                 android:gravity="center"
                 android:textSize="30sp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/maplestory_bold"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@+id/Fragment1"/>

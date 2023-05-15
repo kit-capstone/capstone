@@ -10,6 +10,7 @@
     <Button
         android:id="@+id/editBtn"
         android:text="수정"
+        android:fontFamily="@font/maplestory_bold"
         android:background="@drawable/background_radius_yellow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,6 +18,7 @@
         />
     <Button
         android:id="@+id/removeBtn"
+        android:fontFamily="@font/maplestory_bold"
         android:text="삭제"
         android:background="@drawable/background_radius_yellow"
         android:layout_width="match_parent"
