@@ -256,7 +256,7 @@ class GameInsideActivity : AppCompatActivity() {
 
                         val transaction = supportFragmentManager.beginTransaction()
                         transaction.replace(R.id.fragmentContainerView2, fragment)
-                        transaction.commit()
+                        transaction.commitAllowingStateLoss()
 
                     }
                 }
@@ -361,6 +361,6 @@ class GameInsideActivity : AppCompatActivity() {
             2 -> transaction.replace(R.id.fragmentContainerView2, genderFragment)
             3 -> transaction.replace(R.id.fragmentContainerView2, locateFragment)
         }
-        transaction.commit()
+        transaction.commitAllowingStateLoss()
     }
 }
