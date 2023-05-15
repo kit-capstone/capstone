@@ -139,6 +139,7 @@ class GameInsideActivity : AppCompatActivity() {
 
                     val item = dataModel.getValue(CommentModel::class.java)
                     commentDataList.add(item!!)
+
                 }
 
                 commentAdapter.notifyDataSetChanged()
@@ -176,7 +177,8 @@ class GameInsideActivity : AppCompatActivity() {
             .setValue(
                 CommentModel(
                     binding.commentArea.text.toString(),
-                    FBAuth.getTime()
+                    FBAuth.getTime(),
+                    FBAuth.getuid()
                 )
             )
 
