@@ -81,7 +81,13 @@ class GameInsideActivity : AppCompatActivity() {
 
         //댓글
         binding.commentBtn.setOnClickListener {
-            insertComment(key)
+            val commentText = binding.commentArea.text.toString().trim() // 댓글 내용 가져오기
+
+            if (commentText.isNotEmpty()) { // 댓글 내용이 비어있지 않은 경우에만 데이터베이스에 입력
+                insertComment(key)
+            } else {
+                Toast.makeText(this, "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.commentVisibleControll.setOnClickListener {
