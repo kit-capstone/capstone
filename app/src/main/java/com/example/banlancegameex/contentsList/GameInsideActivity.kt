@@ -1,6 +1,7 @@
 package com.example.banlancegameex.contentsList
 
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -323,13 +324,19 @@ class GameInsideActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     fun gameplayResult(total : Int) {
         binding.opt1Mask.visibility = View.VISIBLE
         binding.opt2Mask.visibility = View.VISIBLE
+
         opt1_count = ((game_count.total_opt1.toDouble() / total.toDouble()) * 100)
         opt2_count = ((game_count.total_opt2.toDouble() / total.toDouble()) * 100)
-        binding.opt1MaskText.setText("$opt1_count %")
-        binding.opt2MaskText.setText("$opt2_count %")
+
+        val opt1_percent = String.format("%.1f", opt1_count)
+        val opt2_percent = String.format("%.1f", opt2_count)
+
+        binding.opt1MaskText.text = "$opt1_percent %"
+        binding.opt2MaskText.text = "$opt2_percent %"
         binding.option1.apply {
             isClickable = false
             isEnabled = false
