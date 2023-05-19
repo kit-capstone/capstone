@@ -40,7 +40,7 @@ class UserDataRegisterActivity : AppCompatActivity() {
     private var year = calendar.get(Calendar.YEAR)
     private var month = calendar.get(Calendar.MONTH)
     private var day = calendar.get(Calendar.DAY_OF_MONTH)
-    private lateinit var errormesage : String
+    private lateinit var errormessage : String
     private lateinit var _gender : String
     private lateinit var _agerange : String
     private lateinit var _job : String
@@ -60,6 +60,7 @@ class UserDataRegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSpinnerJob()
+        setSpinnerLocate()
         setupSpinnerHandler()
 
         database.child("userdata").orderByChild("email").equalTo(auth.currentUser?.email.toString())
@@ -146,8 +147,8 @@ class UserDataRegisterActivity : AppCompatActivity() {
 
                         if(_agerange ==""){
                             gotomain = false
-                            errormesage = "생년월일을 입력해주세요."
-                            SendErrorMessage(errormesage)
+                            errormessage = "생년월일을 입력해주세요."
+                            sendErrorMessage()
                         }
 
                         if(gotomain) {
@@ -157,8 +158,8 @@ class UserDataRegisterActivity : AppCompatActivity() {
 
                     override fun onCancelled(error: DatabaseError) {
                         gotomain = false
-                        errormesage = "데이터베이스 연동 중 문제가 발생하였습니다."
-                        SendErrorMessage(errormesage)
+                        errormessage = "데이터베이스 연동 중 문제가 발생하였습니다."
+                        sendErrorMessage()
                     }
                 })
         }
@@ -168,6 +169,12 @@ class UserDataRegisterActivity : AppCompatActivity() {
         val job = resources.getStringArray(R.array.spinner_job)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, job)
         binding.jobSpin.adapter = adapter
+    }
+
+    private fun setSpinnerLocate(){
+        val locate = resources.getStringArray(R.array.spinner_locate)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, locate)
+        binding.locateSpin.adapter = adapter
     }
 
     private fun setupSpinnerHandler() {
@@ -180,6 +187,18 @@ class UserDataRegisterActivity : AppCompatActivity() {
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 // 아무 것도 선택 하지 않았을 시 이벤트
                 _job = "학생"
+            }
+        }
+
+        binding.locateSpin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                // 드롭 다운 버튼 클릭 시 이벤트
+                _locate = binding.locateSpin.getItemAtPosition(position).toString()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                // 아무 것도 선택 하지 않았을 시 이벤트
+                _locate = "경기도"
             }
         }
     }
@@ -202,20 +221,18 @@ class UserDataRegisterActivity : AppCompatActivity() {
         val database = Firebase.database
         val myRef = database.getReference("userdata")
 
-        _locate = binding.textLocate.text.toString()
-
         // database에 userdata 입력
         myRef.child(FBAuth.getuid()).setValue(
             UserDataModel(auth.currentUser?.email.toString(), _nickname, _gender, _agerange, _job, _locate)
         )
-        Toast.makeText(this, "사용자 정보 변경 완료.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "사용자 정보 변경 완료", Toast.LENGTH_SHORT).show()
 
         val intent = Intent(this, UserDataUpdateActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
-    private fun SendErrorMessage(errormessage: String) {
-        Toast.makeText(this, errormesage, Toast.LENGTH_SHORT).show()
+    private fun sendErrorMessage() {
+        Toast.makeText(this, errormessage, Toast.LENGTH_SHORT).show()
     }
 }
 

@@ -161,18 +161,19 @@
                 android:layout_height="48dp"
                 android:text="지역" />
 
-            <EditText
-                android:id="@+id/text_locate"
-                android:hint="locate"
-                android:ems="10"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="14dp"
-                android:layout_marginBottom="20dp"
+            <Spinner
+                android:contentDescription="지역 설정"
+                android:id="@+id/locate_spin"
+                android:background="@drawable/background_age_range"
                 android:layout_width="match_parent"
-                android:inputType="text"
-                android:background="@drawable/edit_text"
-                android:layout_height="50dp"
-                android:padding="12dp" />
+                android:layout_height="48dp"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:elevation="20dp"
+                android:gravity="center"/>
 
             <TextView
                 style="@style/AuthGuideText"

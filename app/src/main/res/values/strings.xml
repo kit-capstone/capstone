@@ -2,11 +2,13 @@
     <string name="app_name">ABTwin</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string-array name="spinner_age_range">
-        <item>10대</item>
-        <item>20대</item>
-        <item>30대</item>
-        <item>40대 이상</item>
+    <string-array name="spinner_locate">
+        <item>경기도</item>
+        <item>강원도</item>
+        <item>충정도</item>
+        <item>경상도</item>
+        <item>전라도</item>
+        <item>제주도</item>
     </string-array>
 
     <string-array name="spinner_job">
