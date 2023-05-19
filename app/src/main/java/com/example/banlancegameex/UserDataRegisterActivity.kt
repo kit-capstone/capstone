@@ -139,7 +139,6 @@ class UserDataRegisterActivity : AppCompatActivity() {
             }
         }
 
-        binding.birthdayInputBtn.setBackgroundResource(R.drawable.ripple_background)
         binding.birthdayInputBtn.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
                 this,

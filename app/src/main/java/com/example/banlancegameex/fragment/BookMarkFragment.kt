@@ -49,7 +49,6 @@ class BookMarkFragment : Fragment() {
 
         // Inflate the layout for this fragment
         binding = FragmentBookMarkBinding.inflate(layoutInflater)
-
         getBookmark()
 
 

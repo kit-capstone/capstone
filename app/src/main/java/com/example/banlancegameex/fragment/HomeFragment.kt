@@ -218,23 +218,3 @@ class HomeFragment : Fragment() {
 //        }
 //    }
 }
-
-//FBRef.postRef.push().setValue(
-//ContentModel("테스트 제목1", "테스트 옵션1", "테스트 옵션2", 0, "test", "경상북도 구미시")
-//)
-//
-//FBRef.postRef.push().setValue(
-//ContentModel("테스트 제목2", "테스트 옵션1", "테스트 옵션2", 1, "test", "경상북도 구미시")
-//)
-//
-//FBRef.postRef.push().setValue(
-//ContentModel("테스트 제목3", "테스트 옵션1", "테스트 옵션2", 2, "test", "경상북도 구미시")
-//)
-//
-//FBRef.postRef.push().setValue(
-//ContentModel("테스트 제목4", "테스트 옵션1", "테스트 옵션2", 3, "test", "경상북도 구미시")
-//)
-//
-//FBRef.postRef.push().setValue(
-//ContentModel("테스트 제목5", "테스트 옵션1", "테스트 옵션2", 4, "test", "경상북도 구미시")
-//)
