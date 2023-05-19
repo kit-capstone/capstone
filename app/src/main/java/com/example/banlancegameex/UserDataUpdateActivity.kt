@@ -16,7 +16,6 @@ import com.google.firebase.ktx.Firebase
 class UserDataUpdateActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserDataUpdateBinding
     private lateinit var auth : FirebaseAuth
-
     private lateinit var _gender : String
     private lateinit var _agerange : String
     private lateinit var _job : String

@@ -154,7 +154,7 @@ class HomeFragment : Fragment() {
 
         binding.writeBtn.bringToFront()
 
-
+        binding.writeBtn.setBackgroundResource(R.drawable.ripple_background_radius)
         binding.writeBtn.setOnClickListener {
             val intent = Intent(context, GameMakeActivity::class.java)
             startActivity(intent)
