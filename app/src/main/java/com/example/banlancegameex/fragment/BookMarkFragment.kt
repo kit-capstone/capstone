@@ -50,7 +50,7 @@ class BookMarkFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentBookMarkBinding.inflate(layoutInflater)
 
-        getBookmarkData()
+        getBookmark()
 
 
         rvAdapter = BookmarkRVAdapter(requireContext(), items, itemKeyList, bookmarkIdList)
@@ -85,6 +85,9 @@ class BookMarkFragment : Fragment() {
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
+                items.clear()
+                itemKeyList.clear()
+
                 for (dataModel in dataSnapshot.children) {
 
                     Log.d(TAG, dataModel.toString())
@@ -111,16 +114,17 @@ class BookMarkFragment : Fragment() {
 
     }
 
-    private fun getBookmarkData(){
+    private fun getBookmark(){
 
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                bookmarkIdList.clear()
+                var a=1
 
                 for (dataModel in dataSnapshot.children) {
-
-                    Log.e(TAG, dataModel.toString())
+                    a++
+                    Log.e(TAG, "${a},${dataModel.toString()}")
                     bookmarkIdList.add(dataModel.key.toString())
-
                 }
 
                 // 1. 전체 카테고리에 있는 컨텐츠 데이터들을 다 가져옴!
