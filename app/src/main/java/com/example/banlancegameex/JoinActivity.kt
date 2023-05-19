@@ -14,13 +14,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.banlancegameex.databinding.ActivityJoinBinding
 import com.example.banlancegameex.utils.FBAuth
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.kakao.usermgmt.StringSet.email
-import com.kakao.usermgmt.StringSet.gender
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -31,7 +30,7 @@ class JoinActivity : AppCompatActivity() {
     private lateinit var _job: String
 
     // error 메세지의 내용을 담을 문자열
-    private lateinit var errormesage: String
+    private lateinit var errormessage: String
 
     // 사용자의 uid를 가져오기 위한 firebase인증 인스턴스
     private lateinit var auth: FirebaseAuth
@@ -69,22 +68,22 @@ class JoinActivity : AppCompatActivity() {
             val _nickname = binding.nickname.text.toString()
             if (_nickname.isEmpty()) {
                 gotomain = false
-                errormesage = "닉네임을 입력해주세요."
-                SendErrorMessage(errormesage)
+                errormessage = "닉네임을 입력해주세요."
+                sendErrorMessage()
             }
             _database.child("userdata").orderByChild("nickname").equalTo(_nickname)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (snapshot.exists()) {
                             gotomain = false
-                            errormesage = "중복된 닉네임입니다."
-                            SendErrorMessage(errormesage)
+                            errormessage = "중복된 닉네임입니다."
+                            sendErrorMessage()
                         }
 
                         if (_agerange == "") {
                             gotomain = false
-                            errormesage = "생년월일을 입력해주세요."
-                            SendErrorMessage(errormesage)
+                            errormessage = "생년월일을 입력해주세요."
+                            sendErrorMessage()
                         }
 
                         if (gotomain) {
@@ -94,8 +93,8 @@ class JoinActivity : AppCompatActivity() {
 
                     override fun onCancelled(error: DatabaseError) {
                         gotomain = false
-                        errormesage = "데이터베이스 연동 중 문제가 발생하였습니다."
-                        SendErrorMessage(errormesage)
+                        errormessage = "데이터베이스 연동 중 문제가 발생하였습니다."
+                        sendErrorMessage()
 
                     }
                 })
@@ -184,7 +183,34 @@ class JoinActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun SendErrorMessage(errormessage: String) {
-        Toast.makeText(this, errormesage, Toast.LENGTH_SHORT).show()
+    private fun sendErrorMessage() {
+        Toast.makeText(this, errormessage, Toast.LENGTH_SHORT).show()
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        // 뒤로 가기 버튼을 눌렀을 때 실행되는 코드
+        val user = Firebase.auth.currentUser!!
+
+        val builder = AlertDialog.Builder(this)
+            .setTitle("회원가입 취소")
+            .setMessage("정말 회원가입을 취소하시겠습니까?")
+            .setPositiveButton("네",DialogInterface.OnClickListener{dialog, which ->
+                user.delete().addOnCompleteListener { task->
+                    if (task.isSuccessful) {
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        Toast.makeText(this,"회원가입 취소 완료",Toast.LENGTH_SHORT).show()
+                    }
+                    else {
+                        Toast.makeText(this,"회원가입 취소 실패",Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+            .setNegativeButton("아니오",DialogInterface.OnClickListener { dialog, which ->
+                Toast.makeText(this,"회원가입을 이어서 수행합니다.",Toast.LENGTH_SHORT).show()
+            })
+        builder.show()
     }
 }
