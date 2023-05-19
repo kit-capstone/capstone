@@ -2,6 +2,7 @@ package com.example.banlancegameex.contentsList
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -30,10 +31,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
+
 class GameInsideActivity : AppCompatActivity() {
 
     private val TAG = GameInsideActivity::class.java.simpleName
     var game_name = ""
+    var KeyList = ArrayList<String>()
     lateinit var game_count : CountModel
     var opt1_count = 0.0
     var opt2_count = 0.0
@@ -58,8 +61,17 @@ class GameInsideActivity : AppCompatActivity() {
 
         //데이터베이스에서 받아온 게시물의 키값으로 post(game)접근
         key = intent.getStringExtra("key").toString()
+        KeyList = (intent.getStringArrayListExtra("keylist"))?:ArrayList<String>()
         getBoardData(key.toString())
 
+        binding.opt1Mask.apply {
+            isClickable = false
+            isEnabled = false
+        }
+        binding.opt2Mask.apply {
+            isClickable = false
+            isEnabled = false
+        }
 
         binding.option1.setOnClickListener {
             Log.d("테스트용", game_count.toString())
@@ -74,6 +86,14 @@ class GameInsideActivity : AppCompatActivity() {
             var total = game_count.total_opt1 + game_count.total_opt2
             gameplayResult(total)
             updateCountData("B")
+        }
+
+        binding.opt1Mask.setOnClickListener {
+            nextpost()
+        }
+
+        binding.opt2Mask.setOnClickListener {
+            nextpost()
         }
 
         //메뉴
@@ -154,8 +174,6 @@ class GameInsideActivity : AppCompatActivity() {
         rv.layoutManager = LinearLayoutManager(this)
 
         //binding.commentRV.adapter = commentAdapter
-
-
     }
 
     private fun getCommentData(key : String){
@@ -177,9 +195,6 @@ class GameInsideActivity : AppCompatActivity() {
                 for (commentData in commentDataList) {
                     Log.d("테스트용", "comment: ${commentData.commentTitle}")
                 }
-
-
-
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -188,10 +203,6 @@ class GameInsideActivity : AppCompatActivity() {
             }
         }
         FBRef.commentRef.child(key).addValueEventListener(postListener)
-
-
-
-
     }
 
     private fun insertComment(key : String){
@@ -345,6 +356,14 @@ class GameInsideActivity : AppCompatActivity() {
             isClickable = false
             isEnabled = false
         }
+        binding.opt1Mask.apply {
+            isClickable = true
+            isEnabled = true
+        }
+        binding.opt2Mask.apply {
+            isClickable = true
+            isEnabled = true
+        }
     }
 
     fun updateCountData(choose : String) {
@@ -400,5 +419,19 @@ class GameInsideActivity : AppCompatActivity() {
             3 -> transaction.replace(R.id.fragmentContainerView2, locateFragment)
         }
         transaction.commitAllowingStateLoss()
+    }
+
+    fun nextpost() {
+        KeyList.remove(key)
+        if(KeyList.isNotEmpty()){
+            key = KeyList.random()
+            val _intent = intent
+            _intent.putExtra("key", key)
+            _intent.putStringArrayListExtra("keylist", KeyList)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(_intent)
+        }else{
+            Toast.makeText(this, "현재 모든 게임을 완료했습니다.", Toast.LENGTH_LONG).show()
+        }
     }
 }

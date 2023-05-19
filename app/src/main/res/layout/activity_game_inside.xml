@@ -133,13 +133,23 @@
                         <TextView
                             android:id="@+id/opt1_mask_text"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="140dp"
                             android:gravity="center"
                             android:text="이건 선택 비율"
                             android:fontFamily="@font/maplestory_bold"
                             android:textAlignment="center"
                             android:textColor="@color/white"
                             android:textSize="55sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|top"
+                            android:text="다음 게임으로 넘어가기"
+                            android:fontFamily="@font/maplestory_bold"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="25sp"/>
 
                     </LinearLayout>
                 </FrameLayout>
@@ -207,13 +217,23 @@
                         <TextView
                             android:id="@+id/opt2_mask_text"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="140dp"
                             android:gravity="center"
                             android:text="이건 선택 비율"
                             android:fontFamily="@font/maplestory_bold"
                             android:textAlignment="center"
                             android:textColor="@color/white"
-                            android:textSize="50sp" />
+                            android:textSize="55sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|top"
+                            android:text="다음 게임으로 넘어가기"
+                            android:fontFamily="@font/maplestory_bold"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="25sp"/>
 
                     </LinearLayout>
                 </FrameLayout>

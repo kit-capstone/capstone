@@ -43,17 +43,6 @@ class HomeFragment : Fragment() {
     // recycler view를 위한 adapter
     lateinit var rvAdapter : ContentRVAdapter
 
-//    companion object {
-//        const val REQUEST_CODE_PERMISSIONS = 1001
-//    }
-//
-//    private val permissions = arrayOf(
-//        android.Manifest.permission.ACCESS_FINE_LOCATION,
-//        android.Manifest.permission.ACCESS_COARSE_LOCATION
-//    )
-//
-//    private lateinit var activityResultLauncher: ActivityResultLauncher<Array<String>>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -73,17 +62,6 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
-//        activityResultLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-//            if (it.all { permission -> permission.value == true }) {
-//
-//            } else {
-//                Toast.makeText(requireContext(), "권한 거부", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//
-//        if (!checkPermission(permissions)) {
-//            requestPermissions(permissions, REQUEST_CODE_PERMISSIONS)
-//        }
 
         // FirebaseAuth 초기화
         auth = FirebaseAuth.getInstance()

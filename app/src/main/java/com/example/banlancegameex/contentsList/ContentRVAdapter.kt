@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.banlancegameex.R
 import com.example.banlancegameex.utils.FBAuth
@@ -26,7 +25,7 @@ class ContentRVAdapter (val context : Context,
     }
 
     override fun onBindViewHolder(holder: ContentRVAdapter.Viewholder, position: Int) {
-        holder.bindItems(items[position], keyList[position])
+        holder.bindItems(items[position], keyList[position], keyList)
     }
 
     override fun getItemCount(): Int {
@@ -34,12 +33,13 @@ class ContentRVAdapter (val context : Context,
     }
 
     inner class Viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindItems(item : ContentModel, key : String){
+        fun bindItems(item : ContentModel, key : String, keylist: ArrayList<String>){
 
             itemView.setOnClickListener {
                 // 게임 페이지로 이동 코드 구현 필요
                 val intent = Intent(context, GameInsideActivity::class.java)
                 intent.putExtra("key", key)
+                intent.putStringArrayListExtra("keylist", keylist)
                 itemView.context.startActivity(intent)
             }
 

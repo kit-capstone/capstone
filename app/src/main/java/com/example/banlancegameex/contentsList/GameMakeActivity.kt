@@ -70,7 +70,6 @@ class GameMakeActivity : AppCompatActivity() {
 
             FBRef.countRef
                 .child(title)
-                .push()
                 .setValue(CountModel())
 
             Toast.makeText(this,"게시글 입력 완료", Toast.LENGTH_SHORT).show()
