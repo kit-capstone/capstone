@@ -122,7 +122,7 @@
                 style="@style/AuthGuideText"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="생년월일" />
+                android:text="나이대" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -132,7 +132,7 @@
 
                 <TextView
                     android:id="@+id/text_birthday"
-                    android:hint="birthday"
+                    android:hint="agerange"
                     android:ems="10"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="14dp"

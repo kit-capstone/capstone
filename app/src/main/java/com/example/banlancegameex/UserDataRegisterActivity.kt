@@ -76,6 +76,7 @@ class UserDataRegisterActivity : AppCompatActivity() {
                     }
 
                     binding.textNickname.text = _nickname
+                    binding.textBirthday.text = _agerange
                     binding.textEmail.text = auth.currentUser?.email.toString()
 
                     if(_gender == "남성"){
@@ -93,6 +94,34 @@ class UserDataRegisterActivity : AppCompatActivity() {
                     }
                     else if(_job == "무직"){
                         binding.jobSpin.setSelection(2)
+                    }
+
+                    if(_locate == "경기도"){
+                        binding.locateSpin.setSelection(0)
+                    }
+                    else if(_locate == "강원도"){
+                        binding.locateSpin.setSelection(1)
+                    }
+                    else if(_locate == "충청북도"){
+                        binding.locateSpin.setSelection(2)
+                    }
+                    else if(_locate == "충청남도"){
+                        binding.locateSpin.setSelection(3)
+                    }
+                    else if(_locate == "경상북도"){
+                        binding.locateSpin.setSelection(4)
+                    }
+                    else if(_locate == "경상남도"){
+                        binding.locateSpin.setSelection(5)
+                    }
+                    else if(_locate == "전라북도"){
+                        binding.locateSpin.setSelection(6)
+                    }
+                    else if(_locate == "전라북도"){
+                        binding.locateSpin.setSelection(7)
+                    }
+                    else if(_locate == "제주특별자치도"){
+                        binding.locateSpin.setSelection(8)
                     }
 
                 }
@@ -116,7 +145,6 @@ class UserDataRegisterActivity : AppCompatActivity() {
                 AlertDialog.THEME_HOLO_LIGHT,
                 { _, year, month, day ->
                     val birthDate = (year * 10000 + (month + 1) * 100 + day).toString()
-                    binding.textBirthday.text = "${year}.${(month + 1)}.${day}"
                     val _age = getAmericanAge(birthDate)
                     _agerange = when (_age / 10) {
                         0 -> "10대 미만"
@@ -126,6 +154,7 @@ class UserDataRegisterActivity : AppCompatActivity() {
                         4 -> "40대"
                         else -> "50대 이상"
                     }
+                    binding.textBirthday.text = _agerange
                 },
                 year,
                 month,
