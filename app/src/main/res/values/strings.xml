@@ -5,10 +5,13 @@
     <string-array name="spinner_locate">
         <item>경기도</item>
         <item>강원도</item>
-        <item>충정도</item>
-        <item>경상도</item>
-        <item>전라도</item>
-        <item>제주도</item>
+        <item>충청북도</item>
+        <item>충청남도</item>
+        <item>경상북도</item>
+        <item>경상남도</item>
+        <item>전라북도</item>
+        <item>전라남도</item>
+        <item>제주특별자치도</item>
     </string-array>
 
     <string-array name="spinner_job">
