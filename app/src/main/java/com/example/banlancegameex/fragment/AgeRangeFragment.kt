@@ -1,5 +1,6 @@
 package com.example.banlancegameex.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +45,9 @@ class AgeRangeFragment : Fragment() {
         binding.option2.setText(opt2)
 
         val barChart1 = binding.opt1Chart
-        val barChart2 = binding.opt2Chart
+        barChart1.setExtraOffsets(0f, 0f, 0f, 5f)
+        barChart1.setPinchZoom(false)
+        barChart1.setScaleEnabled(false)
 
         val ages1 = ArrayList<String>()
         ages1.add("10대")
@@ -52,14 +55,6 @@ class AgeRangeFragment : Fragment() {
         ages1.add("30대")
         ages1.add("40대")
         ages1.add("50대 이상")
-
-        val ages2 = ArrayList<String>()
-        ages2.add("10대")
-        ages2.add("20대")
-        ages2.add("30대")
-        ages2.add("40대")
-        ages2.add("50대 이상")
-
 
         val values = ArrayList<BarEntry>()
         values.add(BarEntry(0f, count.teenager_op1.toFloat()))
@@ -69,23 +64,22 @@ class AgeRangeFragment : Fragment() {
         values.add(BarEntry(4f, count.fifties_opt1.toFloat()))
 
         val values2 = ArrayList<BarEntry>()
-        values2.add(BarEntry(0f, count.teenager_op2.toFloat()))
-        values2.add(BarEntry(1f, count.twenties_opt2.toFloat()))
-        values2.add(BarEntry(2f, count.thirties_opt2.toFloat()))
-        values2.add(BarEntry(3f, count.fourties_opt2.toFloat()))
-        values2.add(BarEntry(4f, count.fifties_opt2.toFloat()))
+        values2.add(BarEntry(0.3f, count.teenager_op2.toFloat()))
+        values2.add(BarEntry(1.3f, count.twenties_opt2.toFloat()))
+        values2.add(BarEntry(2.3f, count.thirties_opt2.toFloat()))
+        values2.add(BarEntry(3.3f, count.fourties_opt2.toFloat()))
+        values2.add(BarEntry(4.3f, count.fifties_opt2.toFloat()))
 
         val barDataSet = BarDataSet(values, "Ages")
-        barDataSet.color = R.color.tilte_blue
+        barDataSet.color = Color.rgb(251,81,96)
+        barDataSet.setDrawValues(false)
 
-        val barDataSet2 = BarDataSet(values2, "Ages")
-        barDataSet2.color = R.color.tilte_blue
+        val barDataSet2 = BarDataSet(values2, "Ages2")
+        barDataSet2.color = Color.rgb(84,122,255)
+        barDataSet2.setDrawValues(false)
 
-        val data = BarData(barDataSet)
-        data.barWidth = 0.9f
-
-        val data2 = BarData(barDataSet2)
-        data2.barWidth = 0.9f
+        val data = BarData(barDataSet, barDataSet2)
+        data.barWidth = 0.3f
 
         val xAxis = barChart1.xAxis
         xAxis.valueFormatter = IndexAxisValueFormatter(ages1)
@@ -94,32 +88,17 @@ class AgeRangeFragment : Fragment() {
         xAxis.setDrawAxisLine(true)
         xAxis.granularity = 1f
         xAxis.isGranularityEnabled = true
-
-        val xAxis2 = barChart2.xAxis
-        xAxis2.valueFormatter = IndexAxisValueFormatter(ages2)
-        xAxis2.position = XAxis.XAxisPosition.BOTTOM
-        xAxis2.setDrawGridLines(false)
-        xAxis2.setDrawAxisLine(true)
-        xAxis2.granularity = 1f
-        xAxis2.isGranularityEnabled = true
+        xAxis.textSize = 15f
+        xAxis.setLabelCount(5)
 
         val leftAxis = barChart1.axisLeft
-        leftAxis.axisMinimum = 0f
+        leftAxis.axisMinimum = 0.3f
         leftAxis.setDrawGridLines(true)
-
-        val leftAxis2 = barChart2.axisLeft
-        leftAxis2.axisMinimum = 0f
-        leftAxis2.setDrawGridLines(true)
 
         val rightAxis = barChart1.axisRight
         rightAxis.setDrawLabels(false)
         rightAxis.setDrawAxisLine(false)
         rightAxis.setDrawGridLines(false)
-
-        val rightAxis2 = barChart2.axisRight
-        rightAxis2.setDrawLabels(false)
-        rightAxis2.setDrawAxisLine(false)
-        rightAxis2.setDrawGridLines(false)
 
         barChart1.setFitBars(true)
         barChart1.data = data
@@ -127,13 +106,7 @@ class AgeRangeFragment : Fragment() {
         barChart1.description.isEnabled = false
         barChart1.legend.isEnabled = false
         barChart1.invalidate()
-
-        barChart2.setFitBars(true)
-        barChart2.data = data2
-        barChart2.animateY(1000)
-        barChart2.description.isEnabled = false
-        barChart2.legend.isEnabled = false
-        barChart2.invalidate()
+        barChart1.groupBars(-0.5f, 0.4f, 0f)
 
 
         binding.genderTap.setOnClickListener {
