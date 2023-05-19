@@ -78,7 +78,7 @@ class UserDataRegisterActivity : AppCompatActivity() {
                     binding.textNickname.text = _nickname
                     binding.textEmail.text = auth.currentUser?.email.toString()
 
-                    if(_gender == "남자"){
+                    if(_gender == "남성"){
                         binding.radioBtnMan.isChecked = true
                     }
                     else {
