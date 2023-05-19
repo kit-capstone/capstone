@@ -1,5 +1,6 @@
 package com.example.banlancegameex.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,23 +42,17 @@ class LocateFragment : Fragment() {
         binding.option2.setText(opt2)
 
         val barChart1 = binding.opt1Chart
-        val barChart2 = binding.opt2Chart
+        barChart1.setExtraOffsets(0f, 0f, 0f, 5f)
+        barChart1.setPinchZoom(false)
+        barChart1.setScaleEnabled(false)
 
         val locate1 = ArrayList<String>()
-        locate1.add("경기도")
-        locate1.add("강원도")
-        locate1.add("충청도")
-        locate1.add("경상도")
-        locate1.add("전라도")
-        locate1.add("제주도")
-
-        val locate2 = ArrayList<String>()
-        locate2.add("경기도")
-        locate2.add("강원도")
-        locate2.add("충청도")
-        locate2.add("경상도")
-        locate2.add("전라도")
-        locate2.add("제주도")
+        locate1.add("경기")
+        locate1.add("강원")
+        locate1.add("충청")
+        locate1.add("경상")
+        locate1.add("전라")
+        locate1.add("제주")
 
         val values = ArrayList<BarEntry>()
         values.add(BarEntry(0f, count.gyeonggi_opt1.toFloat()))
@@ -76,16 +71,15 @@ class LocateFragment : Fragment() {
         values2.add(BarEntry(5f, count.jeju_opt2.toFloat()))
 
         val barDataSet1 = BarDataSet(values, "Locate")
-        barDataSet1.color = R.color.tilte_blue
+        barDataSet1.color = Color.rgb(251,81,96)
+        barDataSet1.setDrawValues(false)
 
-        val barDataSet2 = BarDataSet(values2, "Locate")
-        barDataSet2.color = R.color.tilte_blue
+        val barDataSet2 = BarDataSet(values2, "Locate2")
+        barDataSet2.color = Color.rgb(84,122,255)
+        barDataSet2.setDrawValues(false)
 
-        val data1 = BarData(barDataSet1)
-        data1.barWidth = 1.1f
-
-        val data2 = BarData(barDataSet2)
-        data2.barWidth = 1.1f
+        val data1 = BarData(barDataSet1, barDataSet2)
+        data1.barWidth = 0.3f
 
         val xAxis = barChart1.xAxis
         xAxis.valueFormatter = IndexAxisValueFormatter(locate1)
@@ -94,32 +88,17 @@ class LocateFragment : Fragment() {
         xAxis.setDrawAxisLine(true)
         xAxis.granularity = 1f
         xAxis.isGranularityEnabled = true
-
-        val xAxis2 = barChart2.xAxis
-        xAxis2.valueFormatter = IndexAxisValueFormatter(locate2)
-        xAxis2.position = XAxis.XAxisPosition.BOTTOM
-        xAxis2.setDrawGridLines(false)
-        xAxis2.setDrawAxisLine(true)
-        xAxis2.granularity = 1f
-        xAxis2.isGranularityEnabled = true
+        xAxis.textSize = 15f
+        xAxis.setLabelCount(6)
 
         val leftAxis = barChart1.axisLeft
         leftAxis.axisMinimum = 0f
         leftAxis.setDrawGridLines(true)
 
-        val leftAxis2 = barChart2.axisLeft
-        leftAxis2.axisMinimum = 0f
-        leftAxis2.setDrawGridLines(true)
-
         val rightAxis = barChart1.axisRight
         rightAxis.setDrawLabels(false)
         rightAxis.setDrawAxisLine(false)
         rightAxis.setDrawGridLines(false)
-
-        val rightAxis2 = barChart2.axisRight
-        rightAxis2.setDrawLabels(false)
-        rightAxis2.setDrawAxisLine(false)
-        rightAxis2.setDrawGridLines(false)
 
         barChart1.setFitBars(true)
         barChart1.data = data1
@@ -127,13 +106,7 @@ class LocateFragment : Fragment() {
         barChart1.description.isEnabled = false
         barChart1.legend.isEnabled = false
         barChart1.invalidate()
-
-        barChart2.setFitBars(true)
-        barChart2.data = data2
-        barChart2.animateY(1000)
-        barChart2.description.isEnabled = false
-        barChart2.legend.isEnabled = false
-        barChart2.invalidate()
+        barChart1.groupBars(-0.5f, 0.4f, 0f)
 
         binding.ageTap.setOnClickListener {
             val bundle = Bundle().apply {

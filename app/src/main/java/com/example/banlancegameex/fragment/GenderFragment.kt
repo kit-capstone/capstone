@@ -1,5 +1,6 @@
 package com.example.banlancegameex.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,69 +42,51 @@ class GenderFragment : Fragment() {
         binding.option2.setText(opt2)
 
         val barChart1 = binding.opt1Chart
-        val barChart2 = binding.opt2Chart
+        barChart1.setExtraOffsets(0f, 0f, 0f, 5f)
+        barChart1.setPinchZoom(false)
+        barChart1.setScaleEnabled(false)
 
         val gender1 = ArrayList<String>()
         gender1.add("남성")
         gender1.add("여성")
-
-        val gender2 = ArrayList<String>()
-        gender2.add("남성")
-        gender2.add("여성")
 
         val values1 = ArrayList<BarEntry>()
         values1.add(BarEntry(0f, count.man_opt1.toFloat()))
         values1.add(BarEntry(1f, count.woman_opt1.toFloat()))
 
         val values2 = ArrayList<BarEntry>()
-        values2.add(BarEntry(0f, count.man_opt2.toFloat()))
-        values2.add(BarEntry(1f, count.woman_opt2.toFloat()))
+        values2.add(BarEntry(0.6f, count.man_opt2.toFloat()))
+        values2.add(BarEntry(1.6f, count.woman_opt2.toFloat()))
 
         val barDataSet1 = BarDataSet(values1, "Gender")
-        barDataSet1.color = R.color.tilte_blue
+        barDataSet1.color = Color.rgb(251,81,96)
+        barDataSet1.setDrawValues(false)
 
-        val barDataSet2 = BarDataSet(values2, "Gender")
-        barDataSet2.color = R.color.tilte_blue
+        val barDataSet2 = BarDataSet(values2, "Gender2")
+        barDataSet2.color = Color.rgb(84,122,255)
+        barDataSet2.setDrawValues(false)
 
-        val data1 = BarData(barDataSet1)
+        val data1 = BarData(barDataSet1, barDataSet2)
         data1.barWidth = 0.3f
-
-        val data2 = BarData(barDataSet2)
-        data2.barWidth = 0.3f
 
         val xAxis = barChart1.xAxis
         xAxis.valueFormatter = IndexAxisValueFormatter(gender1)
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(false)
         xAxis.setDrawAxisLine(true)
-        xAxis.granularity = 1f
+        xAxis.granularity = 1.3f
         xAxis.isGranularityEnabled = true
-
-        val xAxis2 = barChart2.xAxis
-        xAxis2.valueFormatter = IndexAxisValueFormatter(gender2)
-        xAxis2.position = XAxis.XAxisPosition.BOTTOM
-        xAxis2.setDrawGridLines(false)
-        xAxis2.setDrawAxisLine(true)
-        xAxis2.granularity = 1f
-        xAxis2.isGranularityEnabled = true
+        xAxis.textSize = 15f
+        xAxis.setLabelCount(2)
 
         val leftAxis = barChart1.axisLeft
         leftAxis.axisMinimum = 0f
         leftAxis.setDrawGridLines(true)
 
-        val leftAxis2 = barChart2.axisLeft
-        leftAxis2.axisMinimum = 0f
-        leftAxis2.setDrawGridLines(true)
-
         val rightAxis = barChart1.axisRight
         rightAxis.setDrawLabels(false)
         rightAxis.setDrawAxisLine(false)
         rightAxis.setDrawGridLines(false)
-
-        val rightAxis2 = barChart2.axisRight
-        rightAxis2.setDrawLabels(false)
-        rightAxis2.setDrawAxisLine(false)
-        rightAxis2.setDrawGridLines(false)
 
         barChart1.setFitBars(true)
         barChart1.data = data1
@@ -111,13 +94,7 @@ class GenderFragment : Fragment() {
         barChart1.description.isEnabled = false
         barChart1.legend.isEnabled = false
         barChart1.invalidate()
-
-        barChart2.setFitBars(true)
-        barChart2.data = data2
-        barChart2.animateY(1000)
-        barChart2.description.isEnabled = false
-        barChart2.legend.isEnabled = false
-        barChart2.invalidate()
+        barChart1.groupBars(-0.6f, 0.65f, 0f)
 
         binding.ageTap.setOnClickListener {
             val bundle = Bundle().apply {

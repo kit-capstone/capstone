@@ -102,17 +102,10 @@
                     android:text="옵션1 제목"
                     android:fontFamily="@font/maplestory_light"
                     android:textSize="20sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/title_red"
                     android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"/>
-
-                <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/opt1_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"/>
 
                 <TextView
                     android:id="@+id/option2"
@@ -120,18 +113,20 @@
                     android:text="옵션2 제목"
                     android:fontFamily="@font/maplestory_light"
                     android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="20dp"
+                    android:textColor="@color/tilte_blue"
                     android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"/>
+                    android:layout_height="40dp"
+                    android:layout_weight="1"/>
 
                 <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/opt2_chart"
+                    android:id="@+id/opt1_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
+                    android:layout_height="360dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"/>
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="30dp"/>
+
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
