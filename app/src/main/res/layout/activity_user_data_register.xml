@@ -32,6 +32,41 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:id="@+id/user_profile_update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_profile_btn">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/user_profile_image"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        app:civ_border_width="0dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/user_profile"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/background_circle"
+                        android:src="@drawable/camera"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="bottom|right"/>
+
+                </FrameLayout>
+
+
+
+            </LinearLayout>
+
             <TextView
                 style="@style/AuthGuideText"
                 android:layout_width="match_parent"

@@ -4,21 +4,21 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import com.bumptech.glide.Glide
 import com.example.banlancegameex.databinding.ActivityUserDataRegisterBinding
-import com.example.banlancegameex.databinding.ActivityUserDataUpdateBinding
 import com.example.banlancegameex.utils.FBAuth
-import com.google.apphosting.datastore.testing.DatastoreTestTrace.FirestoreV1Action.UpdateDocumentOrBuilder
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -26,15 +26,18 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.kakao.usermgmt.StringSet.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.HashMap
 
 class UserDataRegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserDataRegisterBinding
     private lateinit var auth : FirebaseAuth
+    var pickImageFromAlbum = 0
+    var fbStorage : FirebaseStorage? = null
+    var uriPhoto : Uri? = null
 
     private var calendar = Calendar.getInstance()
     private var year = calendar.get(Calendar.YEAR)
@@ -62,6 +65,21 @@ class UserDataRegisterActivity : AppCompatActivity() {
         setSpinnerJob()
         setSpinnerLocate()
         setupSpinnerHandler()
+
+        if(FBAuth.getProfile().isNotEmpty()){
+            Glide.with(this)
+                .load(FBAuth.getProfile())
+                .into(binding.userProfileImage)
+        }
+
+        binding.userProfileUpdate.setOnClickListener{
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 99)
+            fbStorage = FirebaseStorage.getInstance()
+
+            var photoPickerIntent = Intent(Intent.ACTION_PICK)
+            photoPickerIntent.type = "image/*"
+            startActivityForResult(photoPickerIntent, pickImageFromAlbum)
+        }
 
         database.child("userdata").orderByChild("email").equalTo(auth.currentUser?.email.toString())
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -250,6 +268,8 @@ class UserDataRegisterActivity : AppCompatActivity() {
         val database = Firebase.database
         val myRef = database.getReference("userdata")
 
+        ImageUpload(binding.userProfileUpdate)
+
         // database에 userdata 입력
         myRef.child(FBAuth.getuid()).setValue(
             UserDataModel(auth.currentUser?.email.toString(), _nickname, _gender, _agerange, _job, _locate)
@@ -262,6 +282,42 @@ class UserDataRegisterActivity : AppCompatActivity() {
     }
     private fun sendErrorMessage() {
         Toast.makeText(this, errormessage, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode ==pickImageFromAlbum) {
+            //선택한 이미지의 경로 받아오기
+            uriPhoto = data?.data
+            binding.userProfileImage.setImageURI(uriPhoto)
+        }
+    }
+
+    fun ImageUpload(view : View) {
+        var imageFileName = FBAuth.getuid() + "_.png"
+        var storageRef = fbStorage?.reference?.child("image")?.child(imageFileName)
+
+        storageRef?.putFile(uriPhoto!!)?.addOnSuccessListener {
+            Toast.makeText(this, "정상적으로 업로드가 완료되었습니다.", Toast.LENGTH_LONG).show()
+            ImageDownload()
+        }?.addOnFailureListener{
+            Toast.makeText(this, "업로드에 실패하였습니다.", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    fun ImageDownload() {
+        var imageFileName = FBAuth.getuid() + "_.png"
+        var storageRef = fbStorage?.reference?.child("image")?.child(imageFileName)
+
+        storageRef?.downloadUrl?.addOnSuccessListener {uri ->
+
+            val profileUpdates = UserProfileChangeRequest.Builder()
+                .setPhotoUri(uri)
+                .build()
+
+            auth.currentUser?.updateProfile(profileUpdates)
+        }
     }
 }
 
