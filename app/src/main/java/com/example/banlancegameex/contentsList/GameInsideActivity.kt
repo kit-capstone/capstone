@@ -329,6 +329,7 @@ class GameInsideActivity : AppCompatActivity() {
         }
         alertDialog?.findViewById<Button>(R.id.removeBtn)?.setOnClickListener{
             FBRef.postRef.child(key).removeValue()
+            FBRef.countRef.child(game_name).removeValue()
             Toast.makeText(this,"삭제완료", Toast.LENGTH_SHORT).show()
             finish()
         }

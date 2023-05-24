@@ -9,7 +9,7 @@
     <uses-permission-sdk-23 android:name="android.permission.UPDATE_DEVICE_STATS" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".GlobalApplication"
@@ -23,13 +23,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".MyPostActivity"
+            android:exported="false" />
+        <activity
             android:name=".UserDataRegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AccountDeleteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DataPickerActivity"
             android:exported="false" />
         <activity
             android:name=".UserDataUpdateActivity"
