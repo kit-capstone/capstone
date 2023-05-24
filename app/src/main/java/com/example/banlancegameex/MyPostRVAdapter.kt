@@ -112,7 +112,7 @@ class MyPostRVAdapter (val context : Context,
                     TODO("Not yet implemented")
                 }
             }
-            FBRef.countRef.addValueEventListener(countListener)
+            FBRef.countRef.addListenerForSingleValueEvent(countListener)
 
             val menuArea = itemView.findViewById<ImageView>(R.id.menu_area)
 
