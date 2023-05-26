@@ -10,7 +10,7 @@
         <!-- TODO: Update blank fragment layout -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/Fragment3"
-            android:background="@color/mainBackground"
+            android:background="@drawable/background"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -52,15 +52,32 @@
                                 android:fontFamily="@font/maplestory_bold"
                                 android:gravity="center"/>
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="45dp"
-                                android:layout_marginTop="10dp"
-                                android:textSize="30sp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/maplestory_bold"
-                                android:gravity="top|left"
-                                android:text="오늘의 추천 토론"/>
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="50dp"
+                                    android:layout_marginTop="10dp"
+                                    android:textSize="30sp"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/maplestory_bold"
+                                    android:gravity="top|left"
+                                    android:layout_marginRight="70dp"
+                                    android:text="오늘의 추천 토론"/>
+
+                                <Spinner
+                                    android:contentDescription="게시물 정렬 방법 설정"
+                                    android:id="@+id/sort_spinner"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:background="@drawable/background_age_range"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"/>
+
+                            </LinearLayout>
 
                             <LinearLayout
                                 android:id="@+id/today_post"

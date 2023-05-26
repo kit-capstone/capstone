@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -36,7 +38,7 @@ class HomeFragment : Fragment() {
     val bookmarkIdList = mutableListOf<String>()
 
     var todayRecommended : String = ""
-
+    private lateinit var _sort : String
     // recycler view를 위한 adapter
     lateinit var rvAdapter : ContentRVAdapter
 
@@ -73,6 +75,9 @@ class HomeFragment : Fragment() {
 
         val database = Firebase.database
 
+        setSpinnerSort()
+        setupSpinnerHandler()
+
         postRef = database.getReference("post")
 
         // post 테이블에서 inquiry(조회수) 속성을 기준으로 오름차순으로 게임 정보를 받아옴
@@ -80,7 +85,6 @@ class HomeFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 items.clear()
-
 
                 for(dataModel in snapshot.children){
                     // 게임 하나의 정보를 items에 push
@@ -213,10 +217,24 @@ class HomeFragment : Fragment() {
         }
         bookmarkRef.child(FBAuth.getuid()).addValueEventListener(postListener)
     }
+    private fun setSpinnerSort(){
+        val sort = resources.getStringArray(R.array.spinner_sort)
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, sort)
+        binding.sortSpinner.adapter = adapter
+    }
 
-//    private fun checkPermission(permissions: Array<String>): Boolean {
-//        return permissions.all {
-//            ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
-//        }
-//    }
+    private fun setupSpinnerHandler() {
+        binding.sortSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                // 드롭 다운 버튼 클릭 시 이벤트
+                _sort = binding.sortSpinner.getItemAtPosition(position).toString()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                // 아무 것도 선택 하지 않았을 시 이벤트
+                _sort = "인기순"
+            }
+        }
+
+    }
 }
