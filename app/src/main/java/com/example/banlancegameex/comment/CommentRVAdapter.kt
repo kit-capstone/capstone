@@ -1,26 +1,36 @@
 package com.example.banlancegameex.comment
 
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.banlancegameex.R
+import com.example.banlancegameex.contentsList.BookmarkModel
 import com.example.banlancegameex.utils.FBAuth
+import com.example.banlancegameex.utils.FBRef
 
 
-class CommentRVAdapter(private val commentList: List<CommentModel>) : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>() {
+class CommentRVAdapter(val context : Context, private val commentList: List<CommentModel>) : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>() {
 
     private val myUid = FBAuth.getuid()
+    private var alertDialog: AlertDialog? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.comment_list_item, parent, false)
+
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(commentList[position])
-
+        Log.d("Commentcontext", commentList[position].toString())
     }
 
     override fun getItemCount(): Int {
@@ -31,10 +41,14 @@ class CommentRVAdapter(private val commentList: List<CommentModel>) : RecyclerVi
         private val title: TextView = itemView.findViewById(R.id.titleArea)
         private val time: TextView = itemView.findViewById(R.id.timeArea)
         private val editButton: ImageView = itemView.findViewById(R.id.commentSettingIcon)
+        private val name: TextView = itemView.findViewById(R.id.nameArea)
+
 
         fun bind(comment: CommentModel) {
             title.text = comment.commentTitle
             time.text = comment.commentCreatedTime
+            name.text = comment.nickname
+
 
             val isMyComment = comment.uid == myUid
 
@@ -45,6 +59,36 @@ class CommentRVAdapter(private val commentList: List<CommentModel>) : RecyclerVi
                 editButton.visibility = View.GONE
             }
 
+            editButton.setOnClickListener{
+//                showDialog(commentkey)
+            }
+
+        }
+
+    }
+
+    private fun showDialog(key : String){
+
+        val mDialogView = LayoutInflater.from(context).inflate(R.layout.game_setting_dialog, null)
+        val mBuilder = AlertDialog.Builder(context)
+            .setView(mDialogView)
+            .setTitle("게시글 수정/삭제")
+
+        alertDialog = mBuilder.show()
+
+        //다이얼로그의 백그라운드를 둥글게 깎기 위해선 이 코드가 필요
+        alertDialog?.window?.setBackgroundDrawableResource(R.drawable.background_radius)
+
+        alertDialog?.findViewById<Button>(R.id.editBtn)?.setOnClickListener{
+            Toast.makeText(context,"aa", Toast.LENGTH_SHORT).show()
+        }
+        alertDialog?.findViewById<Button>(R.id.removeBtn)?.setOnClickListener{
+            //삭제기능 구현
+            Toast.makeText(context,"삭제완료", Toast.LENGTH_SHORT).show()
+            alertDialog?.dismiss()
         }
     }
+
 }
+
+

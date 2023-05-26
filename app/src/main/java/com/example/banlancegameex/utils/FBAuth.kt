@@ -1,6 +1,9 @@
 package com.example.banlancegameex.utils
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,6 +39,31 @@ class FBAuth {
             return dateFormat
 
         }
+
+        fun getNickname(callback: (String?) -> Unit) {
+            auth = FirebaseAuth.getInstance()
+            val currentUserUid = auth.currentUser?.uid
+
+            currentUserUid?.let { uid ->
+                FBRef.userdataRef.child(uid).child("nickname")
+                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            val nickname = snapshot.value as? String
+                            callback(nickname)
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            callback(null)
+                        }
+                    })
+            } ?: run {
+                callback(null)
+            }
+        }
+
+
+
+
 
         fun getProfile() : String {
             auth = FirebaseAuth.getInstance()
