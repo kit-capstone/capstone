@@ -342,7 +342,7 @@ class GameInsideActivity : AppCompatActivity() {
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.game_setting_dialog, null)
         val mBuilder = AlertDialog.Builder(this)
             .setView(mDialogView)
-            .setTitle("게시글 수정/삭제")
+            .setTitle("게시글 삭제")
 
         alertDialog = mBuilder.show()
 

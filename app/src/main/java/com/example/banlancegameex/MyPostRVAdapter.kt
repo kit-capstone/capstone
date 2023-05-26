@@ -131,7 +131,7 @@ class MyPostRVAdapter (val context : Context,
         val mDialogView = LayoutInflater.from(context).inflate(R.layout.game_setting_dialog, null)
         val mBuilder = AlertDialog.Builder(context)
             .setView(mDialogView)
-            .setTitle("게시글 수정/삭제")
+            .setTitle("게시글 삭제")
 
         alertDialog = mBuilder.show()
 

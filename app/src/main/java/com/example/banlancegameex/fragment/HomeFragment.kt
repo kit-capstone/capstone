@@ -85,7 +85,7 @@ class HomeFragment : Fragment() {
         postRef = database.getReference("post")
 
         // post 테이블에서 inquiry(조회수) 속성을 기준으로 오름차순으로 게임 정보를 받아옴
-        postRef.orderByChild("inquiry").addValueEventListener(object : ValueEventListener{
+        postRef.orderByChild("inquiry").addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 items.clear()
@@ -97,6 +97,9 @@ class HomeFragment : Fragment() {
                     val item = dataModel.getValue(ContentModel::class.java)
                     items.add(item!!)
                     itemArray.add(SearchContentModel(item!!, dataModel.key.toString()))
+
+                    setSpinnerSort()
+                    setupSpinnerHandler()
 
                     // push한 게임의 key 값을 itemKeyList에 저장
                     // 사용자가 북마크한 게임을 식별하기 위한 변수
