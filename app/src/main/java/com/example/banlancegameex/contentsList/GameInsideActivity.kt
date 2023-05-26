@@ -168,7 +168,7 @@ class GameInsideActivity : AppCompatActivity() {
 
         getCommentData(key)
 
-        commentAdapter = CommentRVAdapter(commentDataList)
+        commentAdapter = CommentRVAdapter(this, commentDataList)
         val rv : RecyclerView = binding.commentRV
         rv.adapter = commentAdapter
         rv.layoutManager = LinearLayoutManager(this)
@@ -206,22 +206,28 @@ class GameInsideActivity : AppCompatActivity() {
     }
 
     private fun insertComment(key : String){
-        // comment
-        //   - BoardKey
-        //        - CommentKey
-        //            - CommentData
-        //            - CommentData
-        //            - CommentData
-        FBRef.commentRef
-            .child(key)
-            .push()
-            .setValue(
-                CommentModel(
-                    binding.commentArea.text.toString(),
-                    FBAuth.getTime(),
-                    FBAuth.getuid()
-                )
-            )
+
+        val commentText = binding.commentArea.text.toString()
+
+        FBAuth.getNickname { nickname ->
+            if (nickname != null) {
+                Log.d("CommentText", commentText)
+                FBRef.commentRef.child(key)
+                    .push()
+                    .setValue(
+                        CommentModel(
+                            commentText,
+                            FBAuth.getTime(),
+                            nickname,
+                            FBAuth.getuid()
+                        )
+                    )
+            } else {
+                // 닉네임이 없거나 에러가 발생한 경우
+                println("닉네임을 가져올 수 없습니다.")
+            }
+        }
+
 
         Toast.makeText(this, "댓글 입력 완료", Toast.LENGTH_SHORT).show()
         binding.commentArea.setText("")
