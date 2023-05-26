@@ -27,7 +27,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.random.Random
 
 class HomeFragment : Fragment() {
 
@@ -113,21 +112,40 @@ class HomeFragment : Fragment() {
 
                 // 오늘의 추천으로 출력할 게임을 선정하기 위한 코드
                 // 위에서 받아온 게임 정보 중 상위 3개 중 임의로 선정
-                val subList = items.subList(0, 3)
-                val subKeyList = itemKeyList.subList(0, 3)
-                val randomIndex = Random.nextInt(subList.size)
-                val recommedElement = subList[randomIndex]
+//                val subList = items.subList(0, 3)
+//                val subKeyList = itemKeyList.subList(0, 3)
+//                val randomIndex = Random.nextInt(subList.size)
+//                val recommedElement = subList[randomIndex]
+//
+//                binding.gameTitleTxt.text = recommedElement.title
+//                binding.gameOption1Txt.text = recommedElement.option1
+//                binding.gameOption2Txt.text = recommedElement.option2
 
-                binding.gameTitleTxt.text = recommedElement.title
-                binding.gameOption1Txt.text = recommedElement.option1
-                binding.gameOption2Txt.text = recommedElement.option2
+                // firebase functions를 이용하여 today의 값을 매일 오전 4시 변경
+                // 변경된 today의 값을 key값으로 받아와 화면에 출력
+                FBRef.todayRef.addListenerForSingleValueEvent(object : ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        todayRecommended = snapshot.getValue() as String
+                        val result: SearchContentModel? = itemArray.find { it.key == todayRecommended }
+
+                        if(result != null) {
+                            binding.gameTitleTxt.text = result.content.title
+                            binding.gameOption1Txt.text = result.content.option1
+                            binding.gameOption2Txt.text = result.content.option2
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+                })
 
                 // Log.d("모델 확인용", items.toString())
 
                 // 비동기 방식으로 받아온 정보를 recycler view에 반영하기 위한 코드
                 rvAdapter.notifyDataSetChanged()
 
-                todayRecommended = subKeyList[randomIndex]
+//                todayRecommended = subKeyList[randomIndex]
             }
 
             override fun onCancelled(error: DatabaseError) {
