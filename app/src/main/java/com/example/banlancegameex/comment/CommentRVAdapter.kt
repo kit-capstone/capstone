@@ -12,12 +12,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.banlancegameex.R
-import com.example.banlancegameex.contentsList.BookmarkModel
 import com.example.banlancegameex.utils.FBAuth
 import com.example.banlancegameex.utils.FBRef
 
 
-class CommentRVAdapter(val context : Context, private val commentList: List<CommentModel>) : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>() {
+class CommentRVAdapter(val context : Context,
+                       private val postKey : String,
+                       private val commentList: ArrayList<CommentModel>,
+                        private val keyList : ArrayList<String>) : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>() {
 
     private val myUid = FBAuth.getuid()
     private var alertDialog: AlertDialog? = null
@@ -29,7 +31,7 @@ class CommentRVAdapter(val context : Context, private val commentList: List<Comm
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(commentList[position])
+        holder.bind(commentList[position], keyList[position], postKey)
         Log.d("Commentcontext", commentList[position].toString())
     }
 
@@ -44,7 +46,7 @@ class CommentRVAdapter(val context : Context, private val commentList: List<Comm
         private val name: TextView = itemView.findViewById(R.id.nameArea)
 
 
-        fun bind(comment: CommentModel) {
+        fun bind(comment: CommentModel, commentkey: String, postKey: String) {
             title.text = comment.commentTitle
             time.text = comment.commentCreatedTime
             name.text = comment.nickname
@@ -60,14 +62,14 @@ class CommentRVAdapter(val context : Context, private val commentList: List<Comm
             }
 
             editButton.setOnClickListener{
-//                showDialog(commentkey)
+                showDialog(commentkey, postKey)
             }
 
         }
 
     }
 
-    private fun showDialog(key : String){
+    private fun showDialog(key : String, postKey: String){
 
         val mDialogView = LayoutInflater.from(context).inflate(R.layout.game_setting_dialog, null)
         val mBuilder = AlertDialog.Builder(context)
@@ -84,6 +86,7 @@ class CommentRVAdapter(val context : Context, private val commentList: List<Comm
         }
         alertDialog?.findViewById<Button>(R.id.removeBtn)?.setOnClickListener{
             //삭제기능 구현
+            FBRef.commentRef.child(postKey).child(key).removeValue()
             Toast.makeText(context,"삭제완료", Toast.LENGTH_SHORT).show()
             alertDialog?.dismiss()
         }

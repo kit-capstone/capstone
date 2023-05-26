@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -20,6 +21,7 @@ import com.example.banlancegameex.R
 import com.example.banlancegameex.UserDataModel
 import com.example.banlancegameex.comment.CommentModel
 import com.example.banlancegameex.comment.CommentRVAdapter
+import com.example.banlancegameex.comment.CommentgroupModel
 import com.example.banlancegameex.databinding.ActivityGameInsideBinding
 import com.example.banlancegameex.fragment.AgeRangeFragment
 import com.example.banlancegameex.fragment.GenderFragment
@@ -46,7 +48,9 @@ class GameInsideActivity : AppCompatActivity() {
 
     private var alertDialog: AlertDialog? = null
 
-    private val commentDataList = mutableListOf<CommentModel>()
+    private val commentDataList = ArrayList<CommentModel>()
+    private val commentgroup = ArrayList<CommentgroupModel>()
+    private val commentKeyList = ArrayList<String>()
 
     // recycler view를 위한 adapter
     private lateinit var commentAdapter : CommentRVAdapter
@@ -166,9 +170,18 @@ class GameInsideActivity : AppCompatActivity() {
             }
         }
 
+        binding.commentArea.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEND){
+                binding.commentBtn.performClick()
+                true
+            } else {
+                false
+            }
+        }
+
         getCommentData(key)
 
-        commentAdapter = CommentRVAdapter(this, commentDataList)
+        commentAdapter = CommentRVAdapter(this, key, commentDataList, commentKeyList)
         val rv : RecyclerView = binding.commentRV
         rv.adapter = commentAdapter
         rv.layoutManager = LinearLayoutManager(this)
@@ -182,12 +195,18 @@ class GameInsideActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 commentDataList.clear()
+                commentgroup.clear()
+                commentKeyList.clear()
 
                 for (dataModel in dataSnapshot.children) {
 
                     val item = dataModel.getValue(CommentModel::class.java)
-                    commentDataList.add(item!!)
+                    commentgroup.add(CommentgroupModel(item!!, dataModel.key.toString()))
+                }
 
+                for(i in commentgroup) {
+                    commentDataList.add(i.comment)
+                    commentKeyList.add(i.key)
                 }
 
                 commentAdapter.notifyDataSetChanged()
