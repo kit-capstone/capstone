@@ -24,9 +24,5 @@ class ContentsActivity : AppCompatActivity() {
 
         val task = WorkManager.getInstance(this).getWorkInfosForUniqueWork("locationWork").get()
         Log.d("워크 큐 확인", task.toString())
-
-//        val registerAlarmWorkRequest = OneTimeWorkRequest.Builder(LocationReceiver::class.java).build()
-//
-//        WorkManager.getInstance(this).enqueue(registerAlarmWorkRequest)
     }
 }

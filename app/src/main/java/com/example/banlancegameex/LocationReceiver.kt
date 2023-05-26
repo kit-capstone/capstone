@@ -57,6 +57,60 @@ class LocationReceiver(context: Context, workerParameters: WorkerParameters) : W
                                 user_locate = item
                             }
                         }
+
+                        // 사용자 위치정보 변경 코드 필요
+                        // 구현 완료. 이후 사용자 회원가입, 사용자 정보 수정 페이지 수정 완료 후 주석 처리 해제 필요
+                        FBRef.userdataRef.orderByChild("email").equalTo(FBAuth.getemail())
+                            .addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    for(childSnapshot in snapshot.children){
+                                        val user = childSnapshot.getValue(UserDataModel::class.java)
+                                        user?.let {
+                                            it.locate = user_locate
+                                            FBRef.userdataRef.child(childSnapshot.key!!).setValue(it)
+                                        }
+                                    }
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+                                    Log.e("backgroundWorkError", "Fail to connect firebase")
+                                }
+                            })
+                        WorkManager.getInstance().cancelUniqueWork("locationWork")
+                    } else if((locationList.size < 20) && (ContextCompat.checkSelfPermission(applicationContext, android.Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                                == PackageManager.PERMISSION_GRANTED)) {
+                        fusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
+                            location?.let {
+                                val geocoder = Geocoder(applicationContext, Locale.getDefault())
+                                val address = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                                val state = address?.get(0)?.adminArea ?: ""
+                                val city = address?.get(0)?.locality ?: ""
+                                Log.d("locate_Tast" ,"$state $city")
+                                val currentUser = FBAuth.getuid()
+
+                                if (currentUser.isNotEmpty()) {
+                                    val locationString = "$state $city"
+
+                                    val currentTime = System.currentTimeMillis()
+                                    val sdf = SimpleDateFormat("yyyy-MM-dd-hh-mm")
+                                    val date = sdf.format(currentTime)
+
+                                    FBRef.userlocateRef.child(currentUser).push()
+                                        .setValue(locationString)
+                                        .addOnCompleteListener { task ->
+                                            if (task.isSuccessful) {
+                                                Log.d("LocationWorker", "Location updated successfully")
+                                            } else {
+                                                Log.e(
+                                                    "LocationWorker",
+                                                    "Location update failed",
+                                                    task.exception
+                                                )
+                                            }
+                                        }
+                                }
+                            }
+                        }
                     }
                     Log.d("사용자 위치 특정", user_locate)
                 }
@@ -65,64 +119,6 @@ class LocationReceiver(context: Context, workerParameters: WorkerParameters) : W
                     Log.e("backgroundWork", "Fail to connect firebase")
                 }
             })
-
-            // list에 저장된 사용자 위치정보가 20개 이상이면 해당 task를 database에 사용자 위치정보를 변경하고 종료한다.
-            if(locationList.size >= 20) {
-                Log.d("리시버 확인용", "백그라운드 작업이 완료되었습니다.")
-                // 사용자 위치정보 변경 코드 필요
-                // 구현 완료. 이후 사용자 회원가입, 사용자 정보 수정 페이지 수정 완료 후 주석 처리 해제 필요
-//                FBRef.userdataRef.orderByChild("email").equalTo(FBAuth.getEmail())
-//                    .addListenerForSingleValueEvent(object : ValueEventListener {
-//                        override fun onDataChange(snapshot: DataSnapshot) {
-//                            for(childSnapshot in snapshot.children){
-//                                val user = childSnapshot.getValue(UserDataModel::class.java)
-//                                user?.let {
-//                                    it.locate = user_locate
-//                                    FBRef.userdataRef.child(childSnapshot.key!!).setValue(it)
-//                                }
-//                            }
-//                        }
-//
-//                        override fun onCancelled(error: DatabaseError) {
-//                            Log.e("backgroundWorkError", "Fail to connect firebase")
-//                        }
-//                    })
-                WorkManager.getInstance().cancelUniqueWork("locationWork")
-                return Result.success()
-            }
-
-            fusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
-                location?.let {
-                    val geocoder = Geocoder(applicationContext, Locale.getDefault())
-                    val address = geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                    val state = address?.get(0)?.adminArea ?: ""
-                    val city = address?.get(0)?.locality ?: ""
-                    Log.d("locate_Tast" ,"$state $city")
-                    val currentUser = FBAuth.getuid()
-
-                    if (currentUser.isNotEmpty()) {
-                        val locationString = "$state $city"
-
-                        val currentTime = System.currentTimeMillis()
-                        val sdf = SimpleDateFormat("yyyy-MM-dd-hh-mm")
-                        val date = sdf.format(currentTime)
-
-                        FBRef.userlocateRef.child(currentUser).push()
-                            .setValue(locationString)
-                            .addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    Log.d("LocationWorker", "Location updated successfully")
-                                } else {
-                                    Log.e(
-                                        "LocationWorker",
-                                        "Location update failed",
-                                        task.exception
-                                    )
-                                }
-                            }
-                    }
-                }
-            }
         } else {
             Log.d("LocationWorker", "You are not permission")
             return Result.failure()
