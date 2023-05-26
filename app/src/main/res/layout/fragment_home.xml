@@ -14,6 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <ImageView
                 android:id="@+id/writeBtn"
                 android:layout_width="80dp"
@@ -41,9 +42,21 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/topBar_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="30dp"
-                                android:textSize="23sp"
+                                android:layout_height="60dp"
+                                android:background="@color/mainColor"
+                                android:text="게임 페이지"
+                                android:textSize="35sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/maplestory_bold"
+                                android:gravity="center"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_marginTop="10dp"
+                                android:textSize="30sp"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/maplestory_bold"
                                 android:gravity="top|left"

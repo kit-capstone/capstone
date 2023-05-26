@@ -132,6 +132,8 @@ class ProfileFragment : Fragment() {
             builder.show()
         }
 
+        binding.userProfileImage.setBackgroundResource(R.drawable.circle_image)
+
         database.child("userdata").orderByChild("email").equalTo(auth.currentUser?.email.toString())
             .addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {

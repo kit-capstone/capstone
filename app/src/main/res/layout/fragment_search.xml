@@ -14,12 +14,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/topBar_text"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/mainColor"
+                android:text="검색 페이지"
+                android:textSize="35sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/maplestory_bold"
+                app:layout_constraintTop_toTopOf="@id/Fragment4"
+                android:gravity="center"/>
+
             <LinearLayout
                 android:id="@+id/search_layout"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                app:layout_constraintTop_toTopOf="@+id/Fragment4"
+                app:layout_constraintTop_toBottomOf="@+id/topBar_text"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -157,7 +169,7 @@
                 android:layout_height="match_parent"
                 app:layout_constraintTop_toBottomOf="@+id/tag_layout"
                 android:layout_marginBottom="85dp"
-                android:layout_marginTop="115dp"/>
+                android:layout_marginTop="175dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
