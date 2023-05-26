@@ -17,7 +17,7 @@
             android:id="@+id/game_title_txt"
             android:text="게임 제목"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:gravity="left|center"
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/maplestory_bold"
@@ -55,7 +55,9 @@
             <TextView
                 android:id="@+id/game_option1_txt"
                 android:text="옵션1"
+                android:textSize="18sp"
                 android:textColor="@color/black"
+                android:gravity="center"
                 android:fontFamily="@font/maplestory_light"
                 android:layout_margin="10dp"
                 android:layout_width="wrap_content"
@@ -75,8 +77,10 @@
             <TextView
                 android:id="@+id/game_option2_txt"
                 android:text="옵션2"
+                android:textSize="18sp"
                 android:textColor="@color/black"
                 android:layout_margin="10dp"
+                android:gravity="center"
                 android:fontFamily="@font/maplestory_light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
