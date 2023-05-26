@@ -36,6 +36,10 @@ class ContentRVAdapter (val context : Context,
         fun bindItems(item : ContentModel, key : String, keylist: ArrayList<String>){
 
             itemView.setOnClickListener {
+                // 조회수 갱신 기능 추가
+                item.inquiry ++
+                FBRef.postRef.child(key).setValue(item)
+
                 // 게임 페이지로 이동 코드 구현 필요
                 val intent = Intent(context, GameInsideActivity::class.java)
                 intent.putExtra("key", key)
