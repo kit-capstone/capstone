@@ -42,6 +42,13 @@ class HomeFragment : Fragment() {
     // recycler view를 위한 adapter
     lateinit var rvAdapter : ContentRVAdapter
 
+    val itemArray = ArrayList<SearchContentModel>()
+
+    // 게시물을 가져올 ContentModel형태의 list
+    val items = ArrayList<ContentModel>()
+    // ContentModel형태로 가져온 게시물들을 key 값을 저장할 list
+    val itemKeyList = ArrayList<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -58,17 +65,14 @@ class HomeFragment : Fragment() {
             }
         })
 
+
+
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
 
         // FirebaseAuth 초기화
         auth = FirebaseAuth.getInstance()
-
-        // 게시물을 가져올 ContentModel형태의 list
-        val items = ArrayList<ContentModel>()
-        // ContentModel형태로 가져온 게시물들을 key 값을 저장할 list
-        val itemKeyList = ArrayList<String>()
 
         // 커스텀 adaper를 불러옴
         rvAdapter = ContentRVAdapter(requireContext(), items, itemKeyList, bookmarkIdList)
@@ -90,6 +94,7 @@ class HomeFragment : Fragment() {
                     // 게임 하나의 정보를 items에 push
                     val item = dataModel.getValue(ContentModel::class.java)
                     items.add(item!!)
+                    itemArray.add(SearchContentModel(item!!, dataModel.key.toString()))
 
                     // push한 게임의 key 값을 itemKeyList에 저장
                     // 사용자가 북마크한 게임을 식별하기 위한 변수
@@ -228,6 +233,22 @@ class HomeFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 // 드롭 다운 버튼 클릭 시 이벤트
                 _sort = binding.sortSpinner.getItemAtPosition(position).toString()
+
+                when(_sort) {
+                    "인기순" -> {
+                        itemArray.sortByDescending { it.content.inquiry }
+                        items.clear()
+                        itemKeyList.clear()
+
+                        for(i in itemArray) {
+                            items.add(i.content)
+                            itemKeyList.add(i.key)
+                        }
+                    }
+                    "최신순" -> {
+
+                    }
+                }
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
