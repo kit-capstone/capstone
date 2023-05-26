@@ -25,6 +25,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.random.Random
 
 class HomeFragment : Fragment() {
@@ -89,6 +91,8 @@ class HomeFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 items.clear()
+                itemKeyList.clear()
+                itemArray.clear()
 
                 for(dataModel in snapshot.children){
                     // 게임 하나의 정보를 items에 push
@@ -236,17 +240,33 @@ class HomeFragment : Fragment() {
 
                 when(_sort) {
                     "인기순" -> {
+                        //게시물을 인기순으로 정렬
                         itemArray.sortByDescending { it.content.inquiry }
                         items.clear()
                         itemKeyList.clear()
 
+                        //정렬한 게시물의 정보를 recycler view에 갱신시킴
                         for(i in itemArray) {
                             items.add(i.content)
                             itemKeyList.add(i.key)
                         }
+                        
+                        rvAdapter.notifyDataSetChanged()
                     }
                     "최신순" -> {
+                        // 게시물을 날짜순으로 정렬
+                        itemArray.sortWith(compareBy { SimpleDateFormat("yyyy.MM.dd HH:mm:ss", Locale.getDefault()).parse(it.content.time) })
+                        itemArray.reverse()
+                        items.clear()
+                        itemKeyList.clear()
 
+                        //정렬한 게시물의 정보를 recycler view에 갱신시킴
+                        for(i in itemArray) {
+                            items.add(i.content)
+                            itemKeyList.add(i.key)
+                        }
+
+                        rvAdapter.notifyDataSetChanged()
                     }
                 }
             }
