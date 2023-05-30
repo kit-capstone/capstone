@@ -299,9 +299,6 @@ class GameInsideActivity : AppCompatActivity() {
                     Log.d(TAG, "삭제완료")
 
                }
-
-
-
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

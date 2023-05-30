@@ -11,6 +11,9 @@ import com.example.banlancegameex.R
 import com.example.banlancegameex.databinding.ActivityGameMakeBinding
 import com.example.banlancegameex.utils.FBAuth
 import com.example.banlancegameex.utils.FBRef
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
 class GameMakeActivity : AppCompatActivity() {
 
@@ -18,6 +21,7 @@ class GameMakeActivity : AppCompatActivity() {
     private lateinit var _gameTag : String
     // error 메세지의 내용을 담을 문자열
     private lateinit var errormesage : String
+    var key : String = ""
 
     private val TAG = GameMakeActivity::class.java
 
@@ -67,10 +71,26 @@ class GameMakeActivity : AppCompatActivity() {
             FBRef.postRef
                 .push()
                 .setValue(ContentModel(title, option1, option1Sub, option2, option2Sub, 0, _gameTag, uid, time))
+                .addOnSuccessListener {
+                    FBRef.postRef.orderByChild("title").equalTo(title)
+                        .addListenerForSingleValueEvent(object : ValueEventListener{
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                for(data in snapshot.children){
+                                    val model = data.getValue(ContentModel::class.java)
+                                    if((model?.uid == uid) && (model?.time == time) && (model?.option1 == option1) && (model?.option2 == option2)){
+                                        key = data.key.toString()
+                                        FBRef.countRef
+                                            .child(key)
+                                            .setValue(CountModel())
+                                    }
+                                }
+                            }
 
-            FBRef.countRef
-                .child(title)
-                .setValue(CountModel())
+                            override fun onCancelled(error: DatabaseError) {
+                                TODO("Not yet implemented")
+                            }
+                        })
+                }
 
             Toast.makeText(this,"게시글 입력 완료", Toast.LENGTH_SHORT).show()
 
