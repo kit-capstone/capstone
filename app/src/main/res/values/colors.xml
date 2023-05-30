@@ -23,4 +23,6 @@
     <color name="pastel_orange">#F4A11D</color>
     <color name="pastel_green">#98FF91</color>
     <color name="select_green">#8AD47F</color>
+    <color name="stroke_green">#06D6A0</color>
+    <color name="stroke_pitch">#FFEEF2</color>
 </resources>

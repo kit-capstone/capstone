@@ -15,7 +15,7 @@
 
             <TextView
                 android:id="@+id/title_txt"
-                android:text="북마크 페이지"
+                android:text="즐겨찾기"
                 android:gravity="center"
                 android:background="@color/mainColor"
                 android:textSize="35sp"

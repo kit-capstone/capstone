@@ -46,7 +46,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="60dp"
                                 android:background="@color/mainColor"
-                                android:text="게임 페이지"
+                                android:text="홈"
                                 android:textSize="35sp"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/maplestory_bold"
@@ -82,7 +82,7 @@
                             <LinearLayout
                                 android:id="@+id/today_post"
                                 android:layout_width="match_parent"
-                                android:layout_height="150dp"
+                                android:layout_height="160dp"
                                 android:background="@drawable/background_radius_game"
                                 android:elevation="16dp"
                                 android:layout_margin="10dp"
@@ -91,6 +91,7 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="30dp"
+                                    android:layout_marginTop="10dp"
                                     android:orientation="horizontal">
 
                                 <TextView
