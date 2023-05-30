@@ -18,7 +18,7 @@
             android:text="게임 제목"
             android:textColor="@color/black"
             android:textSize="25sp"
-            android:gravity="left|center"
+            android:gravity="bottom"
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/maplestory_bold"
             android:layout_width="match_parent"
