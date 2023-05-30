@@ -59,7 +59,7 @@ class MyPostRVAdapter (val context : Context,
             val countListener = object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     for (data in dataSnapshot.children) {
-                        if(data.key.toString() == item.title){
+                        if(data.key.toString() == key){
                             game_count = data.getValue(CountModel::class.java)!!
 
                             // 프로그레스 바 및 비율 출력
@@ -143,7 +143,7 @@ class MyPostRVAdapter (val context : Context,
         }
         alertDialog?.findViewById<Button>(R.id.removeBtn)?.setOnClickListener{
             FBRef.postRef.child(key).removeValue()
-            FBRef.countRef.child(title).removeValue()
+            FBRef.countRef.child(key).removeValue()
             Toast.makeText(context,"삭제완료", Toast.LENGTH_SHORT).show()
             alertDialog?.dismiss()
         }

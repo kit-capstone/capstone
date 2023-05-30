@@ -309,12 +309,12 @@ class GameInsideActivity : AppCompatActivity() {
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
             }
         }
-        FBRef.postRef.child(key).addValueEventListener(postListener)
+        FBRef.postRef.child(key).addListenerForSingleValueEvent(postListener)
 
         val countListener = object : ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (data in dataSnapshot.children) {
-                    if(data.key.toString() == game_name){
+                    if(data.key.toString() == key){
                         game_count = data.getValue(CountModel::class.java)!!
 
                         bundle.putSerializable("count", game_count)
@@ -334,7 +334,7 @@ class GameInsideActivity : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         }
-        FBRef.countRef.addValueEventListener(countListener)
+        FBRef.countRef.addListenerForSingleValueEvent(countListener)
     }
 
     private fun showDialog(){
@@ -349,12 +349,13 @@ class GameInsideActivity : AppCompatActivity() {
         //다이얼로그의 백그라운드를 둥글게 깎기 위해선 이 코드가 필요
         alertDialog?.window?.setBackgroundDrawableResource(R.drawable.background_radius)
 
+
         alertDialog?.findViewById<Button>(R.id.editBtn)?.setOnClickListener{
             Toast.makeText(this,"aa", Toast.LENGTH_SHORT).show()
         }
         alertDialog?.findViewById<Button>(R.id.removeBtn)?.setOnClickListener{
             FBRef.postRef.child(key).removeValue()
-            FBRef.countRef.child(game_name).removeValue()
+            FBRef.countRef.child(key).removeValue()
             Toast.makeText(this,"삭제완료", Toast.LENGTH_SHORT).show()
             finish()
         }
@@ -406,8 +407,8 @@ class GameInsideActivity : AppCompatActivity() {
                             .addListenerForSingleValueEvent(object : ValueEventListener {
                                 override fun onDataChange(snapshot: DataSnapshot) {
                                     for(childSnapshot in snapshot.children){
-                                        if(childSnapshot.key.toString() == game_name){
-                                            FBRef.countRef.child(game_name).setValue(game_count)
+                                        if(childSnapshot.key.toString() == key){
+                                            FBRef.countRef.child(key).setValue(game_count)
                                         }
                                     }
                                 }

@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="170dp"
+    android:layout_height="195dp"
     android:layout_margin="10dp"
     android:background="@drawable/background_count_button"
     android:elevation="16dp"
@@ -11,13 +11,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/game_title_txt"
             android:text="게임 제목"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:gravity="left|center"
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/maplestory_bold"
@@ -49,7 +50,7 @@
             android:layout_height="30dp"
             android:text="선택지1"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="21sp"
             android:gravity="left|center"
             android:layout_marginLeft="15dp"
             android:fontFamily="@font/maplestory_light"/>
@@ -59,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="7dp"
+            android:layout_marginBottom="14dp"
             android:orientation="horizontal"
             android:weightSum="120">
 
@@ -89,7 +91,7 @@
             android:layout_height="30dp"
             android:text="선택지2"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="21sp"
             android:gravity="left|center"
             android:layout_marginLeft="15dp"
             android:fontFamily="@font/maplestory_light"/>
@@ -99,6 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="7dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             android:weightSum="120">
 
