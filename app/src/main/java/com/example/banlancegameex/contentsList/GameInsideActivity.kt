@@ -354,6 +354,7 @@ class GameInsideActivity : AppCompatActivity() {
             FBRef.postRef.child(key).removeValue()
             FBRef.countRef.child(key).removeValue()
             Toast.makeText(this,"삭제완료", Toast.LENGTH_SHORT).show()
+
             finish()
         }
 

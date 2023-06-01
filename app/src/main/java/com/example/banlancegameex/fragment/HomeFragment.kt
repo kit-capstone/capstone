@@ -43,6 +43,8 @@ class HomeFragment : Fragment() {
     // recycler view를 위한 adapter
     lateinit var rvAdapter : ContentRVAdapter
 
+    lateinit var adapter : ArrayAdapter<String>
+
     val itemArray = ArrayList<SearchContentModel>()
 
     // 게시물을 가져올 ContentModel형태의 list
@@ -84,7 +86,7 @@ class HomeFragment : Fragment() {
         postRef = database.getReference("post")
 
         // post 테이블에서 inquiry(조회수) 속성을 기준으로 오름차순으로 게임 정보를 받아옴
-        postRef.orderByChild("inquiry").addListenerForSingleValueEvent(object : ValueEventListener{
+        postRef.orderByChild("inquiry").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 items.clear()
@@ -123,7 +125,7 @@ class HomeFragment : Fragment() {
 
                 // firebase functions를 이용하여 today의 값을 매일 오전 4시 변경
                 // 변경된 today의 값을 key값으로 받아와 화면에 출력
-                FBRef.todayRef.addListenerForSingleValueEvent(object : ValueEventListener{
+                FBRef.todayRef.addValueEventListener(object : ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
                         todayRecommended = snapshot.getValue() as String
                         val result: SearchContentModel? = itemArray.find { it.key == todayRecommended }
@@ -144,6 +146,7 @@ class HomeFragment : Fragment() {
 
                 // 비동기 방식으로 받아온 정보를 recycler view에 반영하기 위한 코드
                 rvAdapter.notifyDataSetChanged()
+                adapter.notifyDataSetChanged()
 
 //                todayRecommended = subKeyList[randomIndex]
             }
@@ -247,7 +250,7 @@ class HomeFragment : Fragment() {
     }
     private fun setSpinnerSort(){
         val sort = resources.getStringArray(R.array.spinner_sort)
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, sort)
+        adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, sort)
         binding.sortSpinner.adapter = adapter
     }
 

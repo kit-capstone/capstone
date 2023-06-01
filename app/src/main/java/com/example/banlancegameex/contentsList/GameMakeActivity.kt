@@ -1,6 +1,7 @@
 package com.example.banlancegameex.contentsList
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -11,9 +12,8 @@ import com.example.banlancegameex.R
 import com.example.banlancegameex.databinding.ActivityGameMakeBinding
 import com.example.banlancegameex.utils.FBAuth
 import com.example.banlancegameex.utils.FBRef
-import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.DatabaseReference
 
 class GameMakeActivity : AppCompatActivity() {
 
@@ -67,30 +67,21 @@ class GameMakeActivity : AppCompatActivity() {
             val time = FBAuth.getTime()
 
 
-
+            // 게시물 생성 후 DB 저장 시 만들어지는 Key 값을 사용하여 해당 게시물의 통계 모델도 같이 생성
             FBRef.postRef
                 .push()
-                .setValue(ContentModel(title, option1, option1Sub, option2, option2Sub, 0, _gameTag, uid, time))
-                .addOnSuccessListener {
-                    FBRef.postRef.orderByChild("title").equalTo(title)
-                        .addListenerForSingleValueEvent(object : ValueEventListener{
-                            override fun onDataChange(snapshot: DataSnapshot) {
-                                for(data in snapshot.children){
-                                    val model = data.getValue(ContentModel::class.java)
-                                    if((model?.uid == uid) && (model?.time == time) && (model?.option1 == option1) && (model?.option2 == option2)){
-                                        key = data.key.toString()
-                                        FBRef.countRef
-                                            .child(key)
-                                            .setValue(CountModel())
-                                    }
-                                }
-                            }
-
-                            override fun onCancelled(error: DatabaseError) {
-                                TODO("Not yet implemented")
-                            }
-                        })
-                }
+                .setValue(ContentModel(title, option1, option1Sub, option2, option2Sub, 0, _gameTag, uid, time),
+                    object : DatabaseReference.CompletionListener{
+                    override fun onComplete(error: DatabaseError?, ref: DatabaseReference) {
+                        if(error == null) {
+                            key = ref.key.toString()
+                            Log.d("키 값 테스트", key)
+                            FBRef.countRef
+                                .child(key)
+                                .setValue(CountModel())
+                        }
+                    }
+                })
 
             Toast.makeText(this,"게시글 입력 완료", Toast.LENGTH_SHORT).show()
 
