@@ -341,27 +341,16 @@ class GameInsideActivity : AppCompatActivity() {
 
     private fun showDialog(){
 
-        val mDialogView = LayoutInflater.from(this).inflate(R.layout.game_edit_dialog, null)
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.game_setting_dialog, null)
         val mBuilder = AlertDialog.Builder(this)
             .setView(mDialogView)
-            .setTitle("게시글 공유/삭제")
+            .setTitle("게시글 삭제")
 
         alertDialog = mBuilder.show()
 
         //다이얼로그의 백그라운드를 둥글게 깎기 위해선 이 코드가 필요
         alertDialog?.window?.setBackgroundDrawableResource(R.drawable.background_radius)
 
-        val myUid = FBAuth.getuid()
-        if((myUid == writerUid) && (todayKey != key)) {
-            alertDialog?.findViewById<Button>(R.id.removeBtn)?.visibility = View.VISIBLE
-        } else {
-            alertDialog?.findViewById<Button>(R.id.removeBtn)?.visibility = View.GONE
-        }
-
-        alertDialog?.findViewById<Button>(R.id.shareBtn)?.setOnClickListener{
-            shareApp()
-            alertDialog?.dismiss()
-        }
         alertDialog?.findViewById<Button>(R.id.removeBtn)?.setOnClickListener{
             FBRef.postRef.child(key).removeValue()
             FBRef.countRef.child(key).removeValue()
@@ -370,17 +359,6 @@ class GameInsideActivity : AppCompatActivity() {
             finish()
         }
 
-    }
-    private fun shareApp() {
-
-        val url = ""
-        val appMsg = "너와 나의 밸런스 게임 ABTwin에 당신을 초대합니다!$url"
-
-        val intent = Intent()
-        intent.action = Intent.ACTION_SEND
-        intent.putExtra(Intent.EXTRA_TEXT,appMsg)
-        intent.type = "text/plain"
-        startActivity(intent)
     }
 
     @SuppressLint("SetTextI18n")

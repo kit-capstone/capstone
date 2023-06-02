@@ -93,6 +93,10 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
 
+        binding.shareBtn.setOnClickListener {
+            shareApp()
+        }
+
         binding.accountDelete.setOnClickListener {
             val user = Firebase.auth.currentUser!!
 
@@ -157,5 +161,18 @@ class ProfileFragment : Fragment() {
             })
 
         return binding.root
+    }
+
+
+    private fun shareApp() {
+
+        val url = ""
+        val appMsg = "너와 나의 밸런스 게임 ABTwin에 당신을 초대합니다!$url"
+
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.putExtra(Intent.EXTRA_TEXT,appMsg)
+        intent.type = "text/plain"
+        context?.startActivity(intent)
     }
 }
