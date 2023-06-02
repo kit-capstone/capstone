@@ -345,8 +345,9 @@ class GameInsideActivity : AppCompatActivity() {
             alertDialog?.findViewById<Button>(R.id.removeBtn)?.visibility = View.GONE
         }
 
-        alertDialog?.findViewById<Button>(R.id.editBtn)?.setOnClickListener{
-            Toast.makeText(this,"aa", Toast.LENGTH_SHORT).show()
+        alertDialog?.findViewById<Button>(R.id.shareBtn)?.setOnClickListener{
+            shareApp()
+            alertDialog?.dismiss()
         }
         alertDialog?.findViewById<Button>(R.id.removeBtn)?.setOnClickListener{
             FBRef.postRef.child(key).removeValue()
@@ -356,6 +357,17 @@ class GameInsideActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+    private fun shareApp() {
+
+        val url = ""
+        val appMsg = "너와 나의 밸런스 게임 ABTwin에 당신을 초대합니다!$url"
+
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.putExtra(Intent.EXTRA_TEXT,appMsg)
+        intent.type = "text/plain"
+        startActivity(intent)
     }
 
     @SuppressLint("SetTextI18n")

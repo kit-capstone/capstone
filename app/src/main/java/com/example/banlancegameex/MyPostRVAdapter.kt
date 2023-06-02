@@ -133,7 +133,7 @@ class MyPostRVAdapter (val context : Context,
         val mDialogView = LayoutInflater.from(context).inflate(R.layout.game_edit_dialog, null)
         val mBuilder = AlertDialog.Builder(context)
             .setView(mDialogView)
-            .setTitle("게시글 삭제")
+            .setTitle("게시글 공유/삭제")
 
         alertDialog = mBuilder.show()
 
@@ -143,7 +143,6 @@ class MyPostRVAdapter (val context : Context,
         alertDialog?.findViewById<Button>(R.id.shareBtn)?.setOnClickListener{
             shareApp()
             alertDialog?.dismiss()
-
         }
 
         alertDialog?.findViewById<Button>(R.id.removeBtn)?.setOnClickListener{
