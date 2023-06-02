@@ -154,9 +154,15 @@ class MyPostRVAdapter (val context : Context,
         alertDialog?.window?.setBackgroundDrawableResource(R.drawable.background_radius)
 
         alertDialog?.findViewById<Button>(R.id.removeBtn)?.setOnClickListener{
-            FBRef.postRef.child(key).removeValue()
-            FBRef.countRef.child(key).removeValue()
-            Toast.makeText(context,"삭제완료", Toast.LENGTH_SHORT).show()
+
+            if(todayKey != key) {
+                FBRef.postRef.child(key).removeValue()
+                FBRef.countRef.child(key).removeValue()
+                Toast.makeText(context,"삭제완료", Toast.LENGTH_SHORT).show()
+            }else {
+                Toast.makeText(context,"오늘의 토론 게시글은 삭제할 수 없습니다.", Toast.LENGTH_SHORT).show()
+            }
+
             alertDialog?.dismiss()
         }
     }

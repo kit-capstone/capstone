@@ -69,18 +69,6 @@ class GameInsideActivity : AppCompatActivity() {
         KeyList = (intent.getStringArrayListExtra("keylist"))?:ArrayList<String>()
         getBoardData(key.toString())
 
-        val postListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                todayKey = dataSnapshot.getValue() as String
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
-            }
-        }
-        FBRef.todayRef.addValueEventListener(postListener)
-
         binding.opt1Mask.apply {
             isClickable = false
             isEnabled = false
@@ -299,6 +287,24 @@ class GameInsideActivity : AppCompatActivity() {
                     transaction.commit()
 
                     writerUid = dataModel.uid
+
+                    val postListener = object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            todayKey = dataSnapshot.getValue() as String
+                            if((todayKey != key) && (writerUid == FBAuth.getuid())) {
+                                binding.gameSettingIcon.visibility = View.VISIBLE
+                            }
+                            else {
+                                binding.gameSettingIcon.visibility = View.INVISIBLE
+                            }
+                        }
+
+                        override fun onCancelled(databaseError: DatabaseError) {
+                            // Getting Post failed, log a message
+                            Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+                        }
+                    }
+                    FBRef.todayRef.addValueEventListener(postListener)
 
                 } catch (e : Exception){
                     Log.d(TAG, "삭제완료")
