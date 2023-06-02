@@ -20,4 +20,19 @@
         android:fontWeight="400"
         android:font="@font/maplestory_light"/>
 
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="@integer/material_motion_duration_long_1"
+        android:font="@font/poppins_light"/>
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="@integer/material_motion_duration_long_2"
+        android:font="@font/poppins_medium"/>
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/poppins_bold"/>
+
 </font-family>
