@@ -42,7 +42,7 @@
                     android:layout_marginTop="18dp"
                     android:layout_marginRight="18dp"
                     android:src="@drawable/menu_dot"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

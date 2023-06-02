@@ -13,7 +13,6 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,6 +42,7 @@ class GameInsideActivity : AppCompatActivity() {
     var opt1_count = 0.0
     var opt2_count = 0.0
     private lateinit var key: String
+    var writerUid : String = ""
 
     private lateinit var binding : ActivityGameInsideBinding
 
@@ -285,15 +285,7 @@ class GameInsideActivity : AppCompatActivity() {
                     transaction.replace(R.id.fragmentContainerView2, fragment)
                     transaction.commit()
 
-                    val myUid = FBAuth.getuid()
-                    val writerUid = dataModel.uid
-
-                    if(myUid.equals(writerUid)){
-                        Log.d(TAG, "내가 쓴 글")
-                        binding.gameSettingIcon.isVisible = true
-                    } else {
-                        Log.d(TAG, "내가 쓴 글 아님")
-                    }
+                    writerUid = dataModel.uid
 
                 } catch (e : Exception){
                     Log.d(TAG, "삭제완료")
@@ -336,16 +328,22 @@ class GameInsideActivity : AppCompatActivity() {
 
     private fun showDialog(){
 
-        val mDialogView = LayoutInflater.from(this).inflate(R.layout.game_setting_dialog, null)
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.game_edit_dialog, null)
         val mBuilder = AlertDialog.Builder(this)
             .setView(mDialogView)
-            .setTitle("게시글 삭제")
+            .setTitle("게시글 공유/삭제")
 
         alertDialog = mBuilder.show()
 
         //다이얼로그의 백그라운드를 둥글게 깎기 위해선 이 코드가 필요
         alertDialog?.window?.setBackgroundDrawableResource(R.drawable.background_radius)
 
+        val myUid = FBAuth.getuid()
+        if(myUid == writerUid) {
+            alertDialog?.findViewById<Button>(R.id.removeBtn)?.visibility = View.VISIBLE
+        } else {
+            alertDialog?.findViewById<Button>(R.id.removeBtn)?.visibility = View.GONE
+        }
 
         alertDialog?.findViewById<Button>(R.id.editBtn)?.setOnClickListener{
             Toast.makeText(this,"aa", Toast.LENGTH_SHORT).show()
