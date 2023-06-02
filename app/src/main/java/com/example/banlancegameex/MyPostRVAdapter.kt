@@ -81,14 +81,11 @@ class MyPostRVAdapter (val context : Context,
                                 opt2_count = 0.0
                             }
 
-                            val opt1_data = String.format("%.1f", opt1_count)
-                            val opt2_data = String.format("%.1f", opt2_count)
-
-                            opt1_percent.text = opt1_data + "%"
-                            opt2_percent.text = opt2_data + "%"
-
                             val opt1_count_int = opt1_count.toInt()
                             val opt2_count_int = opt2_count.toInt()
+
+                            opt1_percent.text = opt1_count_int.toString() + "%"
+                            opt2_percent.text = opt2_count_int.toString() + "%"
 
                             val opt1_percent_weight = opt1_percent.layoutParams as LinearLayout.LayoutParams
                             opt1_percent_weight.weight = opt1_count_int.toFloat() // 변경할 weight 값
