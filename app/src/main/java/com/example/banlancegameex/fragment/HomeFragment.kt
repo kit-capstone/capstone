@@ -99,9 +99,6 @@ class HomeFragment : Fragment() {
                     items.add(item!!)
                     itemArray.add(SearchContentModel(item!!, dataModel.key.toString()))
 
-                    setSpinnerSort()
-                    setupSpinnerHandler()
-
                     // push한 게임의 key 값을 itemKeyList에 저장
                     // 사용자가 북마크한 게임을 식별하기 위한 변수
                     itemKeyList.add(dataModel.key.toString())
@@ -145,9 +142,8 @@ class HomeFragment : Fragment() {
                 // Log.d("모델 확인용", items.toString())
 
                 // 비동기 방식으로 받아온 정보를 recycler view에 반영하기 위한 코드
-                rvAdapter.notifyDataSetChanged()
-                adapter.notifyDataSetChanged()
-
+//                rvAdapter.notifyDataSetChanged()
+                reloadSpinner()
 //                todayRecommended = subKeyList[randomIndex]
             }
 
@@ -299,5 +295,39 @@ class HomeFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun reloadSpinner(){
+        when(_sort) {
+            "인기순" -> {
+                //게시물을 인기순으로 정렬
+                itemArray.sortByDescending { it.content.inquiry }
+                items.clear()
+                itemKeyList.clear()
+
+                //정렬한 게시물의 정보를 recycler view에 갱신시킴
+                for(i in itemArray) {
+                    items.add(i.content)
+                    itemKeyList.add(i.key)
+                }
+
+                rvAdapter.notifyDataSetChanged()
+            }
+            "최신순" -> {
+                // 게시물을 날짜순으로 정렬
+                itemArray.sortWith(compareBy { SimpleDateFormat("yyyy.MM.dd HH:mm:ss", Locale.getDefault()).parse(it.content.time) })
+                itemArray.reverse()
+                items.clear()
+                itemKeyList.clear()
+
+                //정렬한 게시물의 정보를 recycler view에 갱신시킴
+                for(i in itemArray) {
+                    items.add(i.content)
+                    itemKeyList.add(i.key)
+                }
+
+                rvAdapter.notifyDataSetChanged()
+            }
+        }
     }
 }
