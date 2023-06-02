@@ -1,5 +1,6 @@
 package com.example.banlancegameex
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -57,6 +58,7 @@ class MyPostRVAdapter (val context : Context,
             val gameOption2 = itemView.findViewById<TextView>(R.id.game_option2_txt)
 
             val countListener = object : ValueEventListener {
+                @SuppressLint("SetTextI18n")
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     for (data in dataSnapshot.children) {
                         if(data.key.toString() == key){
@@ -81,11 +83,14 @@ class MyPostRVAdapter (val context : Context,
                                 opt2_count = 0.0
                             }
 
+                            val opt1_data = String.format("%.1f", opt1_count)
+                            val opt2_data = String.format("%.1f", opt2_count)
+
+                            opt1_percent.text = "$opt1_data%"
+                            opt2_percent.text = "$opt2_data%"
+
                             val opt1_count_int = opt1_count.toInt()
                             val opt2_count_int = opt2_count.toInt()
-
-                            opt1_percent.text = opt1_count_int.toString() + "%"
-                            opt2_percent.text = opt2_count_int.toString() + "%"
 
                             val opt1_percent_weight = opt1_percent.layoutParams as LinearLayout.LayoutParams
                             opt1_percent_weight.weight = opt1_count_int.toFloat() // 변경할 weight 값
@@ -114,7 +119,7 @@ class MyPostRVAdapter (val context : Context,
             val menuArea = itemView.findViewById<ImageView>(R.id.menu_area)
 
             menuArea.setOnClickListener {
-                showDialog(key, item.title)
+                showDialog(key)
             }
 
             gameTitle.text = item.title
@@ -123,9 +128,9 @@ class MyPostRVAdapter (val context : Context,
         }
     }
 
-    private fun showDialog(key : String, title : String){
+    private fun showDialog(key : String){
 
-        val mDialogView = LayoutInflater.from(context).inflate(R.layout.game_setting_dialog, null)
+        val mDialogView = LayoutInflater.from(context).inflate(R.layout.game_edit_dialog, null)
         val mBuilder = AlertDialog.Builder(context)
             .setView(mDialogView)
             .setTitle("게시글 삭제")
@@ -135,14 +140,29 @@ class MyPostRVAdapter (val context : Context,
         //다이얼로그의 백그라운드를 둥글게 깎기 위해선 이 코드가 필요
         alertDialog?.window?.setBackgroundDrawableResource(R.drawable.background_radius)
 
-        alertDialog?.findViewById<Button>(R.id.editBtn)?.setOnClickListener{
-            Toast.makeText(context,"aa", Toast.LENGTH_SHORT).show()
+        alertDialog?.findViewById<Button>(R.id.shareBtn)?.setOnClickListener{
+            shareApp()
+            alertDialog?.dismiss()
+
         }
+
         alertDialog?.findViewById<Button>(R.id.removeBtn)?.setOnClickListener{
             FBRef.postRef.child(key).removeValue()
             FBRef.countRef.child(key).removeValue()
             Toast.makeText(context,"삭제완료", Toast.LENGTH_SHORT).show()
             alertDialog?.dismiss()
         }
+    }
+
+    private fun shareApp() {
+
+        val url = ""
+        val appMsg = "너와 나의 밸런스 게임 ABTwin에 당신을 초대합니다!$url"
+
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.putExtra(Intent.EXTRA_TEXT,appMsg)
+        intent.type = "text/plain"
+        context.startActivity(intent)
     }
 }

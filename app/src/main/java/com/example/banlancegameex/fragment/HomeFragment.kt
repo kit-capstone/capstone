@@ -109,19 +109,6 @@ class HomeFragment : Fragment() {
                 items.reverse()
                 itemKeyList.reverse()
 
-                // 오늘의 추천으로 출력할 게임을 선정하기 위한 코드
-                // 위에서 받아온 게임 정보 중 상위 3개 중 임의로 선정
-//                val subList = items.subList(0, 3)
-//                val subKeyList = itemKeyList.subList(0, 3)
-//                val randomIndex = Random.nextInt(subList.size)
-//                val recommedElement = subList[randomIndex]
-//
-//                binding.gameTitleTxt.text = recommedElement.title
-//                binding.gameOption1Txt.text = recommedElement.option1
-//                binding.gameOption2Txt.text = recommedElement.option2
-
-                // firebase functions를 이용하여 today의 값을 매일 오전 4시 변경
-                // 변경된 today의 값을 key값으로 받아와 화면에 출력
                 FBRef.todayRef.addValueEventListener(object : ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
                         todayRecommended = snapshot.getValue() as String
