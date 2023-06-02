@@ -26,6 +26,7 @@ class MyPostRVAdapter (val context : Context,
     lateinit var game_count : CountModel
     var opt1_count = 0.0
     var opt2_count = 0.0
+    var todayKey : String = ""
 
     private var alertDialog: AlertDialog? = null
 
@@ -45,6 +46,18 @@ class MyPostRVAdapter (val context : Context,
 
     inner class Viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(item : ContentModel, key : String){
+
+            val postListener = object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    todayKey = dataSnapshot.getValue() as String
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Getting Post failed, log a message
+
+                }
+            }
+            FBRef.todayRef.addValueEventListener(postListener)
 
             itemView.setOnClickListener {
                 // 게임 페이지로 이동 코드 구현 필요
@@ -136,6 +149,12 @@ class MyPostRVAdapter (val context : Context,
             .setTitle("게시글 공유/삭제")
 
         alertDialog = mBuilder.show()
+
+        if(todayKey != key) {
+            alertDialog?.findViewById<Button>(R.id.removeBtn)?.visibility = View.VISIBLE
+        } else {
+            alertDialog?.findViewById<Button>(R.id.removeBtn)?.visibility = View.GONE
+        }
 
         //다이얼로그의 백그라운드를 둥글게 깎기 위해선 이 코드가 필요
         alertDialog?.window?.setBackgroundDrawableResource(R.drawable.background_radius)

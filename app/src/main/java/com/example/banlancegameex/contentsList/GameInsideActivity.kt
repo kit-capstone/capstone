@@ -43,6 +43,7 @@ class GameInsideActivity : AppCompatActivity() {
     var opt2_count = 0.0
     private lateinit var key: String
     var writerUid : String = ""
+    var todayKey : String = ""
 
     private lateinit var binding : ActivityGameInsideBinding
 
@@ -67,6 +68,18 @@ class GameInsideActivity : AppCompatActivity() {
         key = intent.getStringExtra("key").toString()
         KeyList = (intent.getStringArrayListExtra("keylist"))?:ArrayList<String>()
         getBoardData(key.toString())
+
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                todayKey = dataSnapshot.getValue() as String
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        FBRef.todayRef.addValueEventListener(postListener)
 
         binding.opt1Mask.apply {
             isClickable = false
@@ -339,7 +352,7 @@ class GameInsideActivity : AppCompatActivity() {
         alertDialog?.window?.setBackgroundDrawableResource(R.drawable.background_radius)
 
         val myUid = FBAuth.getuid()
-        if(myUid == writerUid) {
+        if((myUid == writerUid) && (todayKey != key)) {
             alertDialog?.findViewById<Button>(R.id.removeBtn)?.visibility = View.VISIBLE
         } else {
             alertDialog?.findViewById<Button>(R.id.removeBtn)?.visibility = View.GONE
