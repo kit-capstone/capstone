@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
     val bookmarkIdList = mutableListOf<String>()
 
     var todayRecommended : String = ""
-    private lateinit var _sort : String
+    var _sort : String = "인기순"
     // recycler view를 위한 adapter
     lateinit var rvAdapter : ContentRVAdapter
 
