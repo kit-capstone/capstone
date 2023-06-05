@@ -22,7 +22,7 @@
                 android:src="@drawable/background_btn_write"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:scaleType="centerInside"
+                android:scaleType="fitCenter"
                 android:layout_marginBottom="90dp"
                 android:layout_marginRight="20dp"/>
             
