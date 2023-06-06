@@ -3,6 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ScrollView
+        android:id="@+id/locateScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -136,6 +141,7 @@
                     app:layout_constraintTop_toBottomOf="@id/countLinearFrame">
 
                     <LinearLayout
+                        android:id="@+id/koreaArea"
                         android:background="@drawable/korea"
                         android:layout_width="match_parent"
                         android:layout_height="600dp"
@@ -374,4 +380,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
+    </ScrollView>
 </layout>

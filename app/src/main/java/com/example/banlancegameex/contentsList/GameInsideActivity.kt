@@ -448,7 +448,14 @@ class GameInsideActivity : AppCompatActivity() {
         when(dir) {
             1 -> transaction.replace(R.id.fragmentContainerView2, ageFragment)
             2 -> transaction.replace(R.id.fragmentContainerView2, genderFragment)
-            3 -> transaction.replace(R.id.fragmentContainerView2, locateFragment)
+            3 -> {
+                transaction.replace(R.id.fragmentContainerView2, locateFragment)
+                binding.countFrame.post {
+                    val animator = ObjectAnimator.ofInt(binding.gameScroll, "scrollY", binding.countFrame.bottom)
+                    animator.duration = 800
+                    animator.start()
+                }
+            }
         }
         transaction.commitAllowingStateLoss()
     }
