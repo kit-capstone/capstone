@@ -10,69 +10,73 @@ class CountResult {
 
         fun delaycount(choose: String, count: CountModel) : CountModel {
             val locate = userdata.locate.split(" ")[0]
+            val ageStatistics = count.ageStatistics
+            val genderStatistics = count.genderStatistics
+            val regionStatistics = count.regionStatistics
+
             if (choose == "A") {
                 if(userdata.agerange == "10대") {
-                    count.teenager_op1++
+                    ageStatistics.teenager_opt1++
                 }else if(userdata.agerange == "20대"){
-                    count.twenties_opt1++
+                    ageStatistics.twenties_opt1++
                 }else if(userdata.agerange == "30대"){
-                    count.thirties_opt1++
+                    ageStatistics.thirties_opt1++
                 }else if(userdata.agerange == "40대") {
-                    count.fourties_opt1++
+                    ageStatistics.fourties_opt1++
                 }else if(userdata.agerange == "50대 이상"){
-                    count.fifties_opt1++
+                    ageStatistics.fifties_opt1++
                 }
 
                 if(userdata.gender == "남성"){
-                    count.man_opt1++
+                    genderStatistics.man_opt1++
                 }else if(userdata.gender == "여성"){
-                    count.woman_opt1++
+                    genderStatistics.woman_opt1++
                 }
 
                 if(locate == "경기도") {
-                    count.gyeonggi_opt1++
+                    regionStatistics.gyeonggi_opt1++
                 }else if(locate == "강원도") {
-                    count.gangwon_opt1++
+                    regionStatistics.gangwon_opt1++
                 }else if((locate == "충청북도") || (locate == "충청남도")) {
-                    count.chungcheong_opt1++
+                    regionStatistics.chungcheong_opt1++
                 }else if((locate == "경상북도") || (locate == "경상남도")) {
-                    count.gyeongsang_opt1++
+                    regionStatistics.gyeongsang_opt1++
                 }else if((locate == "전라북도") || (locate == "전라남도")) {
-                    count.jeolla_opt1++
+                    regionStatistics.jeolla_opt1++
                 }else if(locate == "제주특별자치도") {
-                    count.jeju_opt1++
+                    regionStatistics.jeju_opt1++
                 }
             }else if(choose == "B"){
                 if(userdata.agerange == "10대") {
-                    count.teenager_op2++
+                    ageStatistics.teenager_opt2++
                 }else if(userdata.agerange == "20대"){
-                    count.twenties_opt2++
+                    ageStatistics.twenties_opt2++
                 }else if(userdata.agerange == "30대"){
-                    count.thirties_opt2++
+                    ageStatistics.thirties_opt2++
                 }else if(userdata.agerange == "40대") {
-                    count.fourties_opt2++
+                    ageStatistics.fourties_opt2++
                 }else if(userdata.agerange == "50대 이상"){
-                    count.fifties_opt2++
+                    ageStatistics.fifties_opt2++
                 }
 
                 if(userdata.gender == "남성"){
-                    count.man_opt2++
+                    genderStatistics.man_opt2++
                 }else if(userdata.gender == "여성"){
-                    count.woman_opt2++
+                    genderStatistics.woman_opt2++
                 }
 
                 if(locate == "경기도") {
-                    count.gyeonggi_opt2++
+                    regionStatistics.gyeonggi_opt2++
                 }else if(locate == "강원도") {
-                    count.gangwon_opt2++
+                    regionStatistics.gangwon_opt2++
                 }else if((locate == "충청북도") || (locate == "충청남도")) {
-                    count.chungcheong_opt2++
+                    regionStatistics.chungcheong_opt2++
                 }else if((locate == "경상북도") || (locate == "경상남도")) {
-                    count.gyeongsang_opt2++
+                    regionStatistics.gyeongsang_opt2++
                 }else if((locate == "전라북도") || (locate == "전라남도")) {
-                    count.jeolla_opt2++
+                    regionStatistics.jeolla_opt2++
                 }else if(locate == "제주특별자치도") {
-                    count.jeju_opt2++
+                    regionStatistics.jeju_opt2++
                 }
             }
             return count

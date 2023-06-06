@@ -2,6 +2,7 @@ package com.example.banlancegameex.fragment
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Half.toFloat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,7 @@ class LocateFragment : Fragment() {
         opt1 = arguments?.getString("opt1", "").toString()
         opt2 = arguments?.getString("opt2", "").toString()
         count = (arguments?.getSerializable("count") as? CountModel)?: CountModel()
+        val regionStatistics = count.regionStatistics
 
         binding.option1.setText(opt1)
         binding.option2.setText(opt2)
@@ -53,20 +55,20 @@ class LocateFragment : Fragment() {
         locate1.add("제주")
 
         val values = ArrayList<BarEntry>()
-        values.add(BarEntry(0f, count.gyeonggi_opt1.toFloat()))
-        values.add(BarEntry(1f, count.gangwon_opt1.toFloat()))
-        values.add(BarEntry(2f, count.chungcheong_opt1.toFloat()))
-        values.add(BarEntry(3f, count.gyeongsang_opt1.toFloat()))
-        values.add(BarEntry(4f, count.jeolla_opt1.toFloat()))
-        values.add(BarEntry(5f, count.jeju_opt1.toFloat()))
+        values.add(BarEntry(0f, regionStatistics.gyeonggi_opt1.toFloat()))
+        values.add(BarEntry(1f, regionStatistics.gangwon_opt1.toFloat()))
+        values.add(BarEntry(2f, regionStatistics.chungcheong_opt1.toFloat()))
+        values.add(BarEntry(3f, regionStatistics.gyeongsang_opt1.toFloat()))
+        values.add(BarEntry(4f, regionStatistics.jeolla_opt1.toFloat()))
+        values.add(BarEntry(5f, regionStatistics.jeju_opt1.toFloat()))
 
         val values2 = ArrayList<BarEntry>()
-        values2.add(BarEntry(0f, count.gyeonggi_opt2.toFloat()))
-        values2.add(BarEntry(1f, count.gangwon_opt2.toFloat()))
-        values2.add(BarEntry(2f, count.chungcheong_opt2.toFloat()))
-        values2.add(BarEntry(3f, count.gyeongsang_opt2.toFloat()))
-        values2.add(BarEntry(4f, count.jeolla_opt2.toFloat()))
-        values2.add(BarEntry(5f, count.jeju_opt2.toFloat()))
+        values2.add(BarEntry(0f, regionStatistics.gyeonggi_opt2.toFloat()))
+        values2.add(BarEntry(1f, regionStatistics.gangwon_opt2.toFloat()))
+        values2.add(BarEntry(2f, regionStatistics.chungcheong_opt2.toFloat()))
+        values2.add(BarEntry(3f, regionStatistics.gyeongsang_opt2.toFloat()))
+        values2.add(BarEntry(4f, regionStatistics.jeolla_opt2.toFloat()))
+        values2.add(BarEntry(5f, regionStatistics.jeju_opt2.toFloat()))
 
         val barDataSet1 = BarDataSet(values, "Locate")
         barDataSet1.color = Color.rgb(251,81,96)
@@ -127,28 +129,28 @@ class LocateFragment : Fragment() {
         }
 
         val gyeonggiEntries = mutableListOf<PieEntry>()
-        gyeonggiEntries.add(PieEntry(count.gyeonggi_opt1.toFloat(), ""))
-        gyeonggiEntries.add(PieEntry(count.gyeonggi_opt2.toFloat(), ""))
+        gyeonggiEntries.add(PieEntry(regionStatistics.gyeonggi_opt1.toFloat(), ""))
+        gyeonggiEntries.add(PieEntry(regionStatistics.gyeonggi_opt2.toFloat(), ""))
 
         val gangwonEntries = mutableListOf<PieEntry>()
-        gangwonEntries.add(PieEntry(count.gangwon_opt1.toFloat(), ""))
-        gangwonEntries.add(PieEntry(count.gangwon_opt2.toFloat(), ""))
+        gangwonEntries.add(PieEntry(regionStatistics.gangwon_opt1.toFloat(), ""))
+        gangwonEntries.add(PieEntry(regionStatistics.gangwon_opt2.toFloat(), ""))
 
         val chungcheongEntries = mutableListOf<PieEntry>()
-        chungcheongEntries.add(PieEntry(count.chungcheong_opt1.toFloat(), ""))
-        chungcheongEntries.add(PieEntry(count.chungcheong_opt2.toFloat(), ""))
+        chungcheongEntries.add(PieEntry(regionStatistics.chungcheong_opt1.toFloat(), ""))
+        chungcheongEntries.add(PieEntry(regionStatistics.chungcheong_opt2.toFloat(), ""))
 
         val gyeongsangEntries = mutableListOf<PieEntry>()
-        gyeongsangEntries.add(PieEntry(count.gyeongsang_opt1.toFloat(), ""))
-        gyeongsangEntries.add(PieEntry(count.gyeongsang_opt2.toFloat(), ""))
+        gyeongsangEntries.add(PieEntry(regionStatistics.gyeongsang_opt1.toFloat(), ""))
+        gyeongsangEntries.add(PieEntry(regionStatistics.gyeongsang_opt2.toFloat(), ""))
 
         val jeollaEntries = mutableListOf<PieEntry>()
-        jeollaEntries.add(PieEntry(count.jeolla_opt1.toFloat(), ""))
-        jeollaEntries.add(PieEntry(count.jeolla_opt2.toFloat(), ""))
+        jeollaEntries.add(PieEntry(regionStatistics.jeolla_opt1.toFloat(), ""))
+        jeollaEntries.add(PieEntry(regionStatistics.jeolla_opt2.toFloat(), ""))
 
         val jejuEntries = mutableListOf<PieEntry>()
-        jejuEntries.add(PieEntry(count.jeju_opt1.toFloat(), ""))
-        jejuEntries.add(PieEntry(count.jeju_opt2.toFloat(), ""))
+        jejuEntries.add(PieEntry(regionStatistics.jeju_opt1.toFloat(), ""))
+        jejuEntries.add(PieEntry(regionStatistics.jeju_opt2.toFloat(), ""))
 
         val gyeonggidataSet = PieDataSet(gyeonggiEntries, "경기")
         gyeonggidataSet.colors = listOf(Color.rgb(251,81,96), Color.rgb(84,122,255))

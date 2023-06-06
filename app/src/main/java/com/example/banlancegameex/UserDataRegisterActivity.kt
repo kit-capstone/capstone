@@ -46,8 +46,8 @@ class UserDataRegisterActivity : AppCompatActivity() {
     private lateinit var errormessage : String
     private lateinit var _gender : String
     private lateinit var _agerange : String
-    private lateinit var _job : String
     private lateinit var _nickname : String
+    private lateinit var _job : String
     private lateinit var _locate : String
     var user_data = ""
     val database = Firebase.database.reference
@@ -113,8 +113,7 @@ class UserDataRegisterActivity : AppCompatActivity() {
                     else if(_job == "무직"){
                         binding.jobSpin.setSelection(2)
                     }
-
-                    if(_locate == "경기도"){
+                    else if(_locate == "경기도"){
                         binding.locateSpin.setSelection(0)
                     }
                     else if(_locate == "강원도"){
@@ -135,7 +134,7 @@ class UserDataRegisterActivity : AppCompatActivity() {
                     else if(_locate == "전라북도"){
                         binding.locateSpin.setSelection(6)
                     }
-                    else if(_locate == "전라북도"){
+                    else if(_locate == "전라남도"){
                         binding.locateSpin.setSelection(7)
                     }
                     else if(_locate == "제주특별자치도"){

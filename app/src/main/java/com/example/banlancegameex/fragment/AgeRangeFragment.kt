@@ -40,6 +40,7 @@ class AgeRangeFragment : Fragment() {
         opt1 = arguments?.getString("opt1", "").toString()
         opt2 = arguments?.getString("opt2", "").toString()
         count = (arguments?.getSerializable("count") as? CountModel)?: CountModel()
+        val ageStatistics = count.ageStatistics
 
         binding.option1.setText(opt1)
         binding.option2.setText(opt2)
@@ -57,18 +58,18 @@ class AgeRangeFragment : Fragment() {
         ages1.add("50대 이상")
 
         val values = ArrayList<BarEntry>()
-        values.add(BarEntry(0f, count.teenager_op1.toFloat()))
-        values.add(BarEntry(1f, count.twenties_opt1.toFloat()))
-        values.add(BarEntry(2f, count.thirties_opt1.toFloat()))
-        values.add(BarEntry(3f, count.fourties_opt1.toFloat()))
-        values.add(BarEntry(4f, count.fifties_opt1.toFloat()))
+        values.add(BarEntry(0f, ageStatistics.teenager_opt1.toFloat()))
+        values.add(BarEntry(1f, ageStatistics.twenties_opt1.toFloat()))
+        values.add(BarEntry(2f, ageStatistics.thirties_opt1.toFloat()))
+        values.add(BarEntry(3f, ageStatistics.fourties_opt1.toFloat()))
+        values.add(BarEntry(4f, ageStatistics.fifties_opt1.toFloat()))
 
         val values2 = ArrayList<BarEntry>()
-        values2.add(BarEntry(0.3f, count.teenager_op2.toFloat()))
-        values2.add(BarEntry(1.3f, count.twenties_opt2.toFloat()))
-        values2.add(BarEntry(2.3f, count.thirties_opt2.toFloat()))
-        values2.add(BarEntry(3.3f, count.fourties_opt2.toFloat()))
-        values2.add(BarEntry(4.3f, count.fifties_opt2.toFloat()))
+        values2.add(BarEntry(0.3f, ageStatistics.teenager_opt2.toFloat()))
+        values2.add(BarEntry(1.3f, ageStatistics.twenties_opt2.toFloat()))
+        values2.add(BarEntry(2.3f, ageStatistics.thirties_opt2.toFloat()))
+        values2.add(BarEntry(3.3f, ageStatistics.fourties_opt2.toFloat()))
+        values2.add(BarEntry(4.3f, ageStatistics.fifties_opt2.toFloat()))
 
         val barDataSet = BarDataSet(values, "Ages")
         barDataSet.color = Color.rgb(251,81,96)

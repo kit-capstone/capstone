@@ -37,6 +37,7 @@ class GenderFragment : Fragment() {
         opt1 = arguments?.getString("opt1", "").toString()
         opt2 = arguments?.getString("opt2", "").toString()
         count = (arguments?.getSerializable("count") as? CountModel)?: CountModel()
+        val genderStatistics = count.genderStatistics
 
         binding.option1.setText(opt1)
         binding.option2.setText(opt2)
@@ -51,12 +52,12 @@ class GenderFragment : Fragment() {
         gender1.add("여성")
 
         val values1 = ArrayList<BarEntry>()
-        values1.add(BarEntry(0f, count.man_opt1.toFloat()))
-        values1.add(BarEntry(1f, count.woman_opt1.toFloat()))
+        values1.add(BarEntry(0f, genderStatistics.man_opt1.toFloat()))
+        values1.add(BarEntry(1f, genderStatistics.woman_opt1.toFloat()))
 
         val values2 = ArrayList<BarEntry>()
-        values2.add(BarEntry(0.6f, count.man_opt2.toFloat()))
-        values2.add(BarEntry(1.6f, count.woman_opt2.toFloat()))
+        values2.add(BarEntry(0.6f, genderStatistics.man_opt2.toFloat()))
+        values2.add(BarEntry(1.6f, genderStatistics.woman_opt2.toFloat()))
 
         val barDataSet1 = BarDataSet(values1, "Gender")
         barDataSet1.color = Color.rgb(251,81,96)
