@@ -155,14 +155,14 @@ class GameInsideActivity : AppCompatActivity() {
                 binding.countFrame.layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
 
                 binding.countFrame.post {
-                    val animator = ObjectAnimator.ofInt(binding.gameScroll, "scrollY", binding.countFrame.top)
+                    val animator = ObjectAnimator.ofInt(binding.gameScroll, "scrollY", binding.countFrame.bottom)
                     animator.duration = 800
                     animator.start()
                 }
             }
             else if(binding.countFrame.visibility == View.VISIBLE){
                 binding.countFrame.post {
-                    val animator = ObjectAnimator.ofInt(binding.gameScroll, "scrollY", binding.countFrame.top)
+                    val animator = ObjectAnimator.ofInt(binding.gameScroll, "scrollY", binding.countFrame.bottom)
                     animator.duration = 800
                     animator.start()
                     binding.countFrame.visibility = View.GONE
