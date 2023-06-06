@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.banlancegameex'
+    namespace 'com.abtwin.banlancegameex'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.banlancegameex"
+        applicationId "com.abtwin.banlancegameex"
         minSdk 24
         targetSdk 33
         versionCode 1

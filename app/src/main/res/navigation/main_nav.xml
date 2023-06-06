@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.banlancegameex.fragment.HomeFragment"
+        android:name="com.abtwin.banlancegameex.fragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/bookMarkFragment"
-        android:name="com.example.banlancegameex.fragment.BookMarkFragment"
+        android:name="com.abtwin.banlancegameex.fragment.BookMarkFragment"
         android:label="fragment_book_mark"
         tools:layout="@layout/fragment_book_mark" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/localGroupFragment"
-        android:name="com.example.banlancegameex.fragment.LocalGroupFragment"
+        android:name="com.abtwin.banlancegameex.fragment.LocalGroupFragment"
         android:label="fragment_local_group"
         tools:layout="@layout/fragment_local_group" >
         <action
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.banlancegameex.fragment.ProfileFragment"
+        android:name="com.abtwin.banlancegameex.fragment.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -79,7 +79,7 @@
     </fragment>
     <fragment
         android:id="@+id/tagFragment"
-        android:name="com.example.banlancegameex.fragment.SearchFragment"
+        android:name="com.abtwin.banlancegameex.fragment.SearchFragment"
         android:label="fragment_tag"
         tools:layout="@layout/fragment_search" >
         <action

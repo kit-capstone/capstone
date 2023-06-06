@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:298171725459:android:d3f6d9cfa768a4f526bf66",
         "android_client_info": {
-          "package_name": "com.example.banlancegameex"
+          "package_name": "com.abtwin.banlancegameex"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "298171725459-3s94evkfvs5174d3614vm423uckl7rfg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.banlancegameex",
+            "package_name": "com.abtwin.banlancegameex",
             "certificate_hash": "ad7fde1b5a43b07d5bad2c927728d6d229187f60"
           }
         },
@@ -26,7 +26,7 @@
           "client_id": "298171725459-jft5jf2ulhvgo40d40o1rkmb3e46scsm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.banlancegameex",
+            "package_name": "com.abtwin.banlancegameex",
             "certificate_hash": "5ec32b4f466e5188ad8848c198321273def221eb"
           }
         },
@@ -34,7 +34,7 @@
           "client_id": "298171725459-md9g1uh3p3guah777g98sgoiai227spd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.banlancegameex",
+            "package_name": "com.abtwin.banlancegameex",
             "certificate_hash": "cdfcc554d4636e057a72c0b36a2086708416166c"
           }
         },
@@ -42,7 +42,7 @@
           "client_id": "298171725459-tgpidsc7tqmdrdh86q3gh6gqabqt5m8n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.banlancegameex",
+            "package_name": "com.abtwin.banlancegameex",
             "certificate_hash": "1f69ecf160e83ecbae3e03a66ba0e5e2abce85ea"
           }
         },

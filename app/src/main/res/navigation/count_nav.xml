@@ -5,7 +5,7 @@
     app:startDestination="@id/ageRangeFragment">
     <fragment
         android:id="@+id/ageRangeFragment"
-        android:name="com.example.banlancegameex.fragment.AgeRangeFragment"
+        android:name="com.abtwin.banlancegameex.fragment.AgeRangeFragment"
         android:label="AgeRangeFragment" >
         <action
             android:id="@+id/action_ageRangeFragment_to_locateFragment"
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/genderFragment"
-        android:name="com.example.banlancegameex.fragment.GenderFragment"
+        android:name="com.abtwin.banlancegameex.fragment.GenderFragment"
         android:label="GenderFragment" >
         <action
             android:id="@+id/action_genderFragment_to_locateFragment"
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/locateFragment"
-        android:name="com.example.banlancegameex.fragment.LocateFragment"
+        android:name="com.abtwin.banlancegameex.fragment.LocateFragment"
         android:label="LocateFragment" >
         <action
             android:id="@+id/action_locateFragment_to_ageRangeFragment"
