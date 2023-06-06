@@ -1,3 +1,52 @@
 <resources>
-    <string name="app_name">BanlanceGameEx</string>
+    <string name="app_name">ABTwin</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="spinner_sort">
+        <item>인기순</item>
+        <item>최신순</item>
+    </string-array>
+    <string-array name="spinner_locate">
+        <item>경기도</item>
+        <item>강원도</item>
+        <item>충청북도</item>
+        <item>충청남도</item>
+        <item>경상북도</item>
+        <item>경상남도</item>
+        <item>전라북도</item>
+        <item>전라남도</item>
+        <item>제주특별자치도</item>
+    </string-array>
+
+    <string-array name="spinner_job">
+        <item>학생</item>
+        <item>직장인</item>
+        <item>무직</item>
+    </string-array>
+
+    <string-array name="spinner_gameTag">
+        <item>취향</item>
+        <item>연애</item>
+        <item>게임</item>
+        <item>음식</item>
+        <item>만화</item>
+        <item>운동</item>
+        <item>기타</item>
+    </string-array>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="some_id">\u00EB\u00A1\u009C\u00EA\u00B7\u00B8\u00EC\u009D\u00B8</string>
+    <string name="email_login_text">이메일 로그인</string>
+    <string name="email_signin_text">이메일 회원가입</string>
+    <string name="google_login_text">구글로 시작하기</string>
+    <string name="kakao_login_text">카카오톡으로 시작하기</string>
+    <string name="bookmark">북마크</string>
+    <string name="game_title_hint">제목을 입력하세요</string>
+    <string name="game_option1_hint">첫번째 선택지를 작성해주세요</string>
+    <string name="game_optionSub_hint">선택지에 대한 제약조건 등을 입력해 주세요\n(생략가능)</string>
+    <string name="game_option2_hint">두번째 선택지를 작성해주세요</string>
+    <string name="choose_topic">주제</string>
+    <string name="game_warning_text">혐오발언, 욕설, 비방 등은 \n삭제조치 및 이용제한이 \n될 수 있습니다.</string>
+    <string name="age_range">나이별</string>
+    <string name="gender">성별</string>
+    <string name="locate">지역별</string>
 </resources>
