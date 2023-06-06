@@ -1,14 +1,21 @@
 package com.abtwin.banlancegameex
 
+import android.Manifest.permission
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import com.abtwin.banlancegameex.R.string.default_web_client_id
 import com.abtwin.banlancegameex.databinding.ActivityMainBinding
@@ -40,17 +47,13 @@ class MainActivity : AppCompatActivity() {
         const val REQUEST_CODE_PERMISSIONS = 1001
     }
 
-    private val permissions = arrayOf(
-        android.Manifest.permission.ACCESS_FINE_LOCATION,
-        android.Manifest.permission.ACCESS_COARSE_LOCATION,
-        android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
-    )
-
     private lateinit var activityResultLauncher: ActivityResultLauncher<Array<String>>
 
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityMainBinding
     private var userstate = 0
+
+    val BACKGROUND_PERMISSION_REQUEST = 100
 
     private lateinit var googleSignInClient : GoogleSignInClient
 
@@ -71,9 +74,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        if (!checkPermission(permissions)) {
-            requestPermissions(permissions, MainActivity.REQUEST_CODE_PERMISSIONS)
-        }
+        requestPermission()
 
         if(auth.currentUser?.email != null){
             val intent = Intent(this, com.abtwin.banlancegameex.ContentsActivity::class.java)
@@ -325,9 +326,75 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkPermission(permissions: Array<String>): Boolean {
-        return permissions.all {
-            ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when(requestCode){
+            BACKGROUND_PERMISSION_REQUEST -> {
+                if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(this, "Background Permission Granted", Toast.LENGTH_SHORT).show()
+                    // Go Main Function
+                }else{
+                    Toast.makeText(this, "BAckground Permission Denied", Toast.LENGTH_SHORT).show()
+                    // Finish() or Show Guidance on the need for permission
+                }
+            }
+        }
+    }
+
+    private fun backgroundPermission(){
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                android.Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+            ), 2)
+    }
+
+    private fun permissionDialog(context : Context){
+        var builder = AlertDialog.Builder(context)
+        builder.setTitle("백그라운드 위치 권한을 위해 항상 허용으로 설정해주세요.")
+
+        var listener = DialogInterface.OnClickListener { _, p1 ->
+            when (p1) {
+                DialogInterface.BUTTON_POSITIVE ->
+                    backgroundPermission()
+            }
+        }
+        builder.setPositiveButton("네", listener)
+        builder.setNegativeButton("아니오", null)
+
+        builder.show()
+    }
+
+    private fun requestPermission(){
+        // 이미 권한이 있으면 그냥 리턴
+        if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            return
+        }
+        else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION
+                    ), 1)
+                permissionDialog(this)
+            }
+            // API 23 미만 버전에서는 ACCESS_BACKGROUND_LOCATION X
+            else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION
+                    ), 1)
+            }
         }
     }
 }
