@@ -12,9 +12,7 @@ import com.example.banlancegameex.contentsList.CountModel
 import com.example.banlancegameex.contentsList.GameInsideActivity
 import com.example.banlancegameex.databinding.FragmentLocateBinding
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 
 class LocateFragment : Fragment() {
@@ -127,6 +125,78 @@ class LocateFragment : Fragment() {
 
             (activity as GameInsideActivity).openFragment(2, bundle)
         }
+
+        val gyeonggiEntries = mutableListOf<PieEntry>()
+        gyeonggiEntries.add(PieEntry(count.gyeonggi_opt1.toFloat(), ""))
+        gyeonggiEntries.add(PieEntry(count.gyeonggi_opt2.toFloat(), ""))
+
+        val gangwonEntries = mutableListOf<PieEntry>()
+        gangwonEntries.add(PieEntry(count.gangwon_opt1.toFloat(), ""))
+        gangwonEntries.add(PieEntry(count.gangwon_opt2.toFloat(), ""))
+
+        val chungcheongEntries = mutableListOf<PieEntry>()
+        chungcheongEntries.add(PieEntry(count.chungcheong_opt1.toFloat(), ""))
+        chungcheongEntries.add(PieEntry(count.chungcheong_opt2.toFloat(), ""))
+
+        val gyeongsangEntries = mutableListOf<PieEntry>()
+        gyeongsangEntries.add(PieEntry(count.gyeongsang_opt1.toFloat(), ""))
+        gyeongsangEntries.add(PieEntry(count.gyeongsang_opt2.toFloat(), ""))
+
+        val jeollaEntries = mutableListOf<PieEntry>()
+        jeollaEntries.add(PieEntry(count.jeolla_opt1.toFloat(), ""))
+        jeollaEntries.add(PieEntry(count.jeolla_opt2.toFloat(), ""))
+
+        val jejuEntries = mutableListOf<PieEntry>()
+        jejuEntries.add(PieEntry(count.jeju_opt1.toFloat(), ""))
+        jejuEntries.add(PieEntry(count.jeju_opt2.toFloat(), ""))
+
+        val gyeonggidataSet = PieDataSet(gyeonggiEntries, "경기")
+        gyeonggidataSet.colors = listOf(Color.rgb(251,81,96), Color.rgb(84,122,255))
+        gyeonggidataSet.setDrawValues(false)
+        val gangwondataSet = PieDataSet(gangwonEntries, "강원")
+        gangwondataSet.colors = listOf(Color.rgb(251,81,96), Color.rgb(84,122,255))
+        val chungcheongdataSet = PieDataSet(chungcheongEntries, "충청")
+        chungcheongdataSet.colors = listOf(Color.rgb(251,81,96), Color.rgb(84,122,255))
+        val gyeongsangdataSet = PieDataSet(gyeongsangEntries, "경상")
+        gyeongsangdataSet.colors = listOf(Color.rgb(251,81,96), Color.rgb(84,122,255))
+        val jeolladataSet = PieDataSet(jeollaEntries, "전라")
+        jeolladataSet.colors = listOf(Color.rgb(251,81,96), Color.rgb(84,122,255))
+        val jejudataSet = PieDataSet(jejuEntries, "제주")
+        jejudataSet.colors = listOf(Color.rgb(251,81,96), Color.rgb(84,122,255))
+
+        val gyeonggiPiedata = PieData(gyeonggidataSet)
+        val gangwonPiedata = PieData(gangwondataSet)
+        val chungcheongPiedata = PieData(chungcheongdataSet)
+        val gyeongsangPiedata = PieData(gyeongsangdataSet)
+        val jeollaPiedata = PieData(jeolladataSet)
+        val jejuPiedata = PieData(jejudataSet)
+
+        binding.gyeonggiChart.data = gyeonggiPiedata
+        binding.gyeonggiChart.legend.isEnabled = false
+        binding.gyeonggiChart.description.isEnabled = false
+        binding.gyeonggiChart.invalidate()
+        binding.gyeonggiChart.legend.isEnabled = false
+        binding.gyeonggiChart.description.isEnabled = false
+        binding.gangwonChart.data = gangwonPiedata
+        binding.gangwonChart.legend.isEnabled = false
+        binding.gangwonChart.description.isEnabled = false
+        binding.gangwonChart.invalidate()
+        binding.chungcheongChart.data = chungcheongPiedata
+        binding.chungcheongChart.legend.isEnabled = false
+        binding.chungcheongChart.description.isEnabled = false
+        binding.chungcheongChart.invalidate()
+        binding.gyeongsangChart.data = gyeongsangPiedata
+        binding.gyeongsangChart.legend.isEnabled = false
+        binding.gyeongsangChart.description.isEnabled = false
+        binding.gyeongsangChart.invalidate()
+        binding.jeollaChart.data = jeollaPiedata
+        binding.jeollaChart.legend.isEnabled = false
+        binding.jeollaChart.description.isEnabled = false
+        binding.jeollaChart.invalidate()
+        binding.jejuChart.data = jejuPiedata
+        binding.jejuChart.legend.isEnabled = false
+        binding.jejuChart.description.isEnabled = false
+        binding.jejuChart.invalidate()
 
         return binding.root
     }

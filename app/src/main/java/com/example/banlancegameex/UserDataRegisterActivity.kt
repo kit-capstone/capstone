@@ -266,7 +266,7 @@ class UserDataRegisterActivity : AppCompatActivity() {
 
     private fun UpdateToDatabase(){
         val database = Firebase.database
-        val myRef = database.getReference("userdata")
+        val myRef = FirebaseDatabase.getInstance().getReference("userdata")
 
         ImageUpload(binding.userProfileUpdate)
 

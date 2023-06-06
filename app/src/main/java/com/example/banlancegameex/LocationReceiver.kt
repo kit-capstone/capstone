@@ -65,9 +65,12 @@ class LocationReceiver(context: Context, workerParameters: WorkerParameters) : W
                                 override fun onDataChange(snapshot: DataSnapshot) {
                                     for(childSnapshot in snapshot.children){
                                         val user = childSnapshot.getValue(UserDataModel::class.java)
-                                        user?.let {
-                                            it.locate = user_locate
-                                            FBRef.userdataRef.child(childSnapshot.key!!).setValue(it)
+                                        if(user?.locate!!.isEmpty()){
+                                            user?.let {
+                                                it.locate = user_locate
+                                                FBRef.userdataRef.child(childSnapshot.key!!)
+                                                    .setValue(it)
+                                            }
                                         }
                                     }
                                 }
