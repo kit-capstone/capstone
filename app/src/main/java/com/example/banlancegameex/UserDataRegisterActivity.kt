@@ -113,7 +113,8 @@ class UserDataRegisterActivity : AppCompatActivity() {
                     else if(_job == "무직"){
                         binding.jobSpin.setSelection(2)
                     }
-                    else if(_locate == "경기도"){
+
+                    if(_locate == "경기도"){
                         binding.locateSpin.setSelection(0)
                     }
                     else if(_locate == "강원도"){
@@ -268,6 +269,10 @@ class UserDataRegisterActivity : AppCompatActivity() {
         val myRef = FirebaseDatabase.getInstance().getReference("userdata")
 
         ImageUpload(binding.userProfileUpdate)
+
+        if(_locate == ""){
+            _locate = "경기도"
+        }
 
         // database에 userdata 입력
         myRef.child(FBAuth.getuid()).setValue(
