@@ -185,7 +185,6 @@ class UserDataRegisterActivity : AppCompatActivity() {
             var gotomain = true
             val dbRef = FirebaseDatabase.getInstance().getReference("userdata")
             val query = dbRef.orderByChild("email").equalTo(auth.currentUser?.email.toString())
-
                 query.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if(snapshot.exists()){

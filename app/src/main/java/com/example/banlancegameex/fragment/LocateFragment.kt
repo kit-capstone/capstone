@@ -2,7 +2,6 @@ package com.example.banlancegameex.fragment
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Half.toFloat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -154,15 +153,19 @@ class LocateFragment : Fragment() {
 
         val gyeonggidataSet = PieDataSet(gyeonggiEntries, "경기")
         gyeonggidataSet.colors = listOf(Color.rgb(251,81,96), Color.rgb(84,122,255))
-        gyeonggidataSet.setDrawValues(false)
+
         val gangwondataSet = PieDataSet(gangwonEntries, "강원")
         gangwondataSet.colors = listOf(Color.rgb(251,81,96), Color.rgb(84,122,255))
+
         val chungcheongdataSet = PieDataSet(chungcheongEntries, "충청")
         chungcheongdataSet.colors = listOf(Color.rgb(251,81,96), Color.rgb(84,122,255))
+
         val gyeongsangdataSet = PieDataSet(gyeongsangEntries, "경상")
         gyeongsangdataSet.colors = listOf(Color.rgb(251,81,96), Color.rgb(84,122,255))
+
         val jeolladataSet = PieDataSet(jeollaEntries, "전라")
         jeolladataSet.colors = listOf(Color.rgb(251,81,96), Color.rgb(84,122,255))
+
         val jejudataSet = PieDataSet(jejuEntries, "제주")
         jejudataSet.colors = listOf(Color.rgb(251,81,96), Color.rgb(84,122,255))
 
@@ -176,28 +179,37 @@ class LocateFragment : Fragment() {
         binding.gyeonggiChart.data = gyeonggiPiedata
         binding.gyeonggiChart.legend.isEnabled = false
         binding.gyeonggiChart.description.isEnabled = false
+        binding.gyeonggiChart.setHoleColor(Color.GRAY)
         binding.gyeonggiChart.invalidate()
-        binding.gyeonggiChart.legend.isEnabled = false
-        binding.gyeonggiChart.description.isEnabled = false
+
         binding.gangwonChart.data = gangwonPiedata
         binding.gangwonChart.legend.isEnabled = false
         binding.gangwonChart.description.isEnabled = false
+        binding.gangwonChart.setHoleColor(Color.GRAY)
         binding.gangwonChart.invalidate()
+
         binding.chungcheongChart.data = chungcheongPiedata
         binding.chungcheongChart.legend.isEnabled = false
         binding.chungcheongChart.description.isEnabled = false
+        binding.chungcheongChart.setHoleColor(Color.GRAY)
         binding.chungcheongChart.invalidate()
+
         binding.gyeongsangChart.data = gyeongsangPiedata
         binding.gyeongsangChart.legend.isEnabled = false
         binding.gyeongsangChart.description.isEnabled = false
+        binding.gyeongsangChart.setHoleColor(Color.GRAY)
         binding.gyeongsangChart.invalidate()
+
         binding.jeollaChart.data = jeollaPiedata
         binding.jeollaChart.legend.isEnabled = false
         binding.jeollaChart.description.isEnabled = false
+        binding.jeollaChart.setHoleColor(Color.GRAY)
         binding.jeollaChart.invalidate()
+
         binding.jejuChart.data = jejuPiedata
         binding.jejuChart.legend.isEnabled = false
         binding.jejuChart.description.isEnabled = false
+        binding.jejuChart.setHoleColor(Color.GRAY)
         binding.jejuChart.invalidate()
 
         return binding.root
