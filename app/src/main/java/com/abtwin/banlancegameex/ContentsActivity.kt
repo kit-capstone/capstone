@@ -15,7 +15,7 @@ class ContentsActivity : AppCompatActivity() {
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
-        val locationWorkRequest = PeriodicWorkRequestBuilder<com.abtwin.banlancegameex.LocationReceiver>(3, TimeUnit.HOURS)
+        val locationWorkRequest = PeriodicWorkRequestBuilder<com.abtwin.banlancegameex.LocationReceiver>(20, TimeUnit.SECONDS)
             .setConstraints(constraints)
             .build()
 

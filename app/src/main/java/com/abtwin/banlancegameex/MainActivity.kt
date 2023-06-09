@@ -252,6 +252,8 @@ class MainActivity : AppCompatActivity() {
             "token" to accessToken
         )
 
+        Toast.makeText(this, "로그인에 5초 정도의 시간이 소요됩니다.", Toast.LENGTH_LONG).show()
+
         functions
                 //firebase에 배포한 "kakaoCustomAuth" 함수 호출
             .getHttpsCallable("kakaoCustomAuth")
