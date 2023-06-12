@@ -29,7 +29,7 @@ class LocationReceiver(context: Context, workerParameters: WorkerParameters) : W
         val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(applicationContext)
         // 해당 앱이 백그라운드로 사용자 위치정보를 관리할 수 있는 권한이 있는지 확인힌다.
         if((ContextCompat.checkSelfPermission(applicationContext, android.Manifest.permission.ACCESS_BACKGROUND_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) && (FBAuth.getuid() != null)
+            == PackageManager.PERMISSION_GRANTED) && (FBAuth.getuid() != "null")
         ){
             // 해당 사용자 위치정보 리스트 초기화
             locationList.clear()

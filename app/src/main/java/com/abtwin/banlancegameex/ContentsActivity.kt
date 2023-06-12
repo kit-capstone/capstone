@@ -11,18 +11,6 @@ class ContentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contents)
 
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build()
-
-        val locationWorkRequest = PeriodicWorkRequestBuilder<com.abtwin.banlancegameex.LocationReceiver>(20, TimeUnit.SECONDS)
-            .setConstraints(constraints)
-            .build()
-
-        WorkManager.getInstance().cancelAllWork()
-        WorkManager.getInstance().enqueueUniquePeriodicWork("locationWork",
-            ExistingPeriodicWorkPolicy.KEEP, locationWorkRequest)
-
         val task = WorkManager.getInstance(this).getWorkInfosForUniqueWork("locationWork").get()
         Log.d("워크 큐 확인", task.toString())
     }
