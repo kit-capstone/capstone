@@ -34,10 +34,10 @@ import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.common.KakaoSdk.keyHash
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -233,6 +233,8 @@ class MainActivity : AppCompatActivity() {
         val data = hashMapOf(
             "token" to accessToken
         )
+
+        Toast.makeText(this, "로그인에 5초 정도의 시간이 소요됩니다.", Toast.LENGTH_LONG).show()
 
         functions
                 //firebase에 배포한 "kakaoCustomAuth" 함수 호출

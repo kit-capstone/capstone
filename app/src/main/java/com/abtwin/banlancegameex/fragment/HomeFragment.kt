@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -96,6 +97,7 @@ class HomeFragment : Fragment() {
                 for(dataModel in snapshot.children){
                     // 게임 하나의 정보를 items에 push
                     val item = dataModel.getValue(ContentModel::class.java)
+
                     items.add(item!!)
                     itemArray.add(SearchContentModel(item!!, dataModel.key.toString()))
 
@@ -122,7 +124,7 @@ class HomeFragment : Fragment() {
                     }
 
                     override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
+                        Toast.makeText(requireContext(), "접근 실패", Toast.LENGTH_SHORT).show()
                     }
                 })
 

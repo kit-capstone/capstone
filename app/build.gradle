@@ -19,10 +19,23 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+
+        release {
+            storeFile file('capstone_key.jks') // 기준은 App 폴더 기준이다.
+            storePassword "kit2017"
+            keyAlias "key0"
+            keyPassword "kit2017"
+        }
+
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFiles 'proguard-rules.pro'
         }
     }
     compileOptions {

@@ -15,11 +15,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "298171725459-340mpnaupohhlqi1l23hnt8nfp0s2la5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abtwin.banlancegameex",
+            "certificate_hash": "c5d65337e2a015196c701ebc1da74dcc040c91d4"
+          }
+        },
+        {
           "client_id": "298171725459-3e0bfnupofgkg29h3jc0f1bht5fhqah7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.abtwin.banlancegameex",
             "certificate_hash": "5ec32b4f466e5188ad8848c198321273def221eb"
+          }
+        },
+        {
+          "client_id": "298171725459-fnpvia8eb7gvbvbr4nqdf175m2rgugrk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abtwin.banlancegameex",
+            "certificate_hash": "1a5b3b4209187f3538c2960da27e734d6313cd2b"
           }
         },
         {
