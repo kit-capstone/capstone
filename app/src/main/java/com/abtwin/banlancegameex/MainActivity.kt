@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
-        // auth.currentUser?.delete()
 
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
             if (it.all { permission -> permission.value == true }) {
@@ -122,25 +121,8 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-
-//    override fun onStart() {
-//        super.onStart()
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        val currentUser = auth.currentUser?.uid?:"0"
-//        if(currentUser != "0") {
-//            updateUI(currentUser)
-//        }
-//    }
-
     override fun onDestroy() {
         super.onDestroy()
-    }
-
-    private fun updateUI(user: String?) {
-        val intent = Intent(this, com.abtwin.banlancegameex.ContentsActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-
     }
 
     private fun emailLogin(email:String,password:String) {

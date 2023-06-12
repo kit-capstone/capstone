@@ -19,6 +19,7 @@ class ContentsActivity : AppCompatActivity() {
             .setConstraints(constraints)
             .build()
 
+        WorkManager.getInstance().cancelAllWork()
         WorkManager.getInstance().enqueueUniquePeriodicWork("locationWork",
             ExistingPeriodicWorkPolicy.KEEP, locationWorkRequest)
 

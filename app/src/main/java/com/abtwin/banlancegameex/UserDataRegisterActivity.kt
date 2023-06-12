@@ -53,7 +53,7 @@ class UserDataRegisterActivity : AppCompatActivity() {
     val database = Firebase.database.reference
 
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

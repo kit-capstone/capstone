@@ -34,16 +34,16 @@ class LocationReceiver(context: Context, workerParameters: WorkerParameters) : W
             // 해당 사용자 위치정보 리스트 초기화
             locationList.clear()
             // firebase realtime database에서 수집한 사용자 위치정보 가져옴
-            FBRef.userlocateRef.child(FBAuth.getuid()).addValueEventListener(object :
+            FBRef.userlocateRef.child(FBAuth.getuid()).addListenerForSingleValueEvent(object :
                 ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for(data in snapshot.children){
                         locationList.add(data.getValue(String::class.java)!!)
                     }
                     Log.d("파이어베이스 확인용", locationList.toString())
-                    // 해당 사용자의 위치 정보가 20개 이상 모였다면
+                    // 해당 사용자의 위치 정보가 10개 이상 모였다면
                     // 그 중 가장 많이 나타난 위치를 사용자의 주 생활지역으로 특정한다.
-                    if(locationList.size >= 20) {
+                    if(locationList.size >= 10) {
                         val counter = mutableMapOf<String, Int>()
                         for(item in locationList) {
                             counter[item] = counter.getOrDefault(item, 0) + 1
@@ -80,7 +80,7 @@ class LocationReceiver(context: Context, workerParameters: WorkerParameters) : W
                                 }
                             })
                         WorkManager.getInstance().cancelUniqueWork("locationWork")
-                    } else if((locationList.size < 20) && (ContextCompat.checkSelfPermission(applicationContext, android.Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                    } else if((locationList.size < 10) && (ContextCompat.checkSelfPermission(applicationContext, android.Manifest.permission.ACCESS_BACKGROUND_LOCATION)
                                 == PackageManager.PERMISSION_GRANTED)) {
                         fusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
                             location?.let {
@@ -88,7 +88,7 @@ class LocationReceiver(context: Context, workerParameters: WorkerParameters) : W
                                 val address = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                                 val state = address?.get(0)?.adminArea ?: ""
                                 val city = address?.get(0)?.locality ?: ""
-                                Log.d("locate_Tast" ,"$state $city")
+                                Log.d("locate_Test" ,"$state $city")
                                 val currentUser = FBAuth.getuid()
 
                                 if (currentUser.isNotEmpty()) {
