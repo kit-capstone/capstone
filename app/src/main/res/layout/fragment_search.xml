@@ -157,6 +157,17 @@
                         android:layout_marginRight="5dp"
                         android:layout_marginLeft="5dp"/>
 
+                    <ToggleButton
+                        android:id="@+id/etc_btn"
+                        android:layout_width="90dp"
+                        android:layout_height="48dp"
+                        android:textOn="기타"
+                        android:textOff="기타"
+                        android:textSize="18sp"
+                        android:background="@drawable/background_ckeck_button"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"/>
+
                 </LinearLayout>
                 
             </HorizontalScrollView>

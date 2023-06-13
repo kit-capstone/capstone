@@ -19,17 +19,17 @@ class GlobalApplication: Application() {
         Log.d("디버그 확인용", FBAuth.getuid())
 
         // 백그라운드 작업 등록
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build()
-
-        val locationWorkRequest = PeriodicWorkRequestBuilder<LocationReceiver>(3, TimeUnit.HOURS)
-            .setConstraints(constraints)
-            .build()
-
-        // 이전에 등록된 작업을 취소시킴
-        WorkManager.getInstance().cancelAllWork()
-        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork("locationWork",
-            ExistingPeriodicWorkPolicy.KEEP, locationWorkRequest)
+//        val constraints = Constraints.Builder()
+//            .setRequiredNetworkType(NetworkType.CONNECTED)
+//            .build()
+//
+//        val locationWorkRequest = PeriodicWorkRequestBuilder<LocationReceiver>(3, TimeUnit.HOURS)
+//            .setConstraints(constraints)
+//            .build()
+//
+//        // 이전에 등록된 작업을 취소시킴
+//        WorkManager.getInstance().cancelAllWork()
+//        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork("locationWork",
+//            ExistingPeriodicWorkPolicy.KEEP, locationWorkRequest)
     }
 }

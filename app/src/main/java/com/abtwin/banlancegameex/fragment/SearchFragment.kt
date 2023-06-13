@@ -179,6 +179,25 @@ class SearchFragment : Fragment() {
             rvAdapter.notifyDataSetChanged()
         }
 
+        binding.etcBtn.setOnClickListener{
+            if(binding.gameBtn.isChecked){
+                tagList.add("기타")
+            } else {
+                tagList.remove("기타")
+            }
+            items.clear()
+            itemKeyList.clear()
+
+            search_title = binding.searchText.text.toString()
+            if(search_title == ""){
+                setTagPost(itemssearch)
+            }else {
+                setTagPost(search_filter)
+            }
+
+            rvAdapter.notifyDataSetChanged()
+        }
+
         binding.searchText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH){
                 binding.searchBtn.performClick()
